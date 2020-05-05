@@ -1,0 +1,24 @@
+
+# Eclipse
+
+.project
+.metadata
+bin/
+build/
+.classpath
+.settings/
+
+# Maven
+
+log/
+target/
+
+#Eclipse STS
+
+.springBeans
+
+# Intellij
+
+.idea/
+*.iml
+*.iws
