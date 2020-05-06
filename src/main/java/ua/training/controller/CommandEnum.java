@@ -3,6 +3,9 @@ package ua.training.controller;
 import ua.training.controller.command.Command;
 import ua.training.controller.command.HomeCommand;
 import ua.training.controller.command.PageNotFoundCommand;
+import ua.training.controller.command.auth.GetLoginCommand;
+import ua.training.controller.command.auth.LogoutCommand;
+import ua.training.controller.command.auth.PostLoginCommand;
 import ua.training.controller.command.i18n.ChangeLocaleCommand;
 
 enum CommandEnum {
@@ -24,7 +27,31 @@ enum CommandEnum {
 			this.key = "GET:locale";
 			this.command = new ChangeLocaleCommand();
 		}
-	};
+	},
+	GET_LOGIN {
+		{
+			this.key = "GET:login";
+			this.command = new GetLoginCommand();
+		}
+	},
+	/*POST_LOGIN {
+		{
+			this.key = "POST:login";
+			this.command = new PostLoginCommand(UserService.getInstance());
+		}
+	},*/
+	LOGOUT {
+		{
+			this.key = "GET:logout";
+			this.command = new LogoutCommand();
+		}
+	}/*,
+	ALL_MENU {
+		{
+			this.key = "GET:menu";
+			this.command = new AllDIshesCommand(MenuService.getInstance());
+		}
+	}*/;
 
 	String key;
 	Command command;

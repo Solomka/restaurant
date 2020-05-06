@@ -26,7 +26,7 @@
 
 			<div class=" error alert alert-danger ">
 				<strong> ${pageContext.errorData.statusCode}</strong><br /> <strong>
-					<fmt:message key="library.error.serverError" bundle="${rb}" />
+					<fmt:message key="restaurant.error.serverError" bundle="${rb}" />
 				</strong>
 			</div>
 
