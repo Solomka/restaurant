@@ -1,0 +1,55 @@
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+
+body {
+	position: relative;
+	margin: 0;
+	padding-bottom: 7rem;
+	min-height: 100%;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.main-container {
+	margin: 0 auto;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	padding: 1rem;
+}
+
+.pg-title {
+	margin-bottom: 3%;
+}
+
+.top-margin {
+	margin-top: 3%;
+}
+
+.error {
+	margin-top: 5%;
+}
+
+.book-descr {
+	float: left;
+	margin-right: 10px;
+}
+
+.float-left {
+	float: left;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+tr.selected {
+	background-color: #B0BED9 !important;
+}
+
+.btn {
+	border-color: #191919;
+}
