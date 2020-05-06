@@ -76,8 +76,7 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 	private boolean isUserAuthorizedForResource(String servletPath, User user) {
 		return (isChiefPage(servletPath) && user.getRole().equals(Role.CHIEF)
 				|| (isManagerPage(servletPath) && user.getRole().equals(Role.MANAGER))
-				|| (isWaiterPage(servletPath) && user.getRole().equals(Role.WAITER))
-				|| (isClientPage(servletPath) && user.getRole().equals(Role.CLIENT)));
+				|| (isWaiterPage(servletPath) && user.getRole().equals(Role.WAITER)));
 	}
 
 	private boolean isChiefPage(String requestURI) {
@@ -90,10 +89,6 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 
 	private boolean isWaiterPage(String requestURI) {
 		return requestURI.contains(Role.WAITER.getValue());
-	}
-
-	private boolean isClientPage(String requestURI) {
-		return requestURI.contains(Role.CLIENT.getValue());
 	}
 
 	private void logInfoAboutUnauthorizedAccess(String uri) {

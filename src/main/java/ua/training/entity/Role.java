@@ -4,7 +4,7 @@ import ua.training.locale.Message;
 
 public enum Role {
 	CHIEF("chief", Message.ROLE_CHIEF), MANAGER("manager", Message.ROLE_MANAGER),
-	WAITER("waiter", Message.ROLE_MANAGER), CLIENT("client", Message.ROLE_CLIENT);
+	WAITER("waiter", Message.ROLE_MANAGER);
 
 	private String value;
 	private String localizedValue;
