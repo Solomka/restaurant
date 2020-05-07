@@ -11,6 +11,10 @@ public final class Message {
 	public static String ROLE_CLIENT = "restaurant.user.role.client";
 	public static String ROLE_COURIER = "restaurant.user.role.courier";
 	
+	public static String STATUS_NEW = "restaurant.order.status.new";
+	public static String STATUS_IN_PROGRESS = "restaurant.order.status.inProgress";
+	public static String STATUS_PREPARED = "restaurant.order.status.prepared";
+	public static String STATUS_PAID = "restaurant.order.status.paid";	
 	
 	public static String LOGGED_IN_AS = "library.loggedIn";
 	public static String PAGE_NOT_FOUND_ERROR = "library.error.pageNotFoundError";

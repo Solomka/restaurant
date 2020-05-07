@@ -142,38 +142,34 @@ public class User {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		
+		if ((obj == null) || (getClass() != obj.getClass())) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
+		
 		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
+		
+		if ((email != null) ? !email.equals(other.email) : other.email != null ) {
 			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
+		}
+		
+		if ((password != null) ? !password.equals(other.password) : other.password != null ) {
 			return false;
-		if (phone == null) {
-			if (other.phone != null)
-				return false;
-		} else if (!phone.equals(other.phone))
-			return false;
-		return true;
+		}
+
+		return ((phone != null) ? phone.equals(other.phone) : other.phone == null);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder2 = new StringBuilder();
-		builder2.append("User [id=").append(id).append(", name=").append(name).append(", surname=").append(surname)
+		StringBuilder builder = new StringBuilder();
+		builder.append("User [id=").append(id).append(", name=").append(name).append(", surname=").append(surname)
 				.append(", address=").append(address).append(", phone=").append(phone).append(", role=").append(role)
 				.append(", email=").append(email).append(", password=").append(password).append("]");
-		return builder2.toString();
+		return builder.toString();
 	}
 
 }
