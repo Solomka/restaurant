@@ -2,13 +2,14 @@ package ua.training.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
 
 	private Long id;
-	private LocalDate date;
+	private LocalDateTime date;
 	private Status status;
 	private BigDecimal total;
 	private User waiter;
@@ -33,7 +34,7 @@ public class Order {
 			return this;
 		}
 
-		public Builder setDate(LocalDate date) {
+		public Builder setDate(LocalDateTime date) {
 			order.date = date;
 			return this;
 		}
@@ -73,11 +74,11 @@ public class Order {
 		this.id = id;
 	}
 
-	public LocalDate getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
