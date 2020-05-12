@@ -23,15 +23,16 @@ public class JdbcUserDao implements UserDao {
 
 	private static final Logger LOGGER = LogManager.getLogger(JdbcUserDao.class);
 
-	private static String GET_ALL = "SELECT * FROM user ORDER BY surname";
-	private static String GET_BY_ID = "SELECT * FROM user where id_user=?";
-	private static String CREATE = "INSERT INTO user "
-			+ "(name, surname, address, phone, role, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	public static String UPDATE = "UPDATE user"
+	private static String GET_ALL = "SELECT * FROM `user` ORDER BY surname";
+	private static String GET_BY_ID = "SELECT * FROM `user` WHERE id_user=?";
+	private static String GET_BY_CREDENTIALS = "SELECT * FROM `user` WHERE email=? AND password=?";
+	private static String CREATE = "INSERT INTO `user`"
+			+ " (name, surname, address, phone, role, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	public static String UPDATE = "UPDATE `user`"
 			+ " SET name=?, surname=?, address=?, phone=?, role=?, email=?, password=?" + " WHERE id_user=? ";
-	private static String DELETE = "DELETE FROM user WHERE id_user=?";
-	private static String SEARCH_USERS_BY_SURNAME = "SELECT * FROM user WHERE LOWER(surname) LIKE CONCAT('%', LOWER(?), '%')";
-	private static String SEARCH_USERS_BY_ROLE = "SELECT * FROM user WHERE role=?";
+	private static String DELETE = "DELETE FROM `user` WHERE id_user=?";
+	private static String SEARCH_USERS_BY_SURNAME = "SELECT * FROM `user` WHERE LOWER(surname) LIKE CONCAT('%', LOWER(?), '%')";
+	private static String SEARCH_USERS_BY_ROLE = "SELECT * FROM `user` WHERE role=?";
 	private static String SEARCH_BEST_WAITERS_PER_PERIOD = "SELECT name, surname, email FROM `user` WHERE id_user IN (SELECT id_user"
 			+ " FROM `order` WHERE `date` BETWEEN ? AND ?" + " GROUP BY id_user"
 			+ " HAVING COUNT(id_order)=(SELECT MAX(orders_number)" + " FROM (SELECT COUNT(id_order) AS orders_number"
@@ -92,6 +93,24 @@ public class JdbcUserDao implements UserDao {
 
 		} catch (SQLException e) {
 			LOGGER.error("JdbcUserDao getById SQL exception: " + id, e);
+			throw new ServerException(e);
+		}
+		return user;
+	}
+	
+	@Override
+	public Optional<User> getUserByCredentials(String email, String password) {
+		Optional<User> user = Optional.empty();
+		try (PreparedStatement query = connection.prepareStatement(GET_BY_CREDENTIALS)) {
+			query.setString(1, email);
+			query.setString(2, password);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				user = Optional.of(extractUserFromResultSet(resultSet));
+			}
+
+		} catch (SQLException e) {
+			LOGGER.error("JdbcUserDao getUserByCredentials SQL exception: " + email, e);
 			throw new ServerException(e);
 		}
 		return user;
@@ -219,4 +238,6 @@ public class JdbcUserDao implements UserDao {
 				.setPhone(resultSet.getString(PHONE)).setEmail(resultSet.getString(EMAIL))
 				.setRole(Role.forValue(resultSet.getString(ROLE))).setPassword(resultSet.getString(PASSWORD)).build();
 	}
+
+	
 }
