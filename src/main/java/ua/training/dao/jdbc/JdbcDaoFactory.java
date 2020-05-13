@@ -34,7 +34,7 @@ public class JdbcDaoFactory extends DaoFactory {
 	public JdbcDaoFactory() {
 		try {
 			InitialContext ic = new InitialContext();
-			dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/library");
+			dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/restaurant");
 
 		} catch (Exception e) {
 			LOGGER.error("Can't load pool connection from Initial Context", e);

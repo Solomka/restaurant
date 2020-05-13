@@ -59,18 +59,13 @@
 
 			<ul class="nav navbar-nav navbar-right">
 
-				<%-- <c:if test="${not empty user}">
+				<c:if test="${not empty user}">
 					<!-- Custom tag  -->
 					<li><p class="navbar-text">
 							<udt:user-data user="${user}" />
 						</p></li>
 				</c:if>
-				<c:if test="${user.getRole().getValue() eq 'reader'}">
-					<li><a
-						href="${pageContext.request.contextPath}/controller/reader/changePassword">
-							<fmt:message key="library.changePassword" bundle="${rb}" />
-					</a></li>
-				</c:if> --%>
+				
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-globe"
 						aria-hidden="true"></i> ${sessionScope.locale.getLanguage()} <span

@@ -16,19 +16,16 @@ import ua.training.controller.command.Command;
 import ua.training.controller.utils.HttpWrapper;
 import ua.training.controller.utils.RedirectionManager;
 import ua.training.controller.utils.SessionManager;
+import ua.training.dto.CredentialsDto;
+import ua.training.entity.User;
+import ua.training.locale.Message;
+import ua.training.service.UserService;
+import ua.training.validator.entity.CredentialsDtoValidator;
 
 
 public class PostLoginCommand implements Command {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}	
-	
-
-	/*private UserService userService;
+	private UserService userService;
 
 	public PostLoginCommand(UserService userService) {
 		this.userService = userService;
@@ -53,7 +50,7 @@ public class PostLoginCommand implements Command {
 			return Page.LOGIN_VIEW;
 		}
 
-		Optional<User> user = userService.getUserByEmail(credentialsDto);
+		Optional<User> user = userService.getUserByCredentials(credentialsDto);
 		if (user.isPresent()) {
 			SessionManager.getInstance().addUserToSession(session, user.get());
 			RedirectionManager.getInstance().redirect(new HttpWrapper(request, response), ServletPath.HOME);
@@ -76,5 +73,5 @@ public class PostLoginCommand implements Command {
 	private void addRequestAtrributes(HttpServletRequest request, CredentialsDto credentialsDto, List<String> errors) {
 		request.setAttribute(Attribute.LOGIN_USER, credentialsDto);
 		request.setAttribute(Attribute.ERRORS, errors);
-	}*/
+	}
 }

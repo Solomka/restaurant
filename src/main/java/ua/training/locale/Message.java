@@ -50,7 +50,7 @@ public final class Message {
 
 	public static String INVALID_EMAIL = "library.error.invalidEmail";
 	public static String INVALID_PASS = "library.error.invalidPass";
-	public static String INVALID_CREDENTIALS = "library.error.invalidCredentials";
+	public static String INVALID_CREDENTIALS = "restaurant.error.invalidCredentials";
 
 	public static String INVALID_ISBN = "library.error.invalidISBN";
 	public static String INVALID_TITLE = "library.error.invalidTitle";

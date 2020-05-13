@@ -7,6 +7,7 @@ import ua.training.controller.command.auth.GetLoginCommand;
 import ua.training.controller.command.auth.LogoutCommand;
 import ua.training.controller.command.auth.PostLoginCommand;
 import ua.training.controller.command.i18n.ChangeLocaleCommand;
+import ua.training.service.UserService;
 
 enum CommandEnum {
 
@@ -34,24 +35,18 @@ enum CommandEnum {
 			this.command = new GetLoginCommand();
 		}
 	},
-	/*POST_LOGIN {
-		{
-			this.key = "POST:login";
-			this.command = new PostLoginCommand(UserService.getInstance());
-		}
-	},*/
 	LOGOUT {
 		{
 			this.key = "GET:logout";
 			this.command = new LogoutCommand();
 		}
-	}/*,
-	ALL_MENU {
+	},
+	POST_LOGIN {
 		{
-			this.key = "GET:menu";
-			this.command = new AllDIshesCommand(MenuService.getInstance());
+			this.key = "POST:login";
+			this.command = new PostLoginCommand(UserService.getInstance());
 		}
-	}*/;
+	};
 
 	String key;
 	Command command;

@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import ua.training.dao.DaoFactory;
 import ua.training.dao.UserDao;
+import ua.training.dto.CredentialsDto;
 import ua.training.entity.Role;
 import ua.training.entity.User;
 
@@ -44,10 +45,10 @@ public class UserService {
 		}
 	}
 
-	public Optional<User> getUserByCredentials(String email, String password) {
-		LOGGER.info("Get user by credantials: " + email);
+	public Optional<User> getUserByCredentials(CredentialsDto credentials) {
+		LOGGER.info("Get user by credantials: " + credentials.getEmail());
 		try (UserDao userDao = daoFactory.createUserDao()) {
-			return userDao.getUserByCredentials(email, password);
+			return userDao.getUserByCredentials(credentials.getEmail(), credentials.getPassword());
 		}
 	}
 
