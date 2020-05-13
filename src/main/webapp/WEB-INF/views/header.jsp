@@ -33,28 +33,19 @@
 					href="${pageContext.request.contextPath}/controller/"><fmt:message
 						key="restaurant.main" bundle="${rb}" /></a>
 			</div>
-			 <ul class="nav navbar-nav">
+			<ul class="nav navbar-nav">
 				<li><a
 					href="${pageContext.request.contextPath}/controller/menu"><fmt:message
 							key="restaurant.menu" bundle="${rb}" /></a></li>
-							
-				<%-- NOT EMPTY USER --%>
-				<%-- <c:if test="${not empty user}">
-					<c:if test="${user.getRole().getValue() eq 'librarian' }">
-						<li><a
-							href="${pageContext.request.contextPath}/controller/librarian/authors"><fmt:message
-									key="library.authors" bundle="${rb}" /></a></li>
-					</c:if>
-					<c:if test="${user.getRole().getValue() eq 'librarian' }">
-						<li><a
-							href="${pageContext.request.contextPath}/controller/librarian/readers"><fmt:message
-									key="library.readers" bundle="${rb}" /></a></li>
-					</c:if>
-					<li><a
-						href="${pageContext.request.contextPath}/controller/${user.getRole().getValue()}/orders"><fmt:message
-								key="library.orders" bundle="${rb}" /></a></li>
 
-				</c:if> --%>
+				<%-- NOT EMPTY USER --%>
+				<c:if test="${not empty user}">
+					<c:if test="${user.getRole().getValue() eq 'manager' }">
+						<li><a
+							href="${pageContext.request.contextPath}/controller/manager/users"><fmt:message
+									key="restaurant.users" bundle="${rb}" /></a></li>
+					</c:if>
+				</c:if>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
@@ -65,7 +56,7 @@
 							<udt:user-data user="${user}" />
 						</p></li>
 				</c:if>
-				
+
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-globe"
 						aria-hidden="true"></i> ${sessionScope.locale.getLanguage()} <span

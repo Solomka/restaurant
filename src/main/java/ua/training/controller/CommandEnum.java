@@ -7,6 +7,8 @@ import ua.training.controller.command.auth.GetLoginCommand;
 import ua.training.controller.command.auth.LogoutCommand;
 import ua.training.controller.command.auth.PostLoginCommand;
 import ua.training.controller.command.i18n.ChangeLocaleCommand;
+import ua.training.controller.command.user.AllUsersCommand;
+import ua.training.controller.command.user.SearchUserBySurnameCommand;
 import ua.training.service.UserService;
 
 enum CommandEnum {
@@ -45,6 +47,18 @@ enum CommandEnum {
 		{
 			this.key = "POST:login";
 			this.command = new PostLoginCommand(UserService.getInstance());
+		}
+	},
+	ALL_USERS {
+		{
+			this.key = "GET:manager/users";
+			this.command = new AllUsersCommand(UserService.getInstance());
+		}
+	},
+	SEARCH_USER_BY_SURNAME {
+		{
+			this.key = "POST:manager/users/surname";
+			this.command = new SearchUserBySurnameCommand(UserService.getInstance());
 		}
 	};
 

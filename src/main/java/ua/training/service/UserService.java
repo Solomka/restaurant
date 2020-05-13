@@ -80,7 +80,7 @@ public class UserService {
 		}
 	}
 
-	public List<User> searchUsersBySurname(Role role) {
+	public List<User> searchUsersByRole(Role role) {
 		LOGGER.info("Search users by role: " + role.getValue());
 		try (UserDao userDao = daoFactory.createUserDao()) {
 			return userDao.searchUsersByRole(role);
