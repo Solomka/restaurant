@@ -16,6 +16,10 @@
 				data-target="#searchByRole">
 				<fmt:message key="restaurant.user.searchByRole" bundle="${rb}" />
 			</button>
+			<button type="button" class="btn btn-default" data-toggle="modal"
+				data-target="#searchBestWaiters">
+				<fmt:message key="restaurant.user.searchBestWaiters" bundle="${rb}" />
+			</button>
 		</div>
 	</div>
 
@@ -70,13 +74,61 @@
 				</div>
 				<div class="modal-body">
 					<form
-						action="${pageContext.request.contextPath}/controller/users/role"
+						action="${pageContext.request.contextPath}/controller/manager/users/role"
 						method="POST" role="form">
 
 						<div class="form-group">
 							<label for="role"><fmt:message key="restaurant.role"
-									bundle="${rb}" /></label> <input type="text" class="form-control"
-								id="role" name="role" />
+									bundle="${rb}" /></label> <select class="form-control" id="role"
+								name="role">
+								<option value=""><fmt:message key="restaurant.role"
+										bundle="${rb}" /></option>
+								<c:forEach items="${roles}" var="role">
+									<option value="${role.getValue()}"><fmt:message
+											key="${role.getLocalizedValue()}" bundle="${rb}" /></option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-default" id="submitButton">
+								<fmt:message key="restaurant.search" bundle="${rb}" />
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- modal searchBestWaiters -->
+	<div class="modal fade" id="searchBestWaiters" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<fmt:message key="restaurant.user.searchBestWaiters"
+							bundle="${rb}" />
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form
+						action="${pageContext.request.contextPath}/controller/manager/users/bestWaiters"
+						method="POST" role="form">
+
+						<div class="form-group">
+							<label for="surname"><fmt:message
+									key="restaurant.fromDate" bundle="${rb}" /></label> <input type="date"
+								class="form-control" id="fromDate" name="fromDate" />
+						</div>
+						<div class="form-group">
+							<label for="surname"><fmt:message key="restaurant.toDate"
+									bundle="${rb}" /></label> <input type="date" class="form-control"
+								id="toDate" name="toDate" />
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-default" id="submitButton">
@@ -139,8 +191,7 @@
 						<td>${user.getEmail()}</td>
 
 						<td><a href="./updateUser?id_user=${user.getId()}"><fmt:message
-									key="restaurant.update" bundle="${rb}" /></a>
-							<br> <a
+									key="restaurant.update" bundle="${rb}" /></a> <br> <a
 							href="./deleteUser?id_user=${user.getId()}"><fmt:message
 									key="restaurant.delete" bundle="${rb}" /></a></td>
 					</tr>

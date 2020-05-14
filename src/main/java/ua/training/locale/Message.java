@@ -2,6 +2,7 @@ package ua.training.locale;
 
 public final class Message {	
 	
+
 	private Message() {
 	}
 
@@ -29,5 +30,6 @@ public final class Message {
 	public static String INVALID_CREDENTIALS = "restaurant.error.invalidCredentials";
 	public static String INVALID_PHONE = "library.error.invalidPhone";
 	public static String INVALID_ADDRESS = "library.error.invalidAddress";
-	
+	public static String INVALID_ROLE = "restaurant.error.invalidRole";
+	public static final String INVALID_DATE = "restaurant.error.invalidDate";
 }

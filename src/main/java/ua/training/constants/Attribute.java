@@ -21,5 +21,7 @@ public final class Attribute {
 	public static String SURNAME = "surname";
 	public static String ROLE = "role";
 	public static String USERS = "users";
-
+	public static String ROLES = "roles";
+	public static String FROM_DATE = "fromDate";
+	public static String TO_DATE = "toDate";
 }

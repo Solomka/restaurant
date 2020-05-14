@@ -93,4 +93,5 @@ public class UserService {
 			return userDao.searchBestWaitersPerPeriod(from, to);
 		}
 	}
+
 }

@@ -8,6 +8,8 @@ import ua.training.controller.command.auth.LogoutCommand;
 import ua.training.controller.command.auth.PostLoginCommand;
 import ua.training.controller.command.i18n.ChangeLocaleCommand;
 import ua.training.controller.command.user.AllUsersCommand;
+import ua.training.controller.command.user.SearchBestWaitersPerPeriod;
+import ua.training.controller.command.user.SearchUserByRoleCommand;
 import ua.training.controller.command.user.SearchUserBySurnameCommand;
 import ua.training.service.UserService;
 
@@ -59,6 +61,18 @@ enum CommandEnum {
 		{
 			this.key = "POST:manager/users/surname";
 			this.command = new SearchUserBySurnameCommand(UserService.getInstance());
+		}
+	},
+	SEARCH_USER_BY_ROLE{
+		{
+			this.key = "POST:manager/users/role";
+			this.command = new SearchUserByRoleCommand(UserService.getInstance());
+		}
+	},
+	SEARCH_BEST_WAITERS_PER_PERIOD{
+		{
+			this.key = "POST:manager/users/bestWaiters";
+			this.command = new SearchBestWaitersPerPeriod(UserService.getInstance());
 		}
 	};
 
