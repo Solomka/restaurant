@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import ua.training.converter.UserDtoUserConverter;
 import ua.training.dao.DaoFactory;
 import ua.training.dao.UserDao;
 import ua.training.dto.CredentialsDto;
+import ua.training.dto.UserDto;
 import ua.training.entity.Role;
 import ua.training.entity.User;
 
@@ -52,8 +54,9 @@ public class UserService {
 		}
 	}
 
-	public void createUser(User user) {
-		LOGGER.info("Create user: " + user.getEmail());
+	public void createUser(UserDto userDto) {
+		LOGGER.info("Create user: " + userDto.getEmail());
+		User user = UserDtoUserConverter.toUser(userDto);
 		try (UserDao userDao = daoFactory.createUserDao()) {
 			userDao.create(user);
 		}

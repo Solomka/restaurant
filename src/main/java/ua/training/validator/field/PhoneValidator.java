@@ -22,7 +22,7 @@ public class PhoneValidator extends AbstractFieldValidatorHandler {
 
 	@Override
 	public void validateField(String fieldValue, List<String> errors) {
-		if (!fieldValue.matches(PHONE_REGEX)) {
+		if (fieldValue.isEmpty() || !fieldValue.matches(PHONE_REGEX)) {
 			errors.add(Message.INVALID_PHONE);
 		}
 	}

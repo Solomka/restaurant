@@ -22,7 +22,7 @@ public class SurnameValidator extends AbstractFieldValidatorHandler {
 
 	@Override
 	public void validateField(String fieldValue, List<String> errors) {
-		if (!fieldValue.matches(SURNAME_REGEX)) {
+		if (fieldValue.isEmpty() || !fieldValue.matches(SURNAME_REGEX)) {
 			errors.add(Message.INVALID_SURNAME_INPUT);
 		}
 	}

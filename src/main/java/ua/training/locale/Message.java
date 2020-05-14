@@ -31,5 +31,10 @@ public final class Message {
 	public static String INVALID_PHONE = "library.error.invalidPhone";
 	public static String INVALID_ADDRESS = "library.error.invalidAddress";
 	public static String INVALID_ROLE = "restaurant.error.invalidRole";
-	public static final String INVALID_DATE = "restaurant.error.invalidDate";
+	public static String INVALID_DATE = "restaurant.error.invalidDate";
+	public static String INVALID_NEW_PASSWORD = "restaurant.error.invalidNewPassword";
+	public static String IVALID_CONFIRM_PASSWORD = "restaurant.error.invalidConfirmPassword";
+	public static String INVALID_NEW_CONFIRM_PASSWORD = "restaurant.error.invalidNewConfirmPassword";
+	
+	public static String SUCCESS_USER_ADDITION = "restaurant.success.userSuccessfullyAdded";
 }

@@ -6,8 +6,11 @@ import ua.training.controller.command.PageNotFoundCommand;
 import ua.training.controller.command.auth.GetLoginCommand;
 import ua.training.controller.command.auth.LogoutCommand;
 import ua.training.controller.command.auth.PostLoginCommand;
+
 import ua.training.controller.command.i18n.ChangeLocaleCommand;
 import ua.training.controller.command.user.AllUsersCommand;
+import ua.training.controller.command.user.GetAddUserCommand;
+import ua.training.controller.command.user.PostAddUserCommand;
 import ua.training.controller.command.user.SearchBestWaitersPerPeriod;
 import ua.training.controller.command.user.SearchUserByRoleCommand;
 import ua.training.controller.command.user.SearchUserBySurnameCommand;
@@ -73,6 +76,18 @@ enum CommandEnum {
 		{
 			this.key = "POST:manager/users/bestWaiters";
 			this.command = new SearchBestWaitersPerPeriod(UserService.getInstance());
+		}
+	},
+	GET_ADD_USER {
+		{
+			this.key = "GET:manager/users/addUser";
+			this.command = new GetAddUserCommand();
+		}
+	},
+	POST_ADD_USER {
+		{
+			this.key = "POST:manager/users/addUser";
+			this.command = new PostAddUserCommand(UserService.getInstance());
 		}
 	};
 

@@ -22,7 +22,7 @@ public class PasswordValidator extends AbstractFieldValidatorHandler {
 
 	@Override
 	public void validateField(String fieldValue, List<String> errors) {
-		if (!fieldValue.matches(PASSWORD_REGEX)) {
+		if (fieldValue.isEmpty() || !fieldValue.matches(PASSWORD_REGEX)) {
 			errors.add(Message.INVALID_PASS);
 		}
 	}

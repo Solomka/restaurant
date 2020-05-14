@@ -5,7 +5,7 @@
 	<div class="row-fluid" align="left">
 		<div class="btn-group" role="group" aria-label="buttons">
 			<button type="button" class="btn btn-default"
-				onclick="location.href='./manager/addUser';">
+				onclick="location.href='./users/addUser';">
 				<fmt:message key="restaurant.add" bundle="${rb}" />
 			</button>
 			<button type="button" class="btn btn-default" data-toggle="modal"

@@ -22,7 +22,7 @@ public class AddressValidator extends AbstractFieldValidatorHandler {
 
 	@Override
 	public void validateField(String fieldValue, List<String> errors) {
-		if (!fieldValue.matches(ADDRESS_REGEX)) {
+		if (fieldValue.isEmpty() || !fieldValue.matches(ADDRESS_REGEX)) {
 			errors.add(Message.INVALID_ADDRESS);
 		}
 	}

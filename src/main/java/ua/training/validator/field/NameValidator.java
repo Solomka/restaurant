@@ -22,7 +22,7 @@ public class NameValidator extends AbstractFieldValidatorHandler {
 
 	@Override
 	public void validateField(String fieldValue, List<String> errors) {
-		if (!fieldValue.matches(NAME_REGEX)) {
+		if (fieldValue.isEmpty() || !fieldValue.matches(NAME_REGEX)) {
 			errors.add(Message.INVALID_NAME_INPUT);
 		}
 	}

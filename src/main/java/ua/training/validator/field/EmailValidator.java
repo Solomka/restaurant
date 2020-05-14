@@ -22,7 +22,7 @@ public class EmailValidator extends AbstractFieldValidatorHandler {
 
 	@Override
 	public void validateField(String fieldValue, List<String> errors) {
-		if (!fieldValue.matches(EMAIL_REGEX)) {
+		if (fieldValue.isEmpty() || !fieldValue.matches(EMAIL_REGEX)) {
 			errors.add(Message.INVALID_EMAIL);
 		}
 	}
