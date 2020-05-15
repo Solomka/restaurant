@@ -10,7 +10,10 @@ import ua.training.controller.command.auth.PostLoginCommand;
 import ua.training.controller.command.i18n.ChangeLocaleCommand;
 import ua.training.controller.command.user.AllUsersCommand;
 import ua.training.controller.command.user.GetAddUserCommand;
+import ua.training.controller.command.user.GetUpdateUserCommand;
 import ua.training.controller.command.user.PostAddUserCommand;
+import ua.training.controller.command.user.DeleteUserCommand;
+import ua.training.controller.command.user.PostUpdateUserCommand;
 import ua.training.controller.command.user.SearchBestWaitersPerPeriod;
 import ua.training.controller.command.user.SearchUserByRoleCommand;
 import ua.training.controller.command.user.SearchUserBySurnameCommand;
@@ -88,6 +91,24 @@ enum CommandEnum {
 		{
 			this.key = "POST:manager/users/addUser";
 			this.command = new PostAddUserCommand(UserService.getInstance());
+		}
+	},
+	GET_UPDATE_USER {
+		{
+			this.key = "GET:manager/users/updateUser";
+			this.command = new GetUpdateUserCommand(UserService.getInstance());
+		}
+	},
+	POST_UPDATE_USER {
+		{
+			this.key = "POST:manager/users/updateUser";
+			this.command = new PostUpdateUserCommand(UserService.getInstance());
+		}
+	},
+	DELETE_USER {
+		{
+			this.key = "GET:manager/users/deleteUser";
+			this.command = new DeleteUserCommand(UserService.getInstance());
 		}
 	};
 

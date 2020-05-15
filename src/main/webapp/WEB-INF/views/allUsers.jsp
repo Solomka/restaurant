@@ -190,9 +190,9 @@
 								bundle="${rb}" /></td>
 						<td>${user.getEmail()}</td>
 
-						<td><a href="./updateUser?id_user=${user.getId()}"><fmt:message
+						<td><a href="./users/updateUser?id_user=${user.getId()}"><fmt:message
 									key="restaurant.update" bundle="${rb}" /></a> <br> <a
-							href="./deleteUser?id_user=${user.getId()}"><fmt:message
+							href="./users/deleteUser?id_user=${user.getId()}"><fmt:message
 									key="restaurant.delete" bundle="${rb}" /></a></td>
 					</tr>
 				</c:forEach>

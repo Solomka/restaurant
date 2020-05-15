@@ -13,7 +13,7 @@ public final class Page {
 	public static String LOGIN_VIEW = PREFIX + "login" + SUFFIX;
 	
 	public static String ALL_USERS_VIEW = PREFIX + "allUsers" + SUFFIX;
-	public static String ADD_USER_VIEW = PREFIX + "addUser" + SUFFIX;
+	public static String ADD_UPDATE_USER_VIEW = PREFIX + "addUpdateUser" + SUFFIX;
 	
 	public static String PAGE_NOT_FOUND = PREFIX + ERROR_PREFIX + "pageNotFound" + SUFFIX;	
 }

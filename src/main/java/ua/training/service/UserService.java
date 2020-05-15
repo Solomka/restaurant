@@ -62,8 +62,9 @@ public class UserService {
 		}
 	}
 
-	public void updateUser(User user) {
-		LOGGER.info("Update user: " + user.getEmail());
+	public void updateUser(UserDto userDto) {
+		LOGGER.info("Update user: " + userDto.getEmail());
+		User user = UserDtoUserConverter.toUser(userDto);
 		try (UserDao userDao = daoFactory.createUserDao()) {
 			userDao.update(user);
 		}

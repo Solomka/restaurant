@@ -5,6 +5,7 @@ import ua.training.entity.Role;
 
 public class UserDto {
 
+	private Long id;
 	private String name;
 	private String surname;
 	private String address;
@@ -21,6 +22,11 @@ public class UserDto {
 	public static class Builder implements IBuilder<UserDto> {
 
 		private UserDto user = new UserDto();
+		
+		public Builder setId(Long id) {
+			user.id = id;
+			return this;
+		}
 
 		public Builder setName(String name) {
 			user.name = name;
@@ -66,6 +72,14 @@ public class UserDto {
 		public UserDto build() {
 			return user;
 		}
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

@@ -21,11 +21,11 @@ import ua.training.locale.Message;
 import ua.training.service.UserService;
 import ua.training.validator.entity.UserDtoValidator;
 
-public class PostAddUserCommand implements Command {
+public class PostUpdateUserCommand implements Command {
 
 	private UserService userService;
 
-	public PostAddUserCommand(UserService userService) {
+	public PostUpdateUserCommand(UserService userService) {
 		this.userService = userService;
 	}
 
@@ -37,7 +37,7 @@ public class PostAddUserCommand implements Command {
 		List<String> errors = validateUserInput(userDto);
 
 		if (errors.isEmpty()) {
-			userService.createUser(userDto);
+			userService.updateUser(userDto);
 			redirectToAllUsersPageWithSuccessMessage(request, response);
 			return RedirectionManager.REDIRECTION;
 		}
@@ -47,9 +47,9 @@ public class PostAddUserCommand implements Command {
 	}
 
 	private UserDto getUserInput(HttpServletRequest request) {
-		return new UserDto.Builder().setName(request.getParameter(Attribute.NAME))
-				.setSurname(request.getParameter(Attribute.SURNAME)).setAddress(request.getParameter(Attribute.ADDRESS))
-				.setPhone(request.getParameter(Attribute.PHONE))
+		return new UserDto.Builder().setId(Long.parseLong(request.getParameter(Attribute.ID_USER)))
+				.setName(request.getParameter(Attribute.NAME)).setSurname(request.getParameter(Attribute.SURNAME))
+				.setAddress(request.getParameter(Attribute.ADDRESS)).setPhone(request.getParameter(Attribute.PHONE))
 				.setRole(Role.forValue(request.getParameter(Attribute.ROLE)))
 				.setEmail(request.getParameter(Attribute.EMAIL)).setPassword(request.getParameter(Attribute.PASSWORD))
 				.setConfirmPassword(request.getParameter(Attribute.CONFIRM_PASSWORD)).build();
@@ -63,14 +63,15 @@ public class PostAddUserCommand implements Command {
 			throws IOException {
 		HttpWrapper httpWrapper = new HttpWrapper(request, response);
 		Map<String, String> urlParams = new HashMap<>();
-		urlParams.put(Attribute.SUCCESS, Message.SUCCESS_USER_ADDITION);
+		urlParams.put(Attribute.SUCCESS, Message.SUCCESS_USER_UPDATE);
 		RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_USERS, urlParams);
 	}
 
 	private void addRequesAttributes(HttpServletRequest request, UserDto userDto, List<String> errors) {
-		
+
 		request.setAttribute(Attribute.ROLES, Role.values());
 		request.setAttribute(Attribute.USER_DTO, userDto);
 		request.setAttribute(Attribute.ERRORS, errors);
 	}
+
 }

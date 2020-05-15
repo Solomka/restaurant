@@ -10,9 +10,14 @@ public final class UserDtoUserConverter {
 	}
 
 	public static User toUser(UserDto userDto) {
-		return new User.Builder().setName(userDto.getName()).setSurname(userDto.getSurname())
+		User.Builder userBuilder = new User.Builder().setName(userDto.getName()).setSurname(userDto.getSurname())
 				.setAddress(userDto.getAddress()).setPhone(userDto.getPassword()).setPhone(userDto.getPhone())
-				.setRole(userDto.getRole()).setEmail(userDto.getEmail()).setPassword(userDto.getPassword()).build();
+				.setRole(userDto.getRole()).setEmail(userDto.getEmail()).setPassword(userDto.getPassword());
 
+		if (userDto.getId() != null) {
+			userBuilder.setId(userDto.getId());
+		}
+
+		return userBuilder.build();
 	}
 }

@@ -32,4 +32,5 @@ public final class Attribute {
 	public static String ROLES = "roles";
 	public static String FROM_DATE = "fromDate";
 	public static String TO_DATE = "toDate";
+	public static String ID_USER = "id_user";
 }

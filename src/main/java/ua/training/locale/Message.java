@@ -2,7 +2,6 @@ package ua.training.locale;
 
 public final class Message {	
 	
-
 	private Message() {
 	}
 
@@ -37,4 +36,6 @@ public final class Message {
 	public static String INVALID_NEW_CONFIRM_PASSWORD = "restaurant.error.invalidNewConfirmPassword";
 	
 	public static String SUCCESS_USER_ADDITION = "restaurant.success.userSuccessfullyAdded";
+	public static String SUCCESS_USER_UPDATE = "restaurant.success.userSuccessfullyUpdated";
+	public static String SUCCESS_USER_DELETE = "restaurant.success.userSuccessfullyDeleted";
 }
