@@ -45,11 +45,22 @@ public class RedirectionManager {
 	 * @throws IOException
 	 *             If an input or output exception occurs
 	 */
-	public void redirectWithParams(HttpWrapper httpWrapper, String redirectionPath, Map<String, String> urlParameters)
+	/*public void redirectWithParams(HttpWrapper httpWrapper, String redirectionPath, Map<String, String> urlParameters)
 			throws IOException {
 		String urlPathWithParams = generateUrlPath(httpWrapper.getRequest(), redirectionPath)
 				+ generateUrlParams(urlParameters);
 		redirect(httpWrapper, urlPathWithParams);
+	}*/
+	
+	public void redirectWithParams(HttpWrapper httpWrapper, String redirectionPath, Map<String, String> urlParameters)
+			throws IOException {
+		String urlPathWithParams = generateUrlPath(httpWrapper.getRequest(), redirectionPath)
+				+ generateUrlParams(urlParameters);
+		try {
+			httpWrapper.getResponse().sendRedirect(urlPathWithParams);
+		} catch (IOException e) {
+			throw new ServerException(e);
+		}
 	}
 
 	public void redirect(HttpWrapper httpWrapper, String path) {
