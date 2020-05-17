@@ -1,4 +1,4 @@
-package ua.training.controller.command.user;
+package ua.training.controller.command.category;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,48 +16,48 @@ import ua.training.constants.ServletPath;
 import ua.training.controller.command.Command;
 import ua.training.controller.utils.HttpWrapper;
 import ua.training.controller.utils.RedirectionManager;
-import ua.training.entity.User;
+import ua.training.entity.Category;
 import ua.training.locale.Message;
-import ua.training.service.UserService;
+import ua.training.service.CategoryService;
 import ua.training.validator.field.AbstractFieldValidatorHandler;
 import ua.training.validator.field.FieldValidatorKey;
 import ua.training.validator.field.FieldValidatorsChainGenerator;
 
-public class SearchUserBySurnameCommand implements Command {
+public class SearchCategoriesByName implements Command {
 
-	private UserService userService;
+	private CategoryService categoryService;
 
-	public SearchUserBySurnameCommand(UserService userService) {
-		this.userService = userService;
+	public SearchCategoriesByName(CategoryService userService) {
+		this.categoryService = userService;
 	}
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String surname = request.getParameter(Attribute.SURNAME);
-		List<String> errors = validateUserInput(surname);
+		String name = request.getParameter(Attribute.NAME);
+		List<String> errors = validateUserInput(name);
 		HttpWrapper httpWrapper = new HttpWrapper(request, response);
 		Map<String, String> urlParams;
 
 		if (!errors.isEmpty()) {
 			urlParams = new HashMap<>();
 			urlParams.put(Attribute.ERROR, errors.get(0));
-			RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_USERS, urlParams);
+			RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_CATEGORIES, urlParams);
 			return RedirectionManager.REDIRECTION;
 		}
 
-		List<User> users = userService.searchUsersBySurname(surname);
+		List<Category> categories = categoryService.searchCategoriesByName(name);
 
-		if (users.isEmpty()) {
+		if (categories.isEmpty()) {
 			urlParams = new HashMap<>();
-			urlParams.put(Attribute.ERROR, Message.USER_IS_NOT_FOUND);
-			RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_USERS, urlParams);
+			urlParams.put(Attribute.ERROR, Message.CATEGORY_IS_NOT_FOUND);
+			RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_CATEGORIES, urlParams);
 			return RedirectionManager.REDIRECTION;
 		}
 
-		request.setAttribute(Attribute.USERS, users);
-		return Page.ALL_USERS_VIEW;
+		request.setAttribute(Attribute.CATEGORIES, categories);
+		return Page.ALL_CATEGORIES_VIEW;
 
 	}
 
@@ -68,4 +68,5 @@ public class SearchUserBySurnameCommand implements Command {
 		fieldValidator.validateField(FieldValidatorKey.SURNAME, surname, errors);
 		return errors;
 	}
+
 }

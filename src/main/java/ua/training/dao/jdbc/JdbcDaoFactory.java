@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import ua.training.dao.CategoryDao;
 import ua.training.dao.DaoConnection;
 import ua.training.dao.DaoFactory;
 import ua.training.dao.UserDao;
@@ -46,8 +47,7 @@ public class JdbcDaoFactory extends DaoFactory {
 	 * Get custom Connection wrapper for providing transaction execution
 	 * 
 	 * @return a connection to the data source
-	 * @exception ServerException
-	 *                if a database access error occurs
+	 * @exception ServerException if a database access error occurs
 	 */
 	@Override
 	public DaoConnection getConnection() {
@@ -76,5 +76,20 @@ public class JdbcDaoFactory extends DaoFactory {
 		return new JdbcUserDao(sqlConnection);
 	}
 
-	
+	@Override
+	public CategoryDao createCategoryDao() {
+		try {
+			return new JdbcCategoryDao(dataSource.getConnection(), true);
+		} catch (SQLException e) {
+			LOGGER.error("Can't get DB Connection for JdbcCategoryDao creation", e);
+			throw new ServerException(e);
+		}
+	}
+
+	@Override
+	public CategoryDao createCategoryDao(DaoConnection connection) {
+		JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
+		Connection sqlConnection = jdbcConnection.getConnection();
+		return new JdbcCategoryDao(sqlConnection);
+	}
 }

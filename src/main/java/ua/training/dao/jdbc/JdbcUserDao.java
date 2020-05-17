@@ -28,7 +28,7 @@ public class JdbcUserDao implements UserDao {
 	private static String GET_BY_CREDENTIALS = "SELECT * FROM `user` WHERE email=? AND password=?";
 	private static String CREATE = "INSERT INTO `user`"
 			+ " (name, surname, address, phone, role, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	public static String UPDATE = "UPDATE `user`"
+	private static String UPDATE = "UPDATE `user`"
 			+ " SET name=?, surname=?, address=?, phone=?, role=?, email=?, password=?" + " WHERE id_user=? ";
 	private static String DELETE = "DELETE FROM `user` WHERE id_user=?";
 	private static String SEARCH_USERS_BY_SURNAME = "SELECT * FROM `user` WHERE LOWER(surname) LIKE CONCAT('%', LOWER(?), '%')";

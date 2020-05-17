@@ -21,6 +21,7 @@ public final class Message {
 	public static String UNAUTHORIZED_ACCESS_ERROR = "restaurant.error.authorizedAccessError";
 	
 	public static String USER_IS_NOT_FOUND = "restaurant.user.isNotFound";
+	public static String CATEGORY_IS_NOT_FOUND = "restaurant.category.isNotFound";
 		
 	public static String INVALID_NAME_INPUT = "library.error.invalidName";
 	public static String INVALID_SURNAME_INPUT = "library.error.invalidSurname";
@@ -38,4 +39,7 @@ public final class Message {
 	public static String SUCCESS_USER_ADDITION = "restaurant.success.userSuccessfullyAdded";
 	public static String SUCCESS_USER_UPDATE = "restaurant.success.userSuccessfullyUpdated";
 	public static String SUCCESS_USER_DELETE = "restaurant.success.userSuccessfullyDeleted";
+	public static String SUCCESS_CATEGORY_ADDITION = "restaurant.success.categorySuccessfullyAdded";
+	public static String SUCCESS_CATEGORY_UPDATE = "restaurant.success.categorySuccessfullyUpdated";
+	public static String SUCCESS_CATEGORY_DELETE = "restaurant.success.categorySuccessfullyDeleted";
 }

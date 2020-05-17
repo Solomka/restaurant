@@ -33,4 +33,7 @@ public final class Attribute {
 	public static String FROM_DATE = "fromDate";
 	public static String TO_DATE = "toDate";
 	public static String ID_USER = "id_user";
+	public static String CATEGORIES = "categories";
+	public static String ID_CATEGORY = "id_category";
+	public static String CATEGORY = "category";
 }

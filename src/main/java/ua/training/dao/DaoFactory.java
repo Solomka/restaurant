@@ -15,8 +15,8 @@ import ua.training.exception.ServerException;
  * persistent storage access implementation.
  * <p>
  * 
- * Each concrete dao factory that support particular kind of persistent storage access
- * implementation has to extend this abstract class
+ * Each concrete dao factory that support particular kind of persistent storage
+ * access implementation has to extend this abstract class
  * 
  * @author Solomka
  *
@@ -34,14 +34,16 @@ public abstract class DaoFactory {
 
 	// class level dao
 	public abstract UserDao createUserDao();
-
 	// business level dao
 	public abstract UserDao createUserDao(DaoConnection connection);
 
+	public abstract CategoryDao createCategoryDao();
+	public abstract CategoryDao createCategoryDao(DaoConnection connection);
+
 	/**
 	 * Method that returns concrete dao factory that support particular kind of
-	 * persistent storage access implementation(JDBC implementation). This factory implementation is loaded
-	 * from db.properties file
+	 * persistent storage access implementation(JDBC implementation). This factory
+	 * implementation is loaded from db.properties file
 	 * 
 	 * @return DaoFactory concrete dao factory implementation
 	 */
