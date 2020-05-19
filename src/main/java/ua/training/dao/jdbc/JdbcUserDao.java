@@ -34,13 +34,13 @@ public class JdbcUserDao implements UserDao {
 	private static String SEARCH_USERS_BY_SURNAME = "SELECT * FROM `user` WHERE LOWER(surname) LIKE CONCAT('%', LOWER(?), '%')";
 	private static String SEARCH_USERS_BY_ROLE = "SELECT * FROM `user` WHERE role=?";
 	private static String SEARCH_BEST_WAITERS_PER_PERIOD = "SELECT * FROM `user` WHERE id_user IN "
-			+ "(SELECT id_user FROM `order`"
-			+ " WHERE `date` BETWEEN ? AND ?" 
-			+ " GROUP BY id_user"
-			+ " HAVING COUNT(id_order)=(SELECT MAX(orders_number)" 
-				+ " FROM (SELECT COUNT(id_order) AS orders_number"
-				+ " FROM `order` WHERE `date` BETWEEN ? AND ?"
-				+ " GROUP BY id_user) AS `orders_counter`))";
+																	+ "(SELECT id_user FROM `order`"
+																	+ " WHERE `date` BETWEEN ? AND ?" 
+																	+ " GROUP BY id_user"
+																	+ " HAVING COUNT(id_order)=(SELECT MAX(orders_number)" 
+																							+ " FROM (SELECT COUNT(id_order) AS orders_number"
+																							+ " FROM `order` WHERE `date` BETWEEN ? AND ?"
+																							+ " GROUP BY id_user) AS `orders_counter`))";
 
 	// table columns names
 	private static String ID = "id_user";
@@ -205,14 +205,14 @@ public class JdbcUserDao implements UserDao {
 	}
 
 	@Override
-	public List<User> searchBestWaitersPerPeriod(LocalDate from, LocalDate to) {
+	public List<User> searchBestWaitersPerPeriod(LocalDate fromDate, LocalDate toDate) {
 		List<User> users = new ArrayList<>();
 
 		try (PreparedStatement query = connection.prepareStatement(SEARCH_BEST_WAITERS_PER_PERIOD)) {
-			query.setDate(1, Date.valueOf(from));
-			query.setDate(2, Date.valueOf(to));
-			query.setDate(3, Date.valueOf(from));
-			query.setDate(4, Date.valueOf(to));
+			query.setDate(1, Date.valueOf(fromDate));
+			query.setDate(2, Date.valueOf(toDate));
+			query.setDate(3, Date.valueOf(fromDate));
+			query.setDate(4, Date.valueOf(toDate));
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
 				users.add(extractUserFromResultSet(resultSet));

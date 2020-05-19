@@ -15,7 +15,7 @@ public interface UserDao extends GenericDao<User, Long>, AutoCloseable {
 
 	List<User> searchUsersByRole(Role role);
 	
-	List<User> searchBestWaitersPerPeriod(LocalDate from, LocalDate to);
+	List<User> searchBestWaitersPerPeriod(LocalDate fromDate, LocalDate toDate);
 
 	void close();
 }

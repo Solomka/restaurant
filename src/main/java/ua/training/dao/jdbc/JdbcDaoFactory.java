@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import ua.training.dao.CategoryDao;
 import ua.training.dao.DaoConnection;
 import ua.training.dao.DaoFactory;
+import ua.training.dao.DishDao;
 import ua.training.dao.UserDao;
 import ua.training.exception.ServerException;
 
@@ -91,5 +92,22 @@ public class JdbcDaoFactory extends DaoFactory {
 		JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
 		Connection sqlConnection = jdbcConnection.getConnection();
 		return new JdbcCategoryDao(sqlConnection);
+	}
+	
+	@Override
+	public DishDao createDishDao() {
+		try {
+			return new JdbcDishDao(dataSource.getConnection(), true);
+		} catch (SQLException e) {
+			LOGGER.error("Can't get DB Connection for JdbcDishDao creation", e);
+			throw new ServerException(e);
+		}
+	}
+
+	@Override
+	public DishDao createDishDao(DaoConnection connection) {
+		JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
+		Connection sqlConnection = jdbcConnection.getConnection();
+		return new JdbcDishDao(sqlConnection);
 	}
 }

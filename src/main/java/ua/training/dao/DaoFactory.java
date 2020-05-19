@@ -39,6 +39,9 @@ public abstract class DaoFactory {
 
 	public abstract CategoryDao createCategoryDao();
 	public abstract CategoryDao createCategoryDao(DaoConnection connection);
+	
+	public abstract DishDao createDishDao();
+	public abstract DishDao createDishDao(DaoConnection connection);
 
 	/**
 	 * Method that returns concrete dao factory that support particular kind of

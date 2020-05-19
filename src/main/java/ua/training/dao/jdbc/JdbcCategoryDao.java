@@ -117,7 +117,6 @@ public class JdbcCategoryDao implements CategoryDao {
 			LOGGER.error("JdbcCategoryDao delete SQL exception: " + id, e);
 			throw new ServerException(e);
 		}
-
 	}
 
 	@Override
@@ -149,7 +148,7 @@ public class JdbcCategoryDao implements CategoryDao {
 		}
 	}
 
-	private Category extractCategoryFromResultSet(ResultSet resultSet) throws SQLException {
+	protected static Category extractCategoryFromResultSet(ResultSet resultSet) throws SQLException {
 		return new Category.Builder().setId(resultSet.getLong(ID)).setName(resultSet.getString(NAME)).build();
 	}
 

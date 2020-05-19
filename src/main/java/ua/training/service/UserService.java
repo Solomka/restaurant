@@ -91,10 +91,10 @@ public class UserService {
 		}
 	}
 
-	public List<User> searchBestWaitersPerPeriod(LocalDate from, LocalDate to) {
-		LOGGER.info(String.format("Search best waiter per period from  %s to %s ", from.toString(), to.toString()));
+	public List<User> searchBestWaitersPerPeriod(LocalDate fromDate, LocalDate toDate) {
+		LOGGER.info(String.format("Search best waiter per period from  %s to %s ", fromDate.toString(), toDate.toString()));
 		try (UserDao userDao = daoFactory.createUserDao()) {
-			return userDao.searchBestWaitersPerPeriod(from, to);
+			return userDao.searchBestWaitersPerPeriod(fromDate, toDate);
 		}
 	}
 
