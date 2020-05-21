@@ -19,8 +19,7 @@
 		<div class="col-sm-6 col-sm-offset-3 ">
 			<c:choose>
 				<c:when test="${not empty requestScope.dish.getId()}">
-					<form action="./updateDish" method="POST"
-						role="form">
+					<form action="./updateDish" method="POST" role="form">
 				</c:when>
 				<c:otherwise>
 					<form action="./addDish" method="POST" role="form">
@@ -54,15 +53,15 @@
 			</div>
 			<div class="form-group">
 				<label for="weight"><fmt:message key="restaurant.weight"
-						bundle="${rb}" /></label> <input type="number" class="form-control"
-					id="weight" name="weight"
+						bundle="${rb}" /></label> <input type="number" step="0.01"
+					class="form-control" id="weight" name="weight"
 					placeholder="<fmt:message key="restaurant.weight" bundle="${rb}"/>"
 					value="<c:out value="${requestScope.dish.getWeight()}" />" />
 			</div>
 			<div class="form-group">
 				<label for="cost"><fmt:message key="restaurant.cost"
-						bundle="${rb}" /></label> <input type="number" class="form-control"
-					id="cost" name="cost"
+						bundle="${rb}" /></label> <input type="number" step="0.01"
+					class="form-control" id="cost" name="cost"
 					placeholder="<fmt:message key="restaurant.cost" bundle="${rb}"/>"
 					value="<c:out value="${requestScope.dish.getCost()}" />" />
 			</div>
