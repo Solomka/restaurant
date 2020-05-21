@@ -28,7 +28,7 @@ public class JdbcDishDao implements DishDao {
 	private static String UPDATE = "UPDATE dish SET name=?, description=?, weight=?, cost=?, id_category=? WHERE id_dish=?";
 	private static String DELETE = "DELETE FROM dish WHERE id_dish=?";
 	private static String SEARCH_DISH_BY_NAME = "SELECT * FROM dish JOIN category USING(id_category) WHERE LOWER(dish.name) LIKE CONCAT('%', LOWER(?), '%')";
-	private static String SEARCH_DISH_BY_CATEGORY_NAME = "SELECT * FROM dish JOIN category USING(id_category) WHERE category.name=?)";
+	private static String SEARCH_DISH_BY_CATEGORY_NAME = "SELECT * FROM dish JOIN category USING(id_category) WHERE category.name=?";
 	private static String SEARCH_MOST_POPULAR_DISHES_IN_PERIOD = 
 			"SELECT *"
 					+ " FROM dish JOIN category USING(id_category)" 

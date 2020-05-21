@@ -7,8 +7,10 @@ import java.util.Optional;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import ua.training.converter.DishDtoDishConverter;
 import ua.training.dao.DaoFactory;
 import ua.training.dao.DishDao;
+import ua.training.dto.DishDto;
 import ua.training.entity.Dish;
 
 public class DishService {
@@ -43,15 +45,17 @@ public class DishService {
 		}
 	}
 
-	public void createDish(Dish dish) {
-		LOGGER.info("Create dish: " + dish.getName());
+	public void createDish(DishDto dishDto) {
+		LOGGER.info("Create dish: " + dishDto.getName());
+		Dish dish = DishDtoDishConverter.toDish(dishDto);
 		try (DishDao dishDao = daoFactory.createDishDao()) {
 			dishDao.create(dish);
 		}
 	}
 
-	public void updateDish(Dish dish) {
-		LOGGER.info("Update dish: " + dish.getName());
+	public void updateDish(DishDto dishDto) {
+		LOGGER.info("Update dish: " + dishDto.getName());
+		Dish dish = DishDtoDishConverter.toDish(dishDto);
 		try (DishDao dishDao = daoFactory.createDishDao()) {
 			dishDao.update(dish);
 		}
@@ -74,12 +78,13 @@ public class DishService {
 	public List<Dish> searchDishesByCategoryName(String categoryName) {
 		LOGGER.info("Search dishes by category name: " + categoryName);
 		try (DishDao dishDao = daoFactory.createDishDao()) {
-			return dishDao.searchDishByName(categoryName);
+			return dishDao.searchDishByCategoryName(categoryName);
 		}
 	}
 
 	public List<Dish> searchMostPopularDishesPerPeriod(LocalDate fromDate, LocalDate toDate) {
-		LOGGER.info(String.format("Search most populat dish per period from  %s to %s ", fromDate.toString(), toDate.toString()));
+		LOGGER.info(String.format("Search most populat dish per period from  %s to %s ", fromDate.toString(),
+				toDate.toString()));
 		try (DishDao dishDao = daoFactory.createDishDao()) {
 			return dishDao.searchMostPopularDishesPerPeriod(fromDate, toDate);
 		}

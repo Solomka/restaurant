@@ -22,19 +22,24 @@ public final class Message {
 	
 	public static String USER_IS_NOT_FOUND = "restaurant.user.isNotFound";
 	public static String CATEGORY_IS_NOT_FOUND = "restaurant.category.isNotFound";
+	public static String DISH_IS_NOT_FOUND = "restaurant.dish.isNotFound";
 		
-	public static String INVALID_NAME_INPUT = "library.error.invalidName";
-	public static String INVALID_SURNAME_INPUT = "library.error.invalidSurname";
-	public static String INVALID_EMAIL = "library.error.invalidEmail";
-	public static String INVALID_PASS = "library.error.invalidPass";
+	public static String INVALID_NAME_INPUT = "restaurant.error.invalidName";
+	public static String INVALID_SURNAME_INPUT = "restaurant.error.invalidSurname";
+	public static String INVALID_EMAIL = "restaurant.error.invalidEmail";
+	public static String INVALID_PASS = "restaurant.error.invalidPass";
 	public static String INVALID_CREDENTIALS = "restaurant.error.invalidCredentials";
-	public static String INVALID_PHONE = "library.error.invalidPhone";
-	public static String INVALID_ADDRESS = "library.error.invalidAddress";
+	public static String INVALID_PHONE = "restaurant.error.invalidPhone";
+	public static String INVALID_ADDRESS = "restaurant.error.invalidAddress";
 	public static String INVALID_ROLE = "restaurant.error.invalidRole";
 	public static String INVALID_DATE = "restaurant.error.invalidDate";
 	public static String INVALID_NEW_PASSWORD = "restaurant.error.invalidNewPassword";
 	public static String IVALID_CONFIRM_PASSWORD = "restaurant.error.invalidConfirmPassword";
 	public static String INVALID_NEW_CONFIRM_PASSWORD = "restaurant.error.invalidNewConfirmPassword";
+	public static String INVALID_CATEGORY = "restaurant.error.invalidCategory";
+	public static String INVALID_DESCRIPTION_INPUT = "restaurant.error.invalidDescription";
+	public static String INVALID_WEIGHT_INPUT = "restaurant.error.invalidWeight";
+	public static String INVALID_COST_INPUT = "restaurant.error.invalidCost";
 	
 	public static String SUCCESS_USER_ADDITION = "restaurant.success.userSuccessfullyAdded";
 	public static String SUCCESS_USER_UPDATE = "restaurant.success.userSuccessfullyUpdated";
@@ -42,4 +47,7 @@ public final class Message {
 	public static String SUCCESS_CATEGORY_ADDITION = "restaurant.success.categorySuccessfullyAdded";
 	public static String SUCCESS_CATEGORY_UPDATE = "restaurant.success.categorySuccessfullyUpdated";
 	public static String SUCCESS_CATEGORY_DELETE = "restaurant.success.categorySuccessfullyDeleted";
+	public static String SUCCESS_DISH_DELETE = "restaurant.success.dishSuccessfullyDeleted";
+	public static String SUCCESS_DISH_ADDITION = "restaurant.success.dishSuccessfullyAdded";
+	public static String SUCCESS_DISH_UPDATE = "restaurant.success.dishSuccessfullyUpdated";
 }

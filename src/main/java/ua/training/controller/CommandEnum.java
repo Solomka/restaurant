@@ -13,6 +13,15 @@ import ua.training.controller.command.category.GetUpdateCategoryCommand;
 import ua.training.controller.command.category.PostAddCategoryCommand;
 import ua.training.controller.command.category.PostUpdateCategoryCommand;
 import ua.training.controller.command.category.SearchCategoriesByName;
+import ua.training.controller.command.dish.AllDishesCommand;
+import ua.training.controller.command.dish.DeleteDishCommand;
+import ua.training.controller.command.dish.GetAddDishCommand;
+import ua.training.controller.command.dish.GetUpdateDishCommand;
+import ua.training.controller.command.dish.PostAddDishCommand;
+import ua.training.controller.command.dish.PostUpdateDishCommand;
+import ua.training.controller.command.dish.SearchDishesByCategoryCommand;
+import ua.training.controller.command.dish.SearchDishesByNameCommand;
+import ua.training.controller.command.dish.SearchMostPopularDishesPerPeriodCommand;
 import ua.training.controller.command.i18n.ChangeLocaleCommand;
 import ua.training.controller.command.user.AllUsersCommand;
 import ua.training.controller.command.user.DeleteUserCommand;
@@ -24,6 +33,7 @@ import ua.training.controller.command.user.SearchBestWaitersPerPeriod;
 import ua.training.controller.command.user.SearchUserByRoleCommand;
 import ua.training.controller.command.user.SearchUserBySurnameCommand;
 import ua.training.service.CategoryService;
+import ua.training.service.DishService;
 import ua.training.service.UserService;
 
 enum CommandEnum {
@@ -158,6 +168,60 @@ enum CommandEnum {
 		{
 			this.key = "GET:manager/categories/deleteCategory";
 			this.command = new DeleteCategoryCommand(CategoryService.getInstance());
+		}
+	},
+	ALL_DISHES {
+		{
+			this.key = "GET:dishes";
+			this.command = new AllDishesCommand(DishService.getInstance(), CategoryService.getInstance());
+		}
+	},
+	SEARCH_DISHES_BY_NAME {
+		{
+			this.key = "POST:dishes/name";
+			this.command = new SearchDishesByNameCommand(DishService.getInstance());
+		}
+	},
+	SEARCH_DISHES_BY_CATEGORY {
+		{
+			this.key = "POST:dishes/category";
+			this.command = new SearchDishesByCategoryCommand(DishService.getInstance(), CategoryService.getInstance());
+		}
+	},
+	SEARCH_MOST_POPULAR_DISHES {
+		{
+			this.key = "POST:manager/dishes/bestDishes";
+			this.command = new SearchMostPopularDishesPerPeriodCommand(DishService.getInstance(), CategoryService.getInstance());
+		}
+	},
+	GET_ADD_DISH {
+		{
+			this.key = "GET:manager/dishes/addDish";
+			this.command = new GetAddDishCommand(CategoryService.getInstance());
+		}
+	},
+	POST_ADD_DISH {
+		{
+			this.key = "POST:manager/dishes/addDish";
+			this.command = new PostAddDishCommand(DishService.getInstance(), CategoryService.getInstance());
+		}
+	},
+	GET_UPDATE_DISH {
+		{
+			this.key = "GET:manager/dishes/updateDish";
+			this.command = new GetUpdateDishCommand(DishService.getInstance(), CategoryService.getInstance());
+		}
+	},
+	POST_UPDATE_DISH {
+		{
+			this.key = "POST:manager/dishes/updateDish";
+			this.command = new PostUpdateDishCommand(DishService.getInstance(), CategoryService.getInstance());
+		}
+	},
+	DELETE_DISH {
+		{
+			this.key = "GET:manager/dishes/deleteDish";
+			this.command = new DeleteDishCommand(DishService.getInstance());
 		}
 	};
 

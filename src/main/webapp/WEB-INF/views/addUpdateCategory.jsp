@@ -4,7 +4,14 @@
 
 	<div class="row-fluid pg-title">
 		<h3>
-			<fmt:message key="restaurant.add" bundle="${rb}" />
+			<c:choose>
+				<c:when test="${not empty requestScope.category.getId()}">
+					<fmt:message key="restaurant.update" bundle="${rb}" />
+				</c:when>
+				<c:otherwise>
+					<fmt:message key="restaurant.add" bundle="${rb}" />
+				</c:otherwise>
+			</c:choose>
 		</h3>
 	</div>
 

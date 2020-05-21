@@ -35,7 +35,7 @@
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a
-					href="${pageContext.request.contextPath}/controller/menu"><fmt:message
+					href="${pageContext.request.contextPath}/controller/dishes"><fmt:message
 							key="restaurant.menu" bundle="${rb}" /></a></li>
 
 				<%-- NOT EMPTY USER --%>

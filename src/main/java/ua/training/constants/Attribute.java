@@ -20,7 +20,6 @@ public final class Attribute {
 	public static String EMAIL = "email";
 	public static String PASSWORD = "password";
 	
-	// user entity
 	public static String NAME = "name";
 	public static String SURNAME = "surname";
 	public static String ADDRESS = "address";
@@ -36,4 +35,10 @@ public final class Attribute {
 	public static String CATEGORIES = "categories";
 	public static String ID_CATEGORY = "id_category";
 	public static String CATEGORY = "category";
+	public static String DISHES = "dishes";
+	public static String ID_DISH = "id_dish";
+	public static String DESCRIPTION = "description";
+	public static String WEIGHT = "weight";
+	public static String COST = "cost";
+	public static String DISH = "dish";
 }

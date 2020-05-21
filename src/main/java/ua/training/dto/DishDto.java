@@ -1,59 +1,57 @@
-package ua.training.entity;
+package ua.training.dto;
 
-import java.math.BigDecimal;
+import ua.training.entity.Category;
+import ua.training.entity.IBuilder;
 
-public class Dish {
-
+public class DishDto {
+	
 	private Long id;
 	private String name;
 	private String description;
-	private double weight;
-	private BigDecimal cost;
+	private String weight;
+	private String cost;
 	private Category category;
 
-	public Dish() {
+	public DishDto() {
 
 	}
 
-	public static class Builder implements IBuilder<Dish> {
-
-		Dish dish = new Dish();
+	public static class Builder implements IBuilder<DishDto> {
+		
+		DishDto dishDto = new DishDto();
 
 		public Builder setId(Long id) {
-			dish.id = id;
+			dishDto.id = id;
 			return this;
 		}
-
+		
 		public Builder setName(String name) {
-			dish.name = name;
+			dishDto.name = name;
 			return this;
 		}
-
-		public Builder setDescriprion(String description) {
-			dish.description = description;
+		
+		public Builder setDescription(String descritpion) {
+			dishDto.description = descritpion;
 			return this;
 		}
-
-		public Builder setWeight(double weight) {
-			dish.weight = weight;
+		
+		public Builder setWeight(String weight) {
+			dishDto.weight = weight;
 			return this;
 		}
-
-		public Builder setCost(BigDecimal cost) {
-			dish.cost = cost;
+		public Builder setCost(String cost) {
+			dishDto.cost = cost;
 			return this;
 		}
-
 		public Builder setCategory(Category category) {
-			dish.category = category;
+			dishDto.category = category;
 			return this;
 		}
-
+		
 		@Override
-		public Dish build() {
-			return dish;
+		public DishDto build() {
+			return dishDto;
 		}
-
 	}
 
 	public Long getId() {
@@ -80,19 +78,19 @@ public class Dish {
 		this.description = description;
 	}
 
-	public double getWeight() {
+	public String getWeight() {
 		return weight;
 	}
 
-	public void setWeight(double weight) {
+	public void setWeight(String weight) {
 		this.weight = weight;
 	}
 
-	public BigDecimal getCost() {
+	public String getCost() {
 		return cost;
 	}
 
-	public void setCost(BigDecimal cost) {
+	public void setCost(String cost) {
 		this.cost = cost;
 	}
 
@@ -123,22 +121,24 @@ public class Dish {
 			return false;
 		}
 		
-		Dish other = (Dish) obj;
+		DishDto other = (DishDto) obj;
 		
 		if ((description != null) ? !description.equals(other.description) : other.description != null) {
 			return false;
 		}
 		
-		return ((name != null) ? name.equals(other.name) : other.name == null);		
+		return ((name != null) ? name.equals(other.name) : other.name == null);
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Dish [id=").append(id).append(", name=").append(name).append(", description=")
+		StringBuilder builder2 = new StringBuilder();
+		builder2.append("DishDto [id=").append(id).append(", name=").append(name).append(", description=")
 				.append(description).append(", weight=").append(weight).append(", cost=").append(cost)
 				.append(", category=").append(category).append("]");
-		return builder.toString();
+		return builder2.toString();
+	}
+	
 	}
 
-}
+

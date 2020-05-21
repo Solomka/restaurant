@@ -4,7 +4,8 @@ import ua.training.entity.Status;
 
 public enum FieldValidatorKey {
 
-	NAME("name"), SURNAME("surname"), EMAIL("email"), PASSWORD("password"), PHONE("phone"), ADDRESS("address");
+	NAME("name"), SURNAME("surname"), EMAIL("email"), PASSWORD("password"), PHONE("phone"), ADDRESS("address"),
+	DESCRIPTION("description"), WEIGHT("weight"), COST("cost");
 
 	private String value;
 

@@ -16,6 +16,8 @@ public final class Page {
 	public static String ADD_UPDATE_USER_VIEW = PREFIX + "addUpdateUser" + SUFFIX;
 	public static String ALL_CATEGORIES_VIEW = PREFIX + "allCategories" + SUFFIX;
 	public static String ADD_UPDATE_CATEGORY_VIEW = PREFIX + "addUpdateCategory" + SUFFIX;
+	public static String ALL_DISHES_VIEW = PREFIX + "allDishes" + SUFFIX;
+	public static String ADD_UPDATE_DISH_VIEW = PREFIX + "addUpdateDish" + SUFFIX;
 	
 	public static String PAGE_NOT_FOUND = PREFIX + ERROR_PREFIX + "pageNotFound" + SUFFIX;	
 }

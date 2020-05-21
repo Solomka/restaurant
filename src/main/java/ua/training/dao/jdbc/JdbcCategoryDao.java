@@ -29,7 +29,7 @@ public class JdbcCategoryDao implements CategoryDao {
 
 	// table columns names
 	private static String ID = "id_category";
-	private static String NAME = "name";
+	private static String NAME = "category.name";
 
 	private Connection connection;
 	private boolean connectionShouldBeClosed;
