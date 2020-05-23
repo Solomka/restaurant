@@ -13,6 +13,7 @@ import ua.training.dao.CategoryDao;
 import ua.training.dao.DaoConnection;
 import ua.training.dao.DaoFactory;
 import ua.training.dao.DishDao;
+import ua.training.dao.OrderDao;
 import ua.training.dao.UserDao;
 import ua.training.exception.ServerException;
 
@@ -109,5 +110,22 @@ public class JdbcDaoFactory extends DaoFactory {
 		JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
 		Connection sqlConnection = jdbcConnection.getConnection();
 		return new JdbcDishDao(sqlConnection);
+	}
+	
+	@Override
+	public OrderDao createOrderDao() {
+		try {
+			return new JdbcOrderDao(dataSource.getConnection(), true);
+		} catch (SQLException e) {
+			LOGGER.error("Can't get DB Connection for JdbcOrderDao creation", e);
+			throw new ServerException(e);
+		}
+	}
+
+	@Override
+	public OrderDao createOrderDao(DaoConnection connection) {
+		JdbcDaoConnection jdbcConnection = (JdbcDaoConnection) connection;
+		Connection sqlConnection = jdbcConnection.getConnection();
+		return new JdbcOrderDao(sqlConnection);
 	}
 }

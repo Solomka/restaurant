@@ -11,7 +11,7 @@ public class Order {
 	private LocalDateTime date;
 	private Status status;
 	private BigDecimal total;
-	private User waiter;
+	private User user;
 
 	private List<Dish> dishes = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class Order {
 		}
 
 		public Builder setUser(User waiter) {
-			order.waiter = waiter;
+			order.user = waiter;
 			return this;
 		}
 
@@ -97,12 +97,12 @@ public class Order {
 		this.total = total;
 	}
 
-	public User getWaiter() {
-		return waiter;
+	public User getUser() {
+		return user;
 	}
 
-	public void setWaiter(User waiter) {
-		this.waiter = waiter;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<Dish> getDishes() {
@@ -121,7 +121,7 @@ public class Order {
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((total == null) ? 0 : total.hashCode());
-		result = prime * result + ((waiter == null) ? 0 : waiter.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -146,14 +146,14 @@ public class Order {
 			return false;
 		}
 
-		return ((waiter != null) ? waiter.equals(other.waiter) : other.waiter == null);
+		return ((user != null) ? user.equals(other.user) : other.user == null);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Order [id=").append(id).append(", date=").append(date).append(", status=").append(status)
-				.append(", total=").append(total).append(", waiter=").append(waiter).append(", dishes=").append(dishes)
+				.append(", total=").append(total).append(", user=").append(user).append(", dishes=").append(dishes)
 				.append("]");
 		return builder.toString();
 	}

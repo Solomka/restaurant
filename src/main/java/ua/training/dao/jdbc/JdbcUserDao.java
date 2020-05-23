@@ -236,12 +236,18 @@ public class JdbcUserDao implements UserDao {
 		}
 	}
 
-	private User extractUserFromResultSet(ResultSet resultSet) throws SQLException {
+	protected static User extractUserFromResultSet(ResultSet resultSet) throws SQLException {
 
 		return new User.Builder().setId(resultSet.getLong(ID)).setName(resultSet.getString(NAME))
 				.setSurname(resultSet.getString(SURNAME)).setAddress(resultSet.getString(ADDRESS))
 				.setPhone(resultSet.getString(PHONE)).setEmail(resultSet.getString(EMAIL))
 				.setRole(Role.forValue(resultSet.getString(ROLE))).setPassword(resultSet.getString(PASSWORD)).build();
+	}
+	
+	protected static User extractUserGeneralInfoFromResultSet(ResultSet resultSet) throws SQLException {
+
+		return new User.Builder().setId(resultSet.getLong(ID)).setName(resultSet.getString(NAME))
+				.setSurname(resultSet.getString(SURNAME)).build();
 	}
 
 	
