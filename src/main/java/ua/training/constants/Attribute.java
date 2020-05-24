@@ -4,41 +4,47 @@ public final class Attribute {
 	
 	
 	private Attribute() {
+
 	}
 	
-	public static String ERROR = "error";
-	public static String SUCCESS = "success";
-	public static String ERRORS = "errors";
+	public static final String ERROR = "error";
+	public static final String SUCCESS = "success";
+	public static final String ERRORS = "errors";
 
-	public static String LOCALES = "locales";
-	public static String LOCALE = "locale";
-	public static String LANG = "lang";
-	public static String USER = "user";
-	public static String USER_DTO = "userDto";
+	public static final String LOCALES = "locales";
+	public static final String LOCALE = "locale";
+	public static final String LANG = "lang";
+	public static final String USER = "user";
+	public static final String USER_DTO = "userDto";
 
-	public static String LOGIN_USER = "loginUser";
-	public static String EMAIL = "email";
-	public static String PASSWORD = "password";
+	public static final String LOGIN_USER = "loginUser";
+	public static final String EMAIL = "email";
+	public static final String PASSWORD = "password";
 	
-	public static String NAME = "name";
-	public static String SURNAME = "surname";
-	public static String ADDRESS = "address";
-	public static String PHONE = "phone";
-	public static String ROLE = "role";
-	public static String CONFIRM_PASSWORD = "confirmPassword";
+	public static final String NAME = "name";
+	public static final String SURNAME = "surname";
+	public static final String ADDRESS = "address";
+	public static final String PHONE = "phone";
+	public static final String ROLE = "role";
+	public static final String CONFIRM_PASSWORD = "confirmPassword";
 		
-	public static String USERS = "users";
-	public static String ROLES = "roles";
-	public static String FROM_DATE = "fromDate";
-	public static String TO_DATE = "toDate";
-	public static String ID_USER = "id_user";
-	public static String CATEGORIES = "categories";
-	public static String ID_CATEGORY = "id_category";
-	public static String CATEGORY = "category";
-	public static String DISHES = "dishes";
-	public static String ID_DISH = "id_dish";
-	public static String DESCRIPTION = "description";
-	public static String WEIGHT = "weight";
-	public static String COST = "cost";
-	public static String DISH = "dish";
+	public static final String USERS = "users";
+	public static final String ROLES = "roles";
+	public static final String FROM_DATE = "fromDate";
+	public static final String TO_DATE = "toDate";
+	public static final String ID_USER = "id_user";
+	public static final String CATEGORIES = "categories";
+	public static final String ID_CATEGORY = "id_category";
+	public static final String CATEGORY = "category";
+	public static final String DISHES = "dishes";
+	public static final String ID_DISH = "id_dish";
+	public static final String DESCRIPTION = "description";
+	public static final String WEIGHT = "weight";
+	public static final String COST = "cost";
+	public static final String DISH = "dish";
+	public static final String ORDERS = "orders";
+	public static final String ID_ORDER = "id_order";
+	public static final String ORDER = "order";
+	public static final String STATUSES = "statuses";
+	public static final String STATUS = "status";
 }

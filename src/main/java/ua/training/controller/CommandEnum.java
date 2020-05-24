@@ -23,6 +23,13 @@ import ua.training.controller.command.dish.SearchDishesByCategoryCommand;
 import ua.training.controller.command.dish.SearchDishesByNameCommand;
 import ua.training.controller.command.dish.SearchMostPopularDishesPerPeriodCommand;
 import ua.training.controller.command.i18n.ChangeLocaleCommand;
+import ua.training.controller.command.order.AllOrdersCommand;
+import ua.training.controller.command.order.DeleteOrderCommand;
+import ua.training.controller.command.order.GetAddOrderCommand;
+import ua.training.controller.command.order.GetUpdateOrderCommand;
+import ua.training.controller.command.order.PostAddOrderCommand;
+import ua.training.controller.command.order.PostUpdateOrderCommand;
+import ua.training.controller.command.order.SearchOrdersPerPeriod;
 import ua.training.controller.command.user.AllUsersCommand;
 import ua.training.controller.command.user.DeleteUserCommand;
 import ua.training.controller.command.user.GetAddUserCommand;
@@ -34,6 +41,7 @@ import ua.training.controller.command.user.SearchUserByRoleCommand;
 import ua.training.controller.command.user.SearchUserBySurnameCommand;
 import ua.training.service.CategoryService;
 import ua.training.service.DishService;
+import ua.training.service.OrderService;
 import ua.training.service.UserService;
 
 enum CommandEnum {
@@ -191,7 +199,8 @@ enum CommandEnum {
 	SEARCH_MOST_POPULAR_DISHES {
 		{
 			this.key = "POST:manager/dishes/bestDishes";
-			this.command = new SearchMostPopularDishesPerPeriodCommand(DishService.getInstance(), CategoryService.getInstance());
+			this.command = new SearchMostPopularDishesPerPeriodCommand(DishService.getInstance(),
+					CategoryService.getInstance());
 		}
 	},
 	GET_ADD_DISH {
@@ -222,6 +231,48 @@ enum CommandEnum {
 		{
 			this.key = "GET:manager/dishes/deleteDish";
 			this.command = new DeleteDishCommand(DishService.getInstance());
+		}
+	},
+	ALL_ORDERS {
+		{
+			this.key = "GET:orders";
+			this.command = new AllOrdersCommand(OrderService.getInstance());
+		}
+	},
+	SEARCH_ORDERS_PER_PERIOD {
+		{
+			this.key = "POST:manager/orders/perPeriod";
+			this.command = new SearchOrdersPerPeriod(OrderService.getInstance());
+		}
+	},
+	DELETE_ORDER {
+		{
+			this.key = "GET:manager/orders/deleteOrder";
+			this.command = new DeleteOrderCommand(OrderService.getInstance());
+		}
+	},
+	GET_ADD_ORDER {
+		{
+			this.key = "GET:waiter/orders/addOrder";
+			this.command = new GetAddOrderCommand(DishService.getInstance());
+		}
+	},
+	POST_ADD_ORDER {
+		{
+			this.key = "POST:waiter/orders/addOrder";
+			this.command = new PostAddOrderCommand(OrderService.getInstance(), DishService.getInstance());
+		}
+	},
+	GET_UPDATE_ORDER {
+		{
+			this.key = "GET:orders/updateOrder";
+			this.command = new GetUpdateOrderCommand(OrderService.getInstance(), DishService.getInstance());
+		}
+	},
+	POST_UPDATE_ORDER {
+		{
+			this.key = "POST:orders/updateOrder";
+			this.command = new PostUpdateOrderCommand(OrderService.getInstance());
 		}
 	};
 

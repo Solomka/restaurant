@@ -32,7 +32,7 @@ import ua.training.locale.Message;
  * @author Solomka
  *
  */
-@WebFilter(urlPatterns = { "/controller/librarian/*", "/controller/reader/*" })
+@WebFilter(urlPatterns = { "/controller/manager/*", "/controller/waiter/*", "/controller/orders/*" })
 public class UrlUnauthorizedAccessFilter implements Filter {
 
 	private final static Logger LOGGER = Logger.getLogger(UrlUnauthorizedAccessFilter.class);
@@ -74,13 +74,8 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 	}
 
 	private boolean isUserAuthorizedForResource(String servletPath, User user) {
-		return (isChiefPage(servletPath) && user.getRole().equals(Role.CHIEF)
-				|| (isManagerPage(servletPath) && user.getRole().equals(Role.MANAGER))
-				|| (isWaiterPage(servletPath) && user.getRole().equals(Role.WAITER)));
-	}
-
-	private boolean isChiefPage(String requestURI) {
-		return requestURI.contains(Role.CHIEF.getValue());
+		return (isManagerPage(servletPath) && user.getRole().equals(Role.MANAGER))
+				|| (isWaiterPage(servletPath) && user.getRole().equals(Role.WAITER));
 	}
 
 	private boolean isManagerPage(String requestURI) {

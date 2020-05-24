@@ -48,6 +48,9 @@
 							href="${pageContext.request.contextPath}/controller/manager/categories"><fmt:message
 									key="restaurant.categories" bundle="${rb}" /></a></li>
 					</c:if>
+					<li><a
+							href="${pageContext.request.contextPath}/controller/orders"><fmt:message
+									key="restaurant.orders" bundle="${rb}" /></a></li>
 				</c:if>
 			</ul>
 
