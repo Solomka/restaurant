@@ -53,7 +53,6 @@ public class Dish {
 		public Dish build() {
 			return dish;
 		}
-
 	}
 
 	public Long getId() {

@@ -18,7 +18,7 @@
 	<div class="row-fluid">
 		<div class="col-sm-6 col-sm-offset-3 ">
 			<c:choose>
-				<c:when test="${not empty requestScope.category.getId()}">
+				<c:when test="${not empty requestScope.order.getId()}">
 					<form action="./updateOrder" method="POST" role="form">
 				</c:when>
 				<c:otherwise>

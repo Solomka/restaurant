@@ -32,7 +32,7 @@ import ua.training.locale.Message;
  * @author Solomka
  *
  */
-@WebFilter(urlPatterns = { "/controller/manager/*", "/controller/waiter/*", "/controller/orders/*" })
+@WebFilter(urlPatterns = { "/controller/manager/*", "/controller/waiter/*" })
 public class UrlUnauthorizedAccessFilter implements Filter {
 
 	private final static Logger LOGGER = Logger.getLogger(UrlUnauthorizedAccessFilter.class);

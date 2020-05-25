@@ -27,30 +27,31 @@ public class JdbcOrderDao implements OrderDao {
 
 	private static String GET_ALL = "SELECT id_order, `date`, `status`, total, id_user, user.name, surname, dish.name"
 			+ " FROM `order` JOIN `user` USING(id_user) JOIN order_item USING(id_order) JOIN dish USING(id_dish)"
-			+ " ORDER BY date DESC";
+			+ " ORDER BY `date` DESC";
 	private static String GET_BY_ID = "SELECT id_order, `date`, `status`, total, id_user, user.name, surname, dish.name"
 			+ " FROM `order` JOIN `user` USING(id_user) JOIN order_item USING(id_order) JOIN dish USING(id_dish)"
 			+ " WHERE id_order=?" 
-			+ " ORDER BY date DESC";
+			+ " ORDER BY `date` DESC";
 
-	private static String CREATE = "INSERT INTO order (date, status, total, id_user) VALUES (?, ?, ?, ?)";
+	private static String CREATE = "INSERT INTO `order` (date, status, total, id_user) VALUES (?, ?, ?, ?)";
 	private static String SAVE_ORDER_DISHES = "INSERT INTO order_item (id_order, id_dish) VALUES (?, ?)";
 
-	private static String UPDATE = "UPDATE order SET status=? WHERE id_order=?";
-	private static String DELETE = "DELETE FROM order WHERE id_order=?";
+	private static String UPDATE = "UPDATE `order` SET `status`=? WHERE id_order=?";
+	private static String DELETE = "DELETE FROM `order` WHERE id_order=?";
 
 	private static String SEARCH_WAITER_ORDERS_PER_PERIOD = "SELECT id_order, `date`, `status`, total, id_user, user.name, surname, dish.name"
 			+ " FROM `order` JOIN `user` USING(id_user) JOIN order_item USING(id_order) JOIN dish USING(id_dish)"
-			+ " WHERE date=? AND id_user=?" 
-			+ " ORDER BY date DESC";
-	private static String SEARCH_UNPREPARED_ORDERS_PER_PERIOD = "SELECT id_order, `date`, `status`, total, id_user, user.name, surname, dish.name"
+			+ " WHERE DATE(`date`)=? AND id_user=?"
+			+ " ORDER BY `date` DESC";
+	private static String SEARCH_UNPREPARED_ORDERS_PER_PERIOD = "SELECT id_order, `date`, `status`, total, id_user, user.name, surname, dish.name" 
 			+ " FROM `order` JOIN `user` USING(id_user) JOIN order_item USING(id_order) JOIN dish USING(id_dish)"
-			+ " WHERE date=? AND (status='new' OR status='in progress')" 
-			+ " ORDER BY date DESC, status";
+			+ " WHERE DATE(`date`)=? AND (`status`='new' OR `status`='in progress')"
+			+ " ORDER BY `date` DESC, `status`";
 
 	private static String SEARCH_ORDERS_PER_PERIOD = "SELECT id_order, `date`, `status`, total, id_user, user.name, surname, dish.name"
 			+ " FROM `order` JOIN `user` USING(id_user) JOIN order_item USING(id_order) JOIN dish USING(id_dish)"
-			+ " WHERE date BETWEEN ? AND ?" + " ORDER BY date DESC";
+			+ " WHERE date BETWEEN ? AND ?" 
+			+ " ORDER BY `date` DESC";
 
 	// order table columns names
 	private static String ID = "id_order";
@@ -62,6 +63,7 @@ public class JdbcOrderDao implements OrderDao {
 	// order_item table columns names
 	private static String ID_ORDER = "order_item.id_order";
 	private static String ID_DISH = "order_item.id_dish";
+	private static String DISH_NAME = "dish.name";
 
 	private Connection connection;
 	private boolean connectionShouldBeClosed;
@@ -214,7 +216,7 @@ public class JdbcOrderDao implements OrderDao {
 
 		try (PreparedStatement query = connection.prepareStatement(SEARCH_ORDERS_PER_PERIOD)) {
 			query.setDate(1, Date.valueOf(fromDate));
-			query.setDate(1, Date.valueOf(toDate));
+			query.setDate(2, Date.valueOf(toDate));
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
 				orders.add(extractOrderWithDishesFromResultSet(resultSet));
@@ -240,9 +242,9 @@ public class JdbcOrderDao implements OrderDao {
 
 	protected static Order extractOrderWithDishesFromResultSet(ResultSet resultSet) throws SQLException {
 		Order order = extractOrderFromResultSet(resultSet);
-
-		while (resultSet.next() && order.equals(extractOrderFromResultSet(resultSet))) {
-			order.addDish(JdbcDishDao.extractDishFromResultSet(resultSet));
+		order.addDish(new Dish.Builder().setName(resultSet.getString(DISH_NAME)).build());
+		while (resultSet.next() && order.getId().equals(resultSet.getLong(ID))) {
+			order.addDish(new Dish.Builder().setName(resultSet.getString(DISH_NAME)).build());
 		}
 		resultSet.previous();
 		return order;
