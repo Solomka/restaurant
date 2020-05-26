@@ -18,6 +18,7 @@ import ua.training.controller.utils.HttpWrapper;
 import ua.training.controller.utils.RedirectionManager;
 import ua.training.entity.Dish;
 import ua.training.locale.Message;
+import ua.training.service.CategoryService;
 import ua.training.service.DishService;
 import ua.training.validator.field.AbstractFieldValidatorHandler;
 import ua.training.validator.field.FieldValidatorKey;
@@ -26,9 +27,11 @@ import ua.training.validator.field.FieldValidatorsChainGenerator;
 public class SearchDishesByNameCommand implements Command {
 
 	private DishService dishService;
+	private CategoryService categoryService;
 
-	public SearchDishesByNameCommand(DishService dishService) {
+	public SearchDishesByNameCommand(DishService dishService, CategoryService categoryService) {
 		this.dishService = dishService;
+		this.categoryService = categoryService;
 	}
 
 	@Override
@@ -56,6 +59,7 @@ public class SearchDishesByNameCommand implements Command {
 			return RedirectionManager.REDIRECTION;
 		}
 
+		request.setAttribute(Attribute.CATEGORIES, categoryService.getAllCategories());
 		request.setAttribute(Attribute.DISHES, dishes);
 		return Page.ALL_DISHES_VIEW;
 

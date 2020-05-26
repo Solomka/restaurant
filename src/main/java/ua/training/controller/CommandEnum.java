@@ -187,7 +187,7 @@ enum CommandEnum {
 	SEARCH_DISHES_BY_NAME {
 		{
 			this.key = "POST:dishes/name";
-			this.command = new SearchDishesByNameCommand(DishService.getInstance());
+			this.command = new SearchDishesByNameCommand(DishService.getInstance(), CategoryService.getInstance());
 		}
 	},
 	SEARCH_DISHES_BY_CATEGORY {

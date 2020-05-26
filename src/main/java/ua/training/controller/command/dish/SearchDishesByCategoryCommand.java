@@ -56,8 +56,8 @@ public class SearchDishesByCategoryCommand implements Command {
 			return RedirectionManager.REDIRECTION;
 		}
 
-		request.setAttribute(Attribute.DISHES, dishes);
 		request.setAttribute(Attribute.CATEGORIES, categoryService.getAllCategories());
+		request.setAttribute(Attribute.DISHES, dishes);
 		return Page.ALL_DISHES_VIEW;
 
 	}
