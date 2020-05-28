@@ -19,6 +19,8 @@ public class UserService {
 
 	private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 
+	static final String GET_ALL_USERS = "Get all users";
+
 	private DaoFactory daoFactory;
 
 	UserService(DaoFactory daoFactory) {
@@ -34,7 +36,7 @@ public class UserService {
 	}
 
 	public List<User> getAllUsers() {
-		LOGGER.info("Get all users");
+		LOGGER.info(GET_ALL_USERS);
 		try (UserDao userDao = daoFactory.createUserDao()) {
 			return userDao.getAll();
 		}
