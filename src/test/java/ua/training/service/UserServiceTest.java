@@ -56,7 +56,6 @@ public class UserServiceTest {
     }
 
     @Test
-    // @Ignore
     public void shouldGetAllUsersOnGetAllUsers() {
         List<User> users = UserTestData.generateUsersList();
         doReturn(users).when(userDao).getAll();

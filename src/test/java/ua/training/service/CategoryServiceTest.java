@@ -1,0 +1,128 @@
+package ua.training.service;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import ua.training.dao.CategoryDao;
+import ua.training.dao.DaoFactory;
+import ua.training.entity.Category;
+import ua.training.entity.User;
+import ua.training.testData.CategoryTestData;
+import ua.training.testData.UserTestData;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
+import static ua.training.service.CategoryService.*;
+import static ua.training.service.UserService.SEARCH_USERS_BY_SURNAME;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(LogManager.class)
+public class CategoryServiceTest {
+
+    private static Logger LOGGER;
+
+    @Mock
+    private DaoFactory daoFactory;
+    @InjectMocks
+    private CategoryService categoryService;
+    @Mock
+    private CategoryDao categoryDao;
+
+    @BeforeClass
+    public static void setUp() {
+        LOGGER = PowerMockito.mock(Logger.class);
+        PowerMockito.mockStatic(LogManager.class);
+        PowerMockito.when(LogManager.getLogger(CategoryService.class)).thenReturn(LOGGER);
+    }
+
+    @Before
+    public void setUpBeforeMethod() {
+        categoryService = new CategoryService(daoFactory);
+        when(daoFactory.createCategoryDao()).thenReturn(categoryDao);
+    }
+
+    @Test
+    public void shouldGetAllCategoriesOnGetAllCategories() {
+        List<Category> categories = CategoryTestData.generateCategoryList();
+        doReturn(categories).when(categoryDao).getAll();
+
+        List<Category> actualCategories = categoryService.getAllCategories();
+
+        assertEquals(categories, actualCategories);
+        verify(LOGGER, times(1)).info(GET_ALL_CATEGORIES);
+        verify(daoFactory).createCategoryDao();
+        verify(categoryDao).getAll();
+    }
+
+    @Test
+    public void shouldReturnCategoryOnGetCategoryById() {
+        Optional<Category> category = CategoryTestData.generateOptionalCategory();
+        Long categoryId = 1L;
+        doReturn(category).when(categoryDao).getById(categoryId);
+
+        Optional<Category> actualCategory = categoryService.getCategoryById(categoryId);
+
+        assertEquals(category.get(), actualCategory.get());
+        verify(LOGGER, times(1)).info(String.format(GET_CATEGORY_BY_ID, categoryId));
+        verify(daoFactory).createCategoryDao();
+        verify(categoryDao).getById(categoryId);
+    }
+
+    @Test
+    public void shouldCreateCategoryOnCreateCategory() {
+        Category category = CategoryTestData.generateCategoryForCreation();
+
+        categoryService.createCategory(category);
+
+        verify(LOGGER, times(1)).info(String.format(CREATE_CATEGORY, category.getName()));
+        verify(daoFactory).createCategoryDao();
+        verify(categoryDao).create(category);
+    }
+
+    @Test
+    public void shouldUpdateUserOnUpdateUser() {
+        Category category = CategoryTestData.generateCategoryForUpdate();
+
+        categoryService.updateCategory(category);
+
+        verify(LOGGER, times(1)).info(String.format(UPDATE_CATEGORY, category.getName()));
+        verify(daoFactory).createCategoryDao();
+        verify(categoryDao).update(category);
+    }
+
+    @Test
+    public void shouldDeleteUserOnDeleteUser() {
+        Long categoryId = 1L;
+
+        categoryService.deleteCategory(categoryId);
+
+        verify(LOGGER, times(1)).info(String.format(DELETE_CATEGORY, categoryId));
+        verify(daoFactory).createCategoryDao();
+        verify(categoryDao).delete(categoryId);
+    }
+
+    @Test
+    public void shouldSearchCategoryOnSearchCategoriesByName() {
+        List<Category> expectedResult = CategoryTestData.generateCategoryForSearch();
+        String name = "meat";
+        doReturn(expectedResult).when(categoryDao).searchCategoriesByName(name);
+
+        List<Category> actualResult = categoryService.searchCategoriesByName(name);
+
+        assertEquals(expectedResult, actualResult);
+        verify(LOGGER, times(1)).info(String.format(SEARCH_CATEGORIES_BY_NAME, name));
+        verify(daoFactory).createCategoryDao();
+        verify(categoryDao).searchCategoriesByName(name);
+    }
+}
