@@ -215,7 +215,7 @@ public class JdbcDishDao implements DishDao {
 	
 	protected static Dish extractDishFromResultSet(ResultSet resultSet) throws SQLException {
 		return new Dish.Builder().setId(resultSet.getLong(ID)).setName(resultSet.getString(NAME))
-				.setDescriprion(resultSet.getString(DESCRIPTION)).setWeight(resultSet.getDouble(WEIGHT))
+				.setDescription(resultSet.getString(DESCRIPTION)).setWeight(resultSet.getDouble(WEIGHT))
 				.setCost(resultSet.getBigDecimal(COST)).setCategory(JdbcCategoryDao.extractCategoryFromResultSet(resultSet))
 				.build();
 	}

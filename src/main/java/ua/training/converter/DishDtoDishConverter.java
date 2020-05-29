@@ -13,7 +13,7 @@ public final class DishDtoDishConverter {
 
 	public static Dish toDish(DishDto dishDto) {
 		Dish.Builder dishBuilder = new Dish.Builder().setName(dishDto.getName())
-				.setDescriprion(dishDto.getDescription()).setWeight(Double.parseDouble(dishDto.getWeight()))
+				.setDescription(dishDto.getDescription()).setWeight(Double.parseDouble(dishDto.getWeight()))
 				.setCost(new BigDecimal(dishDto.getCost())).setCategory(dishDto.getCategory());
 
 		if (dishDto.getId() != null) {

@@ -14,9 +14,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import ua.training.dao.CategoryDao;
 import ua.training.dao.DaoFactory;
 import ua.training.entity.Category;
-import ua.training.entity.User;
-import ua.training.testData.CategoryTestData;
-import ua.training.testData.UserTestData;
+import ua.training.testData.CategoryTestDataGenerator;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +22,6 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static ua.training.service.CategoryService.*;
-import static ua.training.service.UserService.SEARCH_USERS_BY_SURNAME;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(LogManager.class)
@@ -54,12 +51,12 @@ public class CategoryServiceTest {
 
     @Test
     public void shouldGetAllCategoriesOnGetAllCategories() {
-        List<Category> categories = CategoryTestData.generateCategoryList();
-        doReturn(categories).when(categoryDao).getAll();
+        List<Category> expectedResult = CategoryTestDataGenerator.generateCategoryList();
+        when(categoryDao.getAll()).thenReturn(expectedResult);
 
-        List<Category> actualCategories = categoryService.getAllCategories();
+        List<Category> actualResult = categoryService.getAllCategories();
 
-        assertEquals(categories, actualCategories);
+        assertEquals(expectedResult, actualResult);
         verify(LOGGER, times(1)).info(GET_ALL_CATEGORIES);
         verify(daoFactory).createCategoryDao();
         verify(categoryDao).getAll();
@@ -67,13 +64,13 @@ public class CategoryServiceTest {
 
     @Test
     public void shouldReturnCategoryOnGetCategoryById() {
-        Optional<Category> category = CategoryTestData.generateOptionalCategory();
+        Optional<Category> expectedResult = CategoryTestDataGenerator.generateOptionalCategory();
         Long categoryId = 1L;
-        doReturn(category).when(categoryDao).getById(categoryId);
+        when(categoryDao.getById(categoryId)).thenReturn(expectedResult);
 
-        Optional<Category> actualCategory = categoryService.getCategoryById(categoryId);
+        Optional<Category> actualResult = categoryService.getCategoryById(categoryId);
 
-        assertEquals(category.get(), actualCategory.get());
+        assertEquals(expectedResult.get(), actualResult.get());
         verify(LOGGER, times(1)).info(String.format(GET_CATEGORY_BY_ID, categoryId));
         verify(daoFactory).createCategoryDao();
         verify(categoryDao).getById(categoryId);
@@ -81,7 +78,7 @@ public class CategoryServiceTest {
 
     @Test
     public void shouldCreateCategoryOnCreateCategory() {
-        Category category = CategoryTestData.generateCategoryForCreation();
+        Category category = CategoryTestDataGenerator.generateCategoryForCreation();
 
         categoryService.createCategory(category);
 
@@ -92,11 +89,11 @@ public class CategoryServiceTest {
 
     @Test
     public void shouldUpdateUserOnUpdateUser() {
-        Category category = CategoryTestData.generateCategoryForUpdate();
+        Category category = CategoryTestDataGenerator.generateCategoryForUpdate();
 
         categoryService.updateCategory(category);
 
-        verify(LOGGER, times(1)).info(String.format(UPDATE_CATEGORY, category.getName()));
+        verify(LOGGER, times(1)).info(String.format(UPDATE_CATEGORY, category.getId()));
         verify(daoFactory).createCategoryDao();
         verify(categoryDao).update(category);
     }
@@ -114,9 +111,9 @@ public class CategoryServiceTest {
 
     @Test
     public void shouldSearchCategoryOnSearchCategoriesByName() {
-        List<Category> expectedResult = CategoryTestData.generateCategoryForSearch();
+        List<Category> expectedResult = CategoryTestDataGenerator.generateCategoryForSearch();
         String name = "meat";
-        doReturn(expectedResult).when(categoryDao).searchCategoriesByName(name);
+        when(categoryDao.searchCategoriesByName(name)).thenReturn(expectedResult);
 
         List<Category> actualResult = categoryService.searchCategoriesByName(name);
 

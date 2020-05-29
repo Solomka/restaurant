@@ -29,7 +29,7 @@ public class Dish {
 			return this;
 		}
 
-		public Builder setDescriprion(String description) {
+		public Builder setDescription(String description) {
 			dish.description = description;
 			return this;
 		}

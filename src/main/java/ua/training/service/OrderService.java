@@ -16,7 +16,7 @@ public class OrderService {
 
 	private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
 
-	private DaoFactory daoFactory;
+	private final DaoFactory daoFactory;
 
 	OrderService(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;

@@ -22,13 +22,13 @@ public class UserService {
     static final String GET_USER_BY_ID = "Get user by id: %d";
     static final String GET_USER_BY_CREDENTIALS = "Get user by credentials: %s";
     static final String CREATE_USER = "Create user: %s";
-    static final String UPDATE_USER = "Update user: %s";
+    static final String UPDATE_USER = "Update user: %d";
     static final String DELETE_USER = "Delete user: %d";
     static final String SEARCH_USERS_BY_SURNAME = "Search users by surname: %s";
     static final String SEARCH_USERS_BY_ROLE = "Search users by role: %s";
     static final String SEARCH_BEST_WAITER_PER_PERIOD = "Search best waiter per period from  %s to %s";
 
-    private DaoFactory daoFactory;
+    private final DaoFactory daoFactory;
 
     UserService(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
@@ -72,7 +72,7 @@ public class UserService {
     }
 
     public void updateUser(UserDto userDto) {
-        LOGGER.info(String.format(UPDATE_USER, userDto.getEmail()));
+        LOGGER.info(String.format(UPDATE_USER, userDto.getId()));
         User user = UserDtoUserConverter.toUser(userDto);
         try (UserDao userDao = daoFactory.createUserDao()) {
             userDao.update(user);

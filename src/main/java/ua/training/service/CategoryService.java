@@ -16,11 +16,11 @@ public class CategoryService {
     static final String GET_ALL_CATEGORIES = "Get all categories";
     static final String GET_CATEGORY_BY_ID = "Get category by id: %d";
     static final String CREATE_CATEGORY = "Create category: %s";
-    static final String UPDATE_CATEGORY = "Update category: %s";
+    static final String UPDATE_CATEGORY = "Update category: %d";
     static final String DELETE_CATEGORY = "Delete category: %d";
     static final String SEARCH_CATEGORIES_BY_NAME = "Search categories by name: %s";
 
-    private DaoFactory daoFactory;
+    private final DaoFactory daoFactory;
 
     CategoryService(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
@@ -56,7 +56,7 @@ public class CategoryService {
     }
 
     public void updateCategory(Category category) {
-        LOGGER.info(String.format(UPDATE_CATEGORY, category.getName()));
+        LOGGER.info(String.format(UPDATE_CATEGORY, category.getId()));
         try (CategoryDao categoryDao = daoFactory.createCategoryDao()) {
             categoryDao.update(category);
         }

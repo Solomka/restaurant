@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserTestData {
+public final class UserTestDataGenerator {
 
-    private UserTestData() {
+    private UserTestDataGenerator() {
 
     }
 
     public static List<User> generateUsersList() {
         return new ArrayList<User>() {
             {
-                add(new User.Builder().setId(new Long(1)).setName("test name 1").setSurname("test surname 1")
+                add(new User.Builder().setId(1L).setName("test name 1").setSurname("test surname 1")
                         .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
                         .setEmail("test1@gmail.com").build());
-                add(new User.Builder().setId(new Long(2)).setName("test name 2").setSurname("test surname 2")
+                add(new User.Builder().setId(2L).setName("test name 2").setSurname("test surname 2")
                         .setAddress("test address 2").setRole(Role.MANAGER).setPhone("2222222222").setPassword("testpass2")
                         .setEmail("test2@gmail.com").build());
             }
@@ -28,7 +28,7 @@ public class UserTestData {
     }
 
     public static Optional<User> generateOptionalUser() {
-        return Optional.of(new User.Builder().setId(new Long(1)).setName("test name 1").setSurname("test surname 1")
+        return Optional.of(new User.Builder().setId(1L).setName("test name 1").setSurname("test surname 1")
                 .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
                 .setEmail("test1@gmail.com").build());
     }
@@ -40,7 +40,7 @@ public class UserTestData {
     }
 
     public static UserDto generateUserForUpdate() {
-        return new UserDto.Builder().setId(new Long(1)).setName("test name 1").setSurname("test surname 1")
+        return new UserDto.Builder().setId(1L).setName("test name 1").setSurname("test surname 1")
                 .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
                 .setConfirmPassword("testpass1").setEmail("test1@gmail.com").build();
     }
@@ -48,7 +48,7 @@ public class UserTestData {
     public static List<User> generateUserForSearch() {
         return new ArrayList<User>() {
             {
-                add(new User.Builder().setId(new Long(1)).setName("test name 1").setSurname("testSurname")
+                add(new User.Builder().setId(1L).setName("test name 1").setSurname("testSurname")
                         .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
                         .setEmail("test1@gmail.com").build());
             }

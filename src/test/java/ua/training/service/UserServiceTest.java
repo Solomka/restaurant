@@ -18,7 +18,7 @@ import ua.training.dto.CredentialsDto;
 import ua.training.dto.UserDto;
 import ua.training.entity.Role;
 import ua.training.entity.User;
-import ua.training.testData.UserTestData;
+import ua.training.testData.UserTestDataGenerator;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -57,12 +57,12 @@ public class UserServiceTest {
 
     @Test
     public void shouldGetAllUsersOnGetAllUsers() {
-        List<User> users = UserTestData.generateUsersList();
-        doReturn(users).when(userDao).getAll();
+        List<User> expectedResult = UserTestDataGenerator.generateUsersList();
+        when(userDao.getAll()).thenReturn(expectedResult);
 
-        List<User> actualUsers = userService.getAllUsers();
+        List<User> actualResult = userService.getAllUsers();
 
-        assertEquals(users, actualUsers);
+        assertEquals(expectedResult, actualResult);
         verify(LOGGER, times(1)).info(GET_ALL_USERS);
         verify(daoFactory).createUserDao();
         verify(userDao).getAll();
@@ -70,13 +70,13 @@ public class UserServiceTest {
 
     @Test
     public void shouldReturnUserWhenValidIdOnGetUserById() {
-        Optional<User> user = UserTestData.generateOptionalUser();
+        Optional<User> expectedResult = UserTestDataGenerator.generateOptionalUser();
         Long userId = 1L;
-        doReturn(user).when(userDao).getById(userId);
+        when(userDao.getById(userId)).thenReturn(expectedResult);
 
-        Optional<User> actualUser = userService.getUserById(userId);
+        Optional<User> actualResult = userService.getUserById(userId);
 
-        assertEquals(user.get(), actualUser.get());
+        assertEquals(expectedResult.get(), actualResult.get());
         verify(LOGGER, times(1)).info(String.format(GET_USER_BY_ID, userId));
         verify(daoFactory).createUserDao();
         verify(userDao).getById(userId);
@@ -84,14 +84,14 @@ public class UserServiceTest {
 
     @Test
     public void shouldReturnUserByCredsOnGetUserByCredentials() {
-        Optional<User> user = UserTestData.generateOptionalUser();
+        Optional<User> expectedResult = UserTestDataGenerator.generateOptionalUser();
         String email = "test1@gmail.com";
         String pass = "testpass1";
-        doReturn(user).when(userDao).getUserByCredentials(email, pass);
+        when(userDao.getUserByCredentials(email, pass)).thenReturn(expectedResult);
 
-        Optional<User> actualUser = userService.getUserByCredentials(new CredentialsDto(email, pass));
+        Optional<User> actualResult = userService.getUserByCredentials(new CredentialsDto(email, pass));
 
-        assertEquals(user.get(), actualUser.get());
+        assertEquals(expectedResult.get(), actualResult.get());
         verify(LOGGER, times(1)).info(String.format(GET_USER_BY_CREDENTIALS, email));
         verify(daoFactory).createUserDao();
         verify(userDao).getUserByCredentials(email, pass);
@@ -99,7 +99,7 @@ public class UserServiceTest {
 
     @Test
     public void shouldCreateUserOnCreateUser() {
-        UserDto userDto = UserTestData.generateUserForCreation();
+        UserDto userDto = UserTestDataGenerator.generateUserForCreation();
 
         userService.createUser(userDto);
 
@@ -110,11 +110,11 @@ public class UserServiceTest {
 
     @Test
     public void shouldUpdateUserOnUpdateUser() {
-        UserDto userDto = UserTestData.generateUserForUpdate();
+        UserDto userDto = UserTestDataGenerator.generateUserForUpdate();
 
         userService.updateUser(userDto);
 
-        verify(LOGGER, times(1)).info(String.format(UPDATE_USER, userDto.getEmail()));
+        verify(LOGGER, times(1)).info(String.format(UPDATE_USER, userDto.getId()));
         verify(daoFactory).createUserDao();
         verify(userDao).update(UserDtoUserConverter.toUser(userDto));
     }
@@ -132,9 +132,9 @@ public class UserServiceTest {
 
     @Test
     public void shouldSearchUserOnSearchUsersBySurname() {
-        List<User> expectedResult = UserTestData.generateUserForSearch();
+        List<User> expectedResult = UserTestDataGenerator.generateUserForSearch();
         String surname = "testSurname";
-        doReturn(expectedResult).when(userDao).searchUsersBySurname(surname);
+        when(userDao.searchUsersBySurname(surname)).thenReturn(expectedResult);
 
         List<User> actualResult = userService.searchUsersBySurname(surname);
 
@@ -146,9 +146,9 @@ public class UserServiceTest {
 
     @Test
     public void shouldSearchUserOnSearchUsersByRole() {
-        List<User> expectedResult = UserTestData.generateUserForSearch();
+        List<User> expectedResult = UserTestDataGenerator.generateUserForSearch();
         Role role = Role.WAITER;
-        doReturn(expectedResult).when(userDao).searchUsersByRole(role);
+        when(userDao.searchUsersByRole(role)).thenReturn(expectedResult);
 
         List<User> actualResult = userService.searchUsersByRole(role);
 
@@ -160,10 +160,10 @@ public class UserServiceTest {
 
     @Test
     public void shouldSearchUserOnSearchBestWaitersPerPeriod() {
-        List<User> expectedResult = UserTestData.generateUserForSearch();
+        List<User> expectedResult = UserTestDataGenerator.generateUserForSearch();
         LocalDate fromDate = LocalDate.of(2020, Month.MAY, 1);
         LocalDate toDate = LocalDate.of(2020, Month.MAY, 29);
-        doReturn(expectedResult).when(userDao).searchBestWaitersPerPeriod(fromDate, toDate);
+        when(userDao.searchBestWaitersPerPeriod(fromDate, toDate)).thenReturn(expectedResult);
 
         List<User> actualResult = userService.searchBestWaitersPerPeriod(fromDate, toDate);
 
