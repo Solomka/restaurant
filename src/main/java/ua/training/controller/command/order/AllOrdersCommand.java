@@ -36,7 +36,7 @@ public class AllOrdersCommand implements Command {
 		if (loggedInUser.getRole().equals(Role.WAITER)) {
 			orders = orderService.searchWaiterOrdersPerToday(loggedInUser.getId(), LocalDate.now());
 		} else if (loggedInUser.getRole().equals(Role.CHIEF)) {
-			orders = orderService.searchUpreparedOrdersForToday(LocalDate.now());
+			orders = orderService.searchUnpreparedOrdersForToday(LocalDate.now());
 		} else if (loggedInUser.getRole().equals(Role.MANAGER)) {
 			orders = orderService.getAllOrders();
 		}
