@@ -8,7 +8,7 @@ public final class MessageLocale {
 	private MessageLocale() {
 	}
 
-	public static final String MESSAGES_BUNDLE_NAME = "/i18n/messages";
+	public static final String MESSAGES_BUNDLE_NAME = "i18n/messages";
 
 	// default Locale
 	public static ResourceBundle BUNDLE = ResourceBundle.getBundle(MESSAGES_BUNDLE_NAME, new Locale("en", "US"));

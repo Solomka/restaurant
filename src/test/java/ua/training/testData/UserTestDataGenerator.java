@@ -1,5 +1,6 @@
 package ua.training.testData;
 
+import ua.training.dto.CredentialsDto;
 import ua.training.dto.UserDto;
 import ua.training.entity.Role;
 import ua.training.entity.User;
@@ -53,5 +54,15 @@ public final class UserTestDataGenerator {
                         .setEmail("test1@gmail.com").build());
             }
         };
+    }
+
+    public static CredentialsDto generateCredentialsDtoWithValidCreds(){
+        return new CredentialsDto("pytlyk@gmail.com", "pytlyk777");
+    }
+
+    public static User generateUser(){
+        return new User.Builder().setId(1L).setName("vika").setSurname("pytlyk")
+                .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("pytlyk777")
+                .setEmail("pytlyk@gmail.com").build();
     }
 }

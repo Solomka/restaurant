@@ -88,7 +88,7 @@ public class FrontController extends HttpServlet {
 	 * has occured
 	 * 
 	 * @param httpWrapper
-	 * @param resultRedirectResource
+	 * @param resultedRedirectResource
 	 *            returned by the concrete command resulted
 	 * @throws ServletException
 	 * @throws IOException

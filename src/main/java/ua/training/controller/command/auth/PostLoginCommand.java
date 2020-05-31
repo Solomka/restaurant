@@ -46,7 +46,7 @@ public class PostLoginCommand implements Command {
 		List<String> errors = validateUserInput(credentialsDto);
 
 		if (!errors.isEmpty()) {
-			addRequestAtrributes(request, credentialsDto, errors);
+			addRequestAttributes(request, credentialsDto, errors);
 			return Page.LOGIN_VIEW;
 		}
 
@@ -58,7 +58,7 @@ public class PostLoginCommand implements Command {
 		}
 		errors.add(Message.INVALID_CREDENTIALS);
 
-		addRequestAtrributes(request, credentialsDto, errors);
+		addRequestAttributes(request, credentialsDto, errors);
 		return Page.LOGIN_VIEW;
 	}
 
@@ -70,7 +70,7 @@ public class PostLoginCommand implements Command {
 		return CredentialsDtoValidator.getInstance().validate(credentialsDto);
 	}
 
-	private void addRequestAtrributes(HttpServletRequest request, CredentialsDto credentialsDto, List<String> errors) {
+	private void addRequestAttributes(HttpServletRequest request, CredentialsDto credentialsDto, List<String> errors) {
 		request.setAttribute(Attribute.LOGIN_USER, credentialsDto);
 		request.setAttribute(Attribute.ERRORS, errors);
 	}
