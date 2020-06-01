@@ -16,7 +16,7 @@ import ua.training.service.UserService;
 
 public class AllUsersCommand implements Command {
 
-	private UserService userService;
+	private final UserService userService;
 
 	public AllUsersCommand(UserService userService) {
 		this.userService = userService;

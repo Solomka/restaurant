@@ -25,7 +25,7 @@ import ua.training.validator.entity.CredentialsDtoValidator;
 
 public class PostLoginCommand implements Command {
 
-	private UserService userService;
+	private final UserService userService;
 
 	public PostLoginCommand(UserService userService) {
 		this.userService = userService;

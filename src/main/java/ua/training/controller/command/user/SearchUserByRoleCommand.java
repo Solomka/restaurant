@@ -23,7 +23,7 @@ import ua.training.service.UserService;
 
 public class SearchUserByRoleCommand implements Command{
 	
-	private UserService userService;
+	private final UserService userService;
 
 	public SearchUserByRoleCommand(UserService userService) {
 		this.userService = userService;
@@ -57,7 +57,6 @@ public class SearchUserByRoleCommand implements Command{
 		request.setAttribute(Attribute.USERS, users);
 		request.setAttribute(Attribute.ROLES, Role.values());
 		return Page.ALL_USERS_VIEW;
-
 	}
 
 	private List<String> validateUserInput(String role) {

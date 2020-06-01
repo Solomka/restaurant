@@ -24,7 +24,7 @@ import ua.training.service.UserService;
 
 public class SearchBestWaitersPerPeriod implements Command {
 
-	private UserService userService;
+	private final UserService userService;
 
 	public SearchBestWaitersPerPeriod(UserService userService) {
 		this.userService = userService;

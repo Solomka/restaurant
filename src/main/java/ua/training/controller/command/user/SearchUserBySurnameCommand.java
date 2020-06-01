@@ -16,6 +16,7 @@ import ua.training.constants.ServletPath;
 import ua.training.controller.command.Command;
 import ua.training.controller.utils.HttpWrapper;
 import ua.training.controller.utils.RedirectionManager;
+import ua.training.entity.Role;
 import ua.training.entity.User;
 import ua.training.locale.Message;
 import ua.training.service.UserService;
@@ -25,7 +26,7 @@ import ua.training.validator.field.FieldValidatorsChainGenerator;
 
 public class SearchUserBySurnameCommand implements Command {
 
-	private UserService userService;
+	private final UserService userService;
 
 	public SearchUserBySurnameCommand(UserService userService) {
 		this.userService = userService;
@@ -57,6 +58,7 @@ public class SearchUserBySurnameCommand implements Command {
 		}
 
 		request.setAttribute(Attribute.USERS, users);
+		request.setAttribute(Attribute.ROLES, Role.values());
 		return Page.ALL_USERS_VIEW;
 
 	}

@@ -23,7 +23,7 @@ import ua.training.validator.entity.UserDtoValidator;
 
 public class PostUpdateUserCommand implements Command {
 
-	private UserService userService;
+	private final UserService userService;
 
 	public PostUpdateUserCommand(UserService userService) {
 		this.userService = userService;

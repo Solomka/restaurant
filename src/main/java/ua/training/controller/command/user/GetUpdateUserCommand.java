@@ -15,7 +15,7 @@ import ua.training.service.UserService;
 
 public class GetUpdateUserCommand implements Command {
 	
-	private UserService userService;
+	private final UserService userService;
 	
 	public GetUpdateUserCommand (UserService userService) {
 		this.userService = userService;
@@ -31,5 +31,4 @@ public class GetUpdateUserCommand implements Command {
 		
 		return Page.ADD_UPDATE_USER_VIEW;
 	}
-
 }
