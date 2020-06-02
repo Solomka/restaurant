@@ -20,12 +20,15 @@ import ua.training.entity.Role;
 import ua.training.entity.User;
 import ua.training.locale.Message;
 import ua.training.service.UserService;
+import ua.training.validator.field.AbstractFieldValidatorHandler;
+import ua.training.validator.field.FieldValidatorKey;
+import ua.training.validator.field.FieldValidatorsChainGenerator;
 
-public class SearchUserByRoleCommand implements Command{
-	
+public class SearchUsersBySurnameCommand implements Command {
+
 	private final UserService userService;
 
-	public SearchUserByRoleCommand(UserService userService) {
+	public SearchUsersBySurnameCommand(UserService userService) {
 		this.userService = userService;
 	}
 
@@ -33,8 +36,8 @@ public class SearchUserByRoleCommand implements Command{
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String role = request.getParameter(Attribute.ROLE);
-		List<String> errors = validateUserInput(role);
+		String surname = request.getParameter(Attribute.SURNAME);
+		List<String> errors = validateUserInput(surname);
 		HttpWrapper httpWrapper = new HttpWrapper(request, response);
 		Map<String, String> urlParams;
 
@@ -45,7 +48,7 @@ public class SearchUserByRoleCommand implements Command{
 			return RedirectionManager.REDIRECTION;
 		}
 
-		List<User> users = userService.searchUsersByRole(Role.forValue(role));
+		List<User> users = userService.searchUsersBySurname(surname);
 
 		if (users.isEmpty()) {
 			urlParams = new HashMap<>();
@@ -57,16 +60,14 @@ public class SearchUserByRoleCommand implements Command{
 		request.setAttribute(Attribute.USERS, users);
 		request.setAttribute(Attribute.ROLES, Role.values());
 		return Page.ALL_USERS_VIEW;
+
 	}
 
-	private List<String> validateUserInput(String role) {
+	private List<String> validateUserInput(String surname) {
 		List<String> errors = new ArrayList<>();
-		
-		if(role.isEmpty()) {
-			errors.add(Message.INVALID_ROLE);
-		}
 
+		AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorsChain();
+		fieldValidator.validateField(FieldValidatorKey.SURNAME, surname, errors);
 		return errors;
 	}
-
 }

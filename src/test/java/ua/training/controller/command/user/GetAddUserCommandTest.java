@@ -27,7 +27,7 @@ public class GetAddUserCommandTest {
     private GetAddUserCommand getAddUserCommand;
 
     @Test
-    public void shouldReturnLoginViewOnExecute() throws ServletException, IOException {
+    public void shouldReturnAddUserViewViewOnExecute() throws ServletException, IOException {
         String expectedResult = Page.ADD_UPDATE_USER_VIEW;
         getAddUserCommand = new GetAddUserCommand();
 

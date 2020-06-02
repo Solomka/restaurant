@@ -33,13 +33,13 @@ public class GetUpdateUserCommandTest {
     private GetUpdateUserCommand getUpdateUserCommand;
 
     @Test
-    public void shouldReturnLoginViewOnExecute() throws ServletException, IOException {
-        String expectedResult = Page.ADD_UPDATE_USER_VIEW;
-        getUpdateUserCommand = new GetUpdateUserCommand(userService);
+    public void shouldReturnUpdateUserViewOnExecute() throws ServletException, IOException {
         when(httpServletRequest.getParameter(Attribute.ID_USER)).thenReturn("1");
         Long userId = 1L;
         Optional<User> user = UserTestDataGenerator.generateOptionalUser();
         when(userService.getUserById(userId)).thenReturn(user);
+        String expectedResult = Page.ADD_UPDATE_USER_VIEW;
+        getUpdateUserCommand = new GetUpdateUserCommand(userService);
 
         String actualResult = getUpdateUserCommand.execute(httpServletRequest, httpServletResponse);
 

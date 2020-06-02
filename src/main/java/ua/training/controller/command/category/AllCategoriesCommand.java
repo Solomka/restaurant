@@ -15,7 +15,7 @@ import ua.training.service.CategoryService;
 
 public class AllCategoriesCommand implements Command {
 
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
 
 	public AllCategoriesCommand(CategoryService categoryService) {
 		this.categoryService = categoryService;

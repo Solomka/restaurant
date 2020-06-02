@@ -25,7 +25,7 @@ import ua.training.validator.field.FieldValidatorsChainGenerator;
 
 public class SearchCategoriesByName implements Command {
 
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
 
 	public SearchCategoriesByName(CategoryService userService) {
 		this.categoryService = userService;
@@ -58,15 +58,13 @@ public class SearchCategoriesByName implements Command {
 
 		request.setAttribute(Attribute.CATEGORIES, categories);
 		return Page.ALL_CATEGORIES_VIEW;
-
 	}
 
-	private List<String> validateUserInput(String surname) {
+	private List<String> validateUserInput(String name) {
 		List<String> errors = new ArrayList<>();
 
 		AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorsChain();
-		fieldValidator.validateField(FieldValidatorKey.SURNAME, surname, errors);
+		fieldValidator.validateField(FieldValidatorKey.NAME, name, errors);
 		return errors;
 	}
-
 }

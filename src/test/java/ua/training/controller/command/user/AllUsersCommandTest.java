@@ -35,7 +35,7 @@ public class AllUsersCommandTest {
     private AllUsersCommand allUsersCommand;
 
     @Test
-    public void shouldReturnLoginViewOnExecute() throws ServletException, IOException {
+    public void shouldReturnAllUsersOnExecute() throws ServletException, IOException {
         List<User> users = UserTestDataGenerator.generateUsersList();
         when(userService.getAllUsers()).thenReturn(users);
         String expectedResult = Page.ALL_USERS_VIEW;

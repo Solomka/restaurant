@@ -15,7 +15,7 @@ import ua.training.service.CategoryService;
 
 public class GetUpdateCategoryCommand implements Command {
 
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
 
 	public GetUpdateCategoryCommand(CategoryService categoryService) {
 		this.categoryService = categoryService;
@@ -31,5 +31,4 @@ public class GetUpdateCategoryCommand implements Command {
 
 		return Page.ADD_UPDATE_CATEGORY_VIEW;
 	}
-
 }

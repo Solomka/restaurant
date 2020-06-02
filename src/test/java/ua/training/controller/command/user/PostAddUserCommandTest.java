@@ -74,8 +74,11 @@ public class PostAddUserCommandTest {
         PowerMockito.when(UserDtoValidator.getInstance()).thenReturn(userDtoValidator);
         List<String> errors = new ArrayList<>();
         when(userDtoValidator.validate(userDto)).thenReturn(errors);
-        Map<String, String> urlParams = new HashMap<>();
-        urlParams.put(Attribute.SUCCESS, Message.SUCCESS_USER_ADDITION);
+        Map<String, String> urlParams = new HashMap<String, String>(){
+            {
+                put(Attribute.SUCCESS, Message.SUCCESS_USER_ADDITION);
+            }
+        };
         doNothing().when(userService).createUser(userDto);
         String expectedResult = RedirectionManager.REDIRECTION;
         postAddUserCommand = new PostAddUserCommand(userService);
@@ -110,6 +113,7 @@ public class PostAddUserCommandTest {
 
         String actualResult = postAddUserCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(userService, never()).createUser(userDtoArgumentCaptor.capture());
         verify(httpServletRequest).setAttribute(Attribute.ROLES, Role.values());
         verify(httpServletRequest).setAttribute(eq(Attribute.USER_DTO), userDtoArgumentCaptor.capture());
         verify(httpServletRequest).setAttribute(Attribute.ERRORS, errors);

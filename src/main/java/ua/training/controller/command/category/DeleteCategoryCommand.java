@@ -18,7 +18,7 @@ import ua.training.service.CategoryService;
 
 public class DeleteCategoryCommand implements Command {
 
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
 
 	public DeleteCategoryCommand(CategoryService categoryService) {
 		this.categoryService = categoryService;

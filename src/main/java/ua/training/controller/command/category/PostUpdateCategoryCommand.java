@@ -22,7 +22,7 @@ import ua.training.validator.entity.CategoryValidator;
 
 public class PostUpdateCategoryCommand implements Command {
 
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
 
 	public PostUpdateCategoryCommand(CategoryService categoryService) {
 		this.categoryService = categoryService;
@@ -41,7 +41,7 @@ public class PostUpdateCategoryCommand implements Command {
 			return RedirectionManager.REDIRECTION;
 		}
 
-		addRequesAttributes(request, category, errors);
+		addRequestAttributes(request, category, errors);
 		return Page.ADD_UPDATE_CATEGORY_VIEW;
 	}
 
@@ -62,8 +62,7 @@ public class PostUpdateCategoryCommand implements Command {
 		RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_CATEGORIES, urlParams);
 	}
 
-	private void addRequesAttributes(HttpServletRequest request, Category category, List<String> errors) {
-
+	private void addRequestAttributes(HttpServletRequest request, Category category, List<String> errors) {
 		request.setAttribute(Attribute.CATEGORY, category);
 		request.setAttribute(Attribute.ERRORS, errors);
 	}

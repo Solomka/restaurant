@@ -18,6 +18,9 @@ import ua.training.entity.User;
 import ua.training.locale.Message;
 import ua.training.service.UserService;
 import ua.training.testData.UserTestDataGenerator;
+import ua.training.validator.field.AbstractFieldValidatorHandler;
+import ua.training.validator.field.FieldValidatorKey;
+import ua.training.validator.field.FieldValidatorsChainGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +32,11 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(RedirectionManager.class)
-public class SearchUserByRoleCommandTest {
+@PrepareForTest({RedirectionManager.class, FieldValidatorsChainGenerator.class})
+public class SearchUsersBySurnameCommandTest {
 
     @Mock
     private HttpServletRequest httpServletRequest;
@@ -44,23 +46,26 @@ public class SearchUserByRoleCommandTest {
     private RedirectionManager redirectionManager;
     @Captor
     private ArgumentCaptor<HttpWrapper> httpWrapperArgumentCaptor;
-    @Captor
-    private ArgumentCaptor<Role> roleArgumentCaptor;
+    @Mock
+    private AbstractFieldValidatorHandler abstractFieldValidatorHandler;
     @Mock
     private UserService userService;
 
-    private SearchUserByRoleCommand searchUserByRoleCommand;
+    private SearchUsersBySurnameCommand searchUsersBySurnameCommand;
 
     @Test
     public void shouldFindUsersWhenValidInputOnExecute() throws ServletException, IOException {
         List<User> users = UserTestDataGenerator.generateUserForSearch();
-        String role = "waiter";
-        when(httpServletRequest.getParameter(Attribute.ROLE)).thenReturn(role);
-        when(userService.searchUsersByRole(Role.forValue(role))).thenReturn(users);
+        String surname = "testSurname";
+        when(httpServletRequest.getParameter(Attribute.SURNAME)).thenReturn(surname);
+        when(userService.searchUsersBySurname(surname)).thenReturn(users);
+        PowerMockito.mockStatic(FieldValidatorsChainGenerator.class);
+        PowerMockito.when(FieldValidatorsChainGenerator.getFieldValidatorsChain()).thenReturn(abstractFieldValidatorHandler);
+        doNothing().when(abstractFieldValidatorHandler).validateField(eq(FieldValidatorKey.SURNAME), eq(surname), anyListOf(String.class));
         String expectedResult = Page.ALL_USERS_VIEW;
-        searchUserByRoleCommand = new SearchUserByRoleCommand(userService);
+        searchUsersBySurnameCommand = new SearchUsersBySurnameCommand(userService);
 
-        String actualResult = searchUserByRoleCommand.execute(httpServletRequest, httpServletResponse);
+        String actualResult = searchUsersBySurnameCommand.execute(httpServletRequest, httpServletResponse);
 
         verify(httpServletRequest).setAttribute(Attribute.USERS, users);
         verify(httpServletRequest).setAttribute(Attribute.ROLES, Role.values());
@@ -69,21 +74,29 @@ public class SearchUserByRoleCommandTest {
 
     @Test
     public void shouldNotFindUsersWhenInvalidInputOnExecute() throws ServletException, IOException {
-        String role = "";
-        when(httpServletRequest.getParameter(Attribute.ROLE)).thenReturn(role);
+        String surname = "";
+        when(httpServletRequest.getParameter(Attribute.SURNAME)).thenReturn(surname);
         PowerMockito.mockStatic(RedirectionManager.class);
         PowerMockito.when(RedirectionManager.getInstance()).thenReturn(redirectionManager);
+        PowerMockito.mockStatic(FieldValidatorsChainGenerator.class);
+        PowerMockito.when(FieldValidatorsChainGenerator.getFieldValidatorsChain()).thenReturn(abstractFieldValidatorHandler);
+        List<String> errors = new ArrayList<>();
+        doAnswer(invocation -> {
+            List<String> errorsList = invocation.getArgumentAt(2, List.class);
+            errorsList.add(Message.INVALID_SURNAME_INPUT);
+            return null;
+        }).when(abstractFieldValidatorHandler).validateField(FieldValidatorKey.SURNAME, surname, errors);
         String expectedResult = RedirectionManager.REDIRECTION;
         Map<String, String> urlParams = new HashMap<String, String>() {
             {
-                put(Attribute.ERROR, Message.INVALID_ROLE);
+                put(Attribute.ERROR, Message.INVALID_SURNAME_INPUT);
             }
         };
-        searchUserByRoleCommand = new SearchUserByRoleCommand(userService);
+        searchUsersBySurnameCommand = new SearchUsersBySurnameCommand(userService);
 
-        String actualResult = searchUserByRoleCommand.execute(httpServletRequest, httpServletResponse);
+        String actualResult = searchUsersBySurnameCommand.execute(httpServletRequest, httpServletResponse);
 
-        verify(userService, never()).searchUsersByRole(roleArgumentCaptor.capture());
+        verify(userService, never()).searchUsersBySurname(surname);
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_USERS), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }
@@ -91,21 +104,20 @@ public class SearchUserByRoleCommandTest {
     @Test
     public void shouldNotFindUsersWhenValidInputUserNotExistOnExecute() throws ServletException, IOException {
         List<User> users = new ArrayList<>();
-        String role = "waiter";
-
+        String surname = "testSurname";
         PowerMockito.mockStatic(RedirectionManager.class);
         PowerMockito.when(RedirectionManager.getInstance()).thenReturn(redirectionManager);
-        when(httpServletRequest.getParameter(Attribute.ROLE)).thenReturn(role);
-        when(userService.searchUsersByRole(Role.forValue(role))).thenReturn(users);
+        when(httpServletRequest.getParameter(Attribute.SURNAME)).thenReturn(surname);
+        when(userService.searchUsersBySurname(surname)).thenReturn(users);
         String expectedResult = RedirectionManager.REDIRECTION;
         Map<String, String> urlParams = new HashMap<String, String>() {
             {
                 put(Attribute.ERROR, Message.USER_IS_NOT_FOUND);
             }
         };
-        searchUserByRoleCommand = new SearchUserByRoleCommand(userService);
+        searchUsersBySurnameCommand = new SearchUsersBySurnameCommand(userService);
 
-        String actualResult = searchUserByRoleCommand.execute(httpServletRequest, httpServletResponse);;
+        String actualResult = searchUsersBySurnameCommand.execute(httpServletRequest, httpServletResponse);
 
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_USERS), eq(urlParams));
         assertEquals(expectedResult, actualResult);

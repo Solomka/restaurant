@@ -37,8 +37,8 @@ import ua.training.controller.command.user.GetUpdateUserCommand;
 import ua.training.controller.command.user.PostAddUserCommand;
 import ua.training.controller.command.user.PostUpdateUserCommand;
 import ua.training.controller.command.user.SearchBestWaitersPerPeriod;
-import ua.training.controller.command.user.SearchUserByRoleCommand;
-import ua.training.controller.command.user.SearchUserBySurnameCommand;
+import ua.training.controller.command.user.SearchUsersByRoleCommand;
+import ua.training.controller.command.user.SearchUsersBySurnameCommand;
 import ua.training.service.CategoryService;
 import ua.training.service.DishService;
 import ua.training.service.OrderService;
@@ -91,13 +91,13 @@ enum CommandEnum {
 	SEARCH_USER_BY_SURNAME {
 		{
 			this.key = "POST:manager/users/surname";
-			this.command = new SearchUserBySurnameCommand(UserService.getInstance());
+			this.command = new SearchUsersBySurnameCommand(UserService.getInstance());
 		}
 	},
 	SEARCH_USER_BY_ROLE {
 		{
 			this.key = "POST:manager/users/role";
-			this.command = new SearchUserByRoleCommand(UserService.getInstance());
+			this.command = new SearchUsersByRoleCommand(UserService.getInstance());
 		}
 	},
 	SEARCH_BEST_WAITERS_PER_PERIOD {

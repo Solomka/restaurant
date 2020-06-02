@@ -110,6 +110,7 @@ public class PostUpdateUserCommandTest {
 
         String actualResult = postUpdateUserCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(userService, never()).updateUser(userDtoArgumentCaptor.capture());
         verify(httpServletRequest).setAttribute(Attribute.ROLES, Role.values());
         verify(httpServletRequest).setAttribute(eq(Attribute.USER_DTO), userDtoArgumentCaptor.capture());
         verify(httpServletRequest).setAttribute(Attribute.ERRORS, errors);
