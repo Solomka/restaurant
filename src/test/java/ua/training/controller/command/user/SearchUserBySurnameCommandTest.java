@@ -18,6 +18,9 @@ import ua.training.entity.User;
 import ua.training.locale.Message;
 import ua.training.service.UserService;
 import ua.training.testData.UserTestDataGenerator;
+import ua.training.validator.field.AbstractFieldValidatorHandler;
+import ua.training.validator.field.FieldValidatorKey;
+import ua.training.validator.field.FieldValidatorsChainGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(RedirectionManager.class)
+@PrepareForTest({RedirectionManager.class, FieldValidatorsChainGenerator.class})
 public class SearchUserBySurnameCommandTest {
 
     @Mock
@@ -44,6 +47,8 @@ public class SearchUserBySurnameCommandTest {
     @Captor
     private ArgumentCaptor<HttpWrapper> httpWrapperArgumentCaptor;
     @Mock
+    private AbstractFieldValidatorHandler abstractFieldValidatorHandler;
+    @Mock
     private UserService userService;
 
     private SearchUserBySurnameCommand searchUserBySurnameCommand;
@@ -54,6 +59,9 @@ public class SearchUserBySurnameCommandTest {
         String surname = "testSurname";
         when(httpServletRequest.getParameter(Attribute.SURNAME)).thenReturn(surname);
         when(userService.searchUsersBySurname(surname)).thenReturn(users);
+        PowerMockito.mockStatic(FieldValidatorsChainGenerator.class);
+        PowerMockito.when(FieldValidatorsChainGenerator.getFieldValidatorsChain()).thenReturn(abstractFieldValidatorHandler);
+        doNothing().when(abstractFieldValidatorHandler).validateField(eq(FieldValidatorKey.SURNAME), eq(surname), anyListOf(String.class));
         String expectedResult = Page.ALL_USERS_VIEW;
         searchUserBySurnameCommand = new SearchUserBySurnameCommand(userService);
 
@@ -70,6 +78,14 @@ public class SearchUserBySurnameCommandTest {
         when(httpServletRequest.getParameter(Attribute.SURNAME)).thenReturn(surname);
         PowerMockito.mockStatic(RedirectionManager.class);
         PowerMockito.when(RedirectionManager.getInstance()).thenReturn(redirectionManager);
+        PowerMockito.mockStatic(FieldValidatorsChainGenerator.class);
+        PowerMockito.when(FieldValidatorsChainGenerator.getFieldValidatorsChain()).thenReturn(abstractFieldValidatorHandler);
+        List<String> errors = new ArrayList<>();
+        doAnswer(invocation -> {
+            List<String> errorsList = invocation.getArgumentAt(2, List.class);
+            errorsList.add(Message.INVALID_SURNAME_INPUT);
+            return null;
+        }).when(abstractFieldValidatorHandler).validateField(FieldValidatorKey.SURNAME, surname, errors);
         String expectedResult = RedirectionManager.REDIRECTION;
         Map<String, String> urlParams = new HashMap<String, String>() {
             {

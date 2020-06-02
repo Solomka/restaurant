@@ -42,7 +42,7 @@ public class PostAddUserCommand implements Command {
 			return RedirectionManager.REDIRECTION;
 		}
 
-		addRequesAttributes(request, userDto, errors);
+		addRequestAttributes(request, userDto, errors);
 		return Page.ADD_UPDATE_USER_VIEW;
 	}
 
@@ -67,8 +67,7 @@ public class PostAddUserCommand implements Command {
 		RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_USERS, urlParams);
 	}
 
-	private void addRequesAttributes(HttpServletRequest request, UserDto userDto, List<String> errors) {
-		
+	private void addRequestAttributes(HttpServletRequest request, UserDto userDto, List<String> errors) {
 		request.setAttribute(Attribute.ROLES, Role.values());
 		request.setAttribute(Attribute.USER_DTO, userDto);
 		request.setAttribute(Attribute.ERRORS, errors);
