@@ -1,4 +1,4 @@
-package ua.training.controller.command.category;
+package ua.training.controller.command.dish;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +14,12 @@ import ua.training.constants.ServletPath;
 import ua.training.controller.utils.HttpWrapper;
 import ua.training.controller.utils.RedirectionManager;
 import ua.training.entity.Category;
+import ua.training.entity.Dish;
 import ua.training.locale.Message;
 import ua.training.service.CategoryService;
+import ua.training.service.DishService;
 import ua.training.testData.CategoryTestDataGenerator;
+import ua.training.testData.DishTestDataGenerator;
 import ua.training.validator.field.AbstractFieldValidatorHandler;
 import ua.training.validator.field.FieldValidatorKey;
 import ua.training.validator.field.FieldValidatorsChainGenerator;
@@ -37,8 +40,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({RedirectionManager.class, FieldValidatorsChainGenerator.class})
-public class SearchCategoriesByNameTest {
-
+public class SearchDishesByNameCommandTest {
 
     @Mock
     private HttpServletRequest httpServletRequest;
@@ -51,31 +53,37 @@ public class SearchCategoriesByNameTest {
     @Mock
     private AbstractFieldValidatorHandler abstractFieldValidatorHandler;
     @Mock
+    private DishService dishService;
+    @Mock
     private CategoryService categoryService;
 
-    private SearchCategoriesByName searchCategoriesByName;
+    private SearchDishesByNameCommand searchDishesByNameCommand;
 
     @Test
-    public void shouldFindCategoriesWhenValidInputOnExecute() throws ServletException, IOException {
-        List<Category> categories = CategoryTestDataGenerator.generateCategoryForSearch();
-        String name = "meat";
+    public void shouldFindDishesWhenValidInputOnExecute() throws ServletException, IOException {
+        List<Dish> dishes = DishTestDataGenerator.generateDishesForSearch();
+        List<Category> categories = CategoryTestDataGenerator.generateCategoryList();
+        String name = "cheesecake";
         when(httpServletRequest.getParameter(Attribute.NAME)).thenReturn(name);
-        when(categoryService.searchCategoriesByName(name)).thenReturn(categories);
+        when(dishService.searchDishesByName(name)).thenReturn(dishes);
+        when(categoryService.getAllCategories()).thenReturn(categories);
         PowerMockito.mockStatic(FieldValidatorsChainGenerator.class);
         PowerMockito.when(FieldValidatorsChainGenerator.getFieldValidatorsChain()).thenReturn(abstractFieldValidatorHandler);
         doNothing().when(abstractFieldValidatorHandler).validateField(eq(FieldValidatorKey.NAME), eq(name), anyListOf(String.class));
-        String expectedResult = Page.ALL_CATEGORIES_VIEW;
-        searchCategoriesByName = new SearchCategoriesByName(categoryService);
+        String expectedResult = Page.ALL_DISHES_VIEW;
+        searchDishesByNameCommand = new SearchDishesByNameCommand(dishService, categoryService);
 
-        String actualResult = searchCategoriesByName.execute(httpServletRequest, httpServletResponse);
+        String actualResult = searchDishesByNameCommand.execute(httpServletRequest, httpServletResponse);
 
-        verify(categoryService).searchCategoriesByName(name);
+        verify(dishService).searchDishesByName(name);
+        verify(categoryService).getAllCategories();
         verify(httpServletRequest).setAttribute(Attribute.CATEGORIES, categories);
+        verify(httpServletRequest).setAttribute(Attribute.DISHES, dishes);
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void shouldNotFindCategoriesWhenInvalidInputOnExecute() throws ServletException, IOException {
+    public void shouldNotFindDishesWhenInvalidInputOnExecute() throws ServletException, IOException {
         String name = "";
         when(httpServletRequest.getParameter(Attribute.NAME)).thenReturn(name);
         PowerMockito.mockStatic(RedirectionManager.class);
@@ -94,35 +102,37 @@ public class SearchCategoriesByNameTest {
                 put(Attribute.ERROR, Message.INVALID_NAME_INPUT);
             }
         };
-        searchCategoriesByName = new SearchCategoriesByName(categoryService);
+        searchDishesByNameCommand = new SearchDishesByNameCommand(dishService, categoryService);
 
-        String actualResult = searchCategoriesByName.execute(httpServletRequest, httpServletResponse);
+        String actualResult = searchDishesByNameCommand.execute(httpServletRequest, httpServletResponse);
 
-        verify(categoryService, never()).searchCategoriesByName(name);
-        verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_CATEGORIES), eq(urlParams));
+        verify(dishService, never()).searchDishesByName(name);
+        verify(categoryService, never()).getAllCategories();
+        verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_DISHES), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void shouldNotFindCategoriesWhenValidInputCategoryNotExistOnExecute() throws ServletException, IOException {
-        List<Category> categories = new ArrayList<>();
-        String name = "meat";
+    public void shouldNotFindDishesWhenValidInputUserNotExistOnExecute() throws ServletException, IOException {
+        List<Dish> dishes = new ArrayList<>();
+        String name = "cheesecake";
         PowerMockito.mockStatic(RedirectionManager.class);
         PowerMockito.when(RedirectionManager.getInstance()).thenReturn(redirectionManager);
         when(httpServletRequest.getParameter(Attribute.NAME)).thenReturn(name);
-        when(categoryService.searchCategoriesByName(name)).thenReturn(categories);
+        when(dishService.searchDishesByName(name)).thenReturn(dishes);
         String expectedResult = RedirectionManager.REDIRECTION;
         Map<String, String> urlParams = new HashMap<String, String>() {
             {
-                put(Attribute.ERROR, Message.CATEGORY_IS_NOT_FOUND);
+                put(Attribute.ERROR, Message.DISH_IS_NOT_FOUND);
             }
         };
-        searchCategoriesByName = new SearchCategoriesByName(categoryService);
+        searchDishesByNameCommand = new SearchDishesByNameCommand(dishService, categoryService);
 
-        String actualResult = searchCategoriesByName.execute(httpServletRequest, httpServletResponse);
+        String actualResult = searchDishesByNameCommand.execute(httpServletRequest, httpServletResponse);
 
-        verify(categoryService).searchCategoriesByName(name);
-        verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_CATEGORIES), eq(urlParams));
+        verify(dishService).searchDishesByName(name);
+        verify(categoryService, never()).getAllCategories();
+        verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_DISHES), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }
 }

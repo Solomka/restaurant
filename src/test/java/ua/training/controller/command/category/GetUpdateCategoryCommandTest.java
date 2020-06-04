@@ -42,6 +42,7 @@ public class GetUpdateCategoryCommandTest {
 
         String actualResult = getUpdateCategoryCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(categoryService).getCategoryById(categoryId);
         verify(httpServletRequest).setAttribute(Attribute.CATEGORY, category.get());
         assertEquals(expectedResult, actualResult);
     }

@@ -48,7 +48,7 @@ public class ChangeLocaleCommandTest {
 
         String actualResult = changeLocaleCommand.execute(httpServletRequest, httpServletResponse);
 
-        assertEquals(expectedResult, actualResult);
         verify(httpSession).setAttribute(Attribute.LOCALE, locale);
+        assertEquals(expectedResult, actualResult);
     }
 }

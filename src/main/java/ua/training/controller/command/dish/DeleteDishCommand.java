@@ -18,7 +18,7 @@ import ua.training.service.DishService;
 
 public class DeleteDishCommand implements Command {
 
-	private DishService dishService;
+	private final DishService dishService;
 
 	public DeleteDishCommand(DishService dishService) {
 		this.dishService = dishService;

@@ -75,6 +75,7 @@ public class PostUpdateCategoryCommandTest {
 
         String actualResult = postUpdateCategoryCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(categoryService).updateCategory(category);
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_CATEGORIES), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }

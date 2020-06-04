@@ -81,6 +81,7 @@ public class PostAddCategoryCommandTest {
 
         String actualResult = postAddCategoryCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(categoryService).createCategory(category);
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_CATEGORIES), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }

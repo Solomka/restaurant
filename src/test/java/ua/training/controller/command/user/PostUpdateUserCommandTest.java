@@ -81,6 +81,7 @@ public class PostUpdateUserCommandTest {
 
         String actualResult = postUpdateUserCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(userService).updateUser(userDto);
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_USERS), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }

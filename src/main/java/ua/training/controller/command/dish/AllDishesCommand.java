@@ -17,8 +17,8 @@ import ua.training.service.DishService;
 
 public class AllDishesCommand implements Command{
 	
-	private DishService dishService;
-	private CategoryService categoryService;
+	private final DishService dishService;
+	private final CategoryService categoryService;
 
 	public AllDishesCommand(DishService dishService, CategoryService categoryService) {
 		this.dishService = dishService;
@@ -35,5 +35,4 @@ public class AllDishesCommand implements Command{
 		request.setAttribute(Attribute.CATEGORIES, categories);
 		return Page.ALL_DISHES_VIEW;
 	}
-
 }

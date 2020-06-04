@@ -23,8 +23,8 @@ import ua.training.service.DishService;
 
 public class SearchDishesByCategoryCommand implements Command {
 
-	private DishService dishService;
-	private CategoryService categoryService;
+	private final DishService dishService;
+	private final CategoryService categoryService;
 
 	public SearchDishesByCategoryCommand(DishService dishService, CategoryService categoryService) {
 		this.dishService = dishService;
@@ -59,7 +59,6 @@ public class SearchDishesByCategoryCommand implements Command {
 		request.setAttribute(Attribute.CATEGORIES, categoryService.getAllCategories());
 		request.setAttribute(Attribute.DISHES, dishes);
 		return Page.ALL_DISHES_VIEW;
-
 	}
 
 	private List<String> validateUserInput(String category) {

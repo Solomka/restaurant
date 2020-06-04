@@ -43,6 +43,7 @@ public class GetUpdateUserCommandTest {
 
         String actualResult = getUpdateUserCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(userService).getUserById(userId);
         verify(httpServletRequest).setAttribute(Attribute.USER_DTO, user.get());
         assertEquals(expectedResult, actualResult);
     }

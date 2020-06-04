@@ -85,6 +85,7 @@ public class PostAddUserCommandTest {
 
         String actualResult = postAddUserCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(userService).createUser(userDto);
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_USERS), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }

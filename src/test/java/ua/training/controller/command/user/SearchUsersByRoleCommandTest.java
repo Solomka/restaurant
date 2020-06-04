@@ -62,6 +62,7 @@ public class SearchUsersByRoleCommandTest {
 
         String actualResult = searchUsersByRoleCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(userService).searchUsersByRole(Role.forValue(role));
         verify(httpServletRequest).setAttribute(Attribute.USERS, users);
         verify(httpServletRequest).setAttribute(Attribute.ROLES, Role.values());
         assertEquals(expectedResult, actualResult);
@@ -107,6 +108,7 @@ public class SearchUsersByRoleCommandTest {
 
         String actualResult = searchUsersByRoleCommand.execute(httpServletRequest, httpServletResponse);;
 
+        verify(userService).searchUsersByRole(Role.forValue(role));
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_USERS), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }

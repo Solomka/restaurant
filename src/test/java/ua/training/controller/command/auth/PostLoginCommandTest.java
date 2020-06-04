@@ -87,10 +87,10 @@ public class PostLoginCommandTest {
 
         String actualResultedResource = postLoginCommand.execute(httpServletRequest, httpServletResponse);
 
-        assertEquals(expectedResultedResource, actualResultedResource);
         verify(userService).getUserByCredentials(credentialsDto);
         verify(sessionManager).addUserToSession(httpSession, user.get());
         verify(redirectionManager).redirect(httpWrapperArgumentCaptor.capture(), eq(ServletPath.HOME));
+        assertEquals(expectedResultedResource, actualResultedResource);
     }
 
     @Test
@@ -105,10 +105,10 @@ public class PostLoginCommandTest {
 
         String actualResultedResource = postLoginCommand.execute(httpServletRequest, httpServletResponse);
 
-        assertEquals(expectedResultedResource, actualResultedResource);
         verify(userService).getUserByCredentials(credentialsDto);
         verify(httpServletRequest).setAttribute(Attribute.LOGIN_USER, credentialsDto);
         verify(httpServletRequest).setAttribute(Attribute.ERRORS, errors);
+        assertEquals(expectedResultedResource, actualResultedResource);
     }
 
     @Test
@@ -120,10 +120,10 @@ public class PostLoginCommandTest {
 
         String actualResultedResource = postLoginCommand.execute(httpServletRequest, httpServletResponse);
 
-        assertEquals(expectedResultedResource, actualResultedResource);
         verify(userService, never()).getUserByCredentials(anyObject());
         verify(httpServletRequest).setAttribute(eq(Attribute.LOGIN_USER), anyObject());
         verify(httpServletRequest).setAttribute(eq(Attribute.ERRORS), anyListOf(String.class));
+        assertEquals(expectedResultedResource, actualResultedResource);
     }
 
     @Test
@@ -142,8 +142,8 @@ public class PostLoginCommandTest {
 
         String actualResultedResource = postLoginCommand.execute(httpServletRequest, httpServletResponse);
 
-        assertEquals(expectedResultedResource, actualResultedResource);
-        verify(redirectionManager).redirect(httpWrapperArgumentCaptor.capture(), eq(ServletPath.HOME));
         verify(userService, never()).getUserByCredentials(credentialsDto);
+        verify(redirectionManager).redirect(httpWrapperArgumentCaptor.capture(), eq(ServletPath.HOME));
+        assertEquals(expectedResultedResource, actualResultedResource);
     }
 }

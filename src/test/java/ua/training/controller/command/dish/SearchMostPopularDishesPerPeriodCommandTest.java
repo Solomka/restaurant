@@ -1,4 +1,4 @@
-package ua.training.controller.command.user;
+package ua.training.controller.command.dish;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,18 +13,19 @@ import ua.training.constants.Page;
 import ua.training.constants.ServletPath;
 import ua.training.controller.utils.HttpWrapper;
 import ua.training.controller.utils.RedirectionManager;
-import ua.training.entity.Role;
-import ua.training.entity.User;
+import ua.training.entity.Category;
+import ua.training.entity.Dish;
 import ua.training.locale.Message;
-import ua.training.service.UserService;
-import ua.training.testData.UserTestDataGenerator;
+import ua.training.service.CategoryService;
+import ua.training.service.DishService;
+import ua.training.testData.CategoryTestDataGenerator;
+import ua.training.testData.DishTestDataGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,8 @@ import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(RedirectionManager.class)
-public class SearchBestWaitersPerPeriodTest {
+public class SearchMostPopularDishesPerPeriodCommandTest {
+
     @Mock
     private HttpServletRequest httpServletRequest;
     @Mock
@@ -48,33 +50,38 @@ public class SearchBestWaitersPerPeriodTest {
     @Captor
     private ArgumentCaptor<LocalDate> localDateArgumentCaptor;
     @Mock
-    private UserService userService;
+    private DishService dishService;
+    @Mock
+    private CategoryService categoryService;
 
-    private SearchBestWaitersPerPeriod searchBestWaitersPerPeriod;
+    private SearchMostPopularDishesPerPeriodCommand searchMostPopularDishesPerPeriodCommand;
 
     @Test
-    public void shouldFindUsersWhenValidInputOnExecute() throws ServletException, IOException {
-        List<User> users = UserTestDataGenerator.generateUserForSearch();
+    public void shouldFindDishesWhenValidInputOnExecute() throws ServletException, IOException {
+        List<Dish> dishes = DishTestDataGenerator.generateDishesForSearch();
+        List<Category> categories = CategoryTestDataGenerator.generateCategoryList();
         String fromDateStr = "2020-05-01";
         String toDateStr = "2020-05-29";
         LocalDate fromDate = LocalDate.parse(fromDateStr);
         LocalDate toDate = LocalDate.parse(toDateStr);
         when(httpServletRequest.getParameter(Attribute.FROM_DATE)).thenReturn(fromDateStr);
         when(httpServletRequest.getParameter(Attribute.TO_DATE)).thenReturn(toDateStr);
-        when(userService.searchBestWaitersPerPeriod(fromDate, toDate)).thenReturn(users);
-        String expectedResult = Page.ALL_USERS_VIEW;
-        searchBestWaitersPerPeriod = new SearchBestWaitersPerPeriod(userService);
+        when(dishService.searchMostPopularDishesPerPeriod(fromDate, toDate)).thenReturn(dishes);
+        when(categoryService.getAllCategories()).thenReturn(categories);
+        String expectedResult = Page.ALL_DISHES_VIEW;
+        searchMostPopularDishesPerPeriodCommand = new SearchMostPopularDishesPerPeriodCommand(dishService, categoryService);
 
-        String actualResult = searchBestWaitersPerPeriod.execute(httpServletRequest, httpServletResponse);
+        String actualResult = searchMostPopularDishesPerPeriodCommand.execute(httpServletRequest, httpServletResponse);
 
-        verify(userService).searchBestWaitersPerPeriod(fromDate, toDate);
-        verify(httpServletRequest).setAttribute(Attribute.USERS, users);
-        verify(httpServletRequest).setAttribute(Attribute.ROLES, Role.values());
+        verify(dishService).searchMostPopularDishesPerPeriod(fromDate, toDate);
+        verify(categoryService).getAllCategories();
+        verify(httpServletRequest).setAttribute(Attribute.DISHES, dishes);
+        verify(httpServletRequest).setAttribute(Attribute.CATEGORIES, categories);
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void shouldNotFindUsersWhenInvalidInputOnExecute() throws ServletException, IOException {
+    public void shouldNotFindDishesWhenInvalidInputOnExecute() throws ServletException, IOException {
         String fromDateStr = "";
         String toDateStr = "";
         when(httpServletRequest.getParameter(Attribute.FROM_DATE)).thenReturn(fromDateStr);
@@ -87,18 +94,19 @@ public class SearchBestWaitersPerPeriodTest {
                 put(Attribute.ERROR, Message.INVALID_DATE);
             }
         };
-        searchBestWaitersPerPeriod = new SearchBestWaitersPerPeriod(userService);
+        searchMostPopularDishesPerPeriodCommand = new SearchMostPopularDishesPerPeriodCommand(dishService, categoryService);
 
-        String actualResult = searchBestWaitersPerPeriod.execute(httpServletRequest, httpServletResponse);
+        String actualResult = searchMostPopularDishesPerPeriodCommand.execute(httpServletRequest, httpServletResponse);
 
-        verify(userService, never()).searchBestWaitersPerPeriod(localDateArgumentCaptor.capture(), localDateArgumentCaptor.capture());
-        verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_USERS), eq(urlParams));
+        verify(dishService, never()).searchMostPopularDishesPerPeriod(localDateArgumentCaptor.capture(), localDateArgumentCaptor.capture());
+        verify(categoryService, never()).getAllCategories();
+        verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_DISHES), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void shouldNotFindUsersWhenValidInputUserNotExistOnExecute() throws ServletException, IOException {
-        List<User> users = new ArrayList<>();
+    public void shouldNotFindDishesWhenValidInputUserNotExistOnExecute() throws ServletException, IOException {
+        List<Dish> dishes = new ArrayList<>();
         String fromDateStr = "2020-05-01";
         String toDateStr = "2020-05-29";
         LocalDate fromDate = LocalDate.parse(fromDateStr);
@@ -107,19 +115,19 @@ public class SearchBestWaitersPerPeriodTest {
         when(httpServletRequest.getParameter(Attribute.TO_DATE)).thenReturn(toDateStr);
         PowerMockito.mockStatic(RedirectionManager.class);
         PowerMockito.when(RedirectionManager.getInstance()).thenReturn(redirectionManager);
-        when(userService.searchBestWaitersPerPeriod(fromDate, toDate)).thenReturn(users);
+        when(dishService.searchMostPopularDishesPerPeriod(fromDate, toDate)).thenReturn(dishes);
         String expectedResult = RedirectionManager.REDIRECTION;
         Map<String, String> urlParams = new HashMap<String, String>() {
             {
-                put(Attribute.ERROR, Message.USER_IS_NOT_FOUND);
+                put(Attribute.ERROR, Message.DISH_IS_NOT_FOUND);
             }
         };
-        searchBestWaitersPerPeriod = new SearchBestWaitersPerPeriod(userService);
+        searchMostPopularDishesPerPeriodCommand = new SearchMostPopularDishesPerPeriodCommand(dishService, categoryService);
 
-        String actualResult = searchBestWaitersPerPeriod.execute(httpServletRequest, httpServletResponse);
+        String actualResult = searchMostPopularDishesPerPeriodCommand.execute(httpServletRequest, httpServletResponse);
 
-        verify(userService).searchBestWaitersPerPeriod(fromDate, toDate);
-        verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_USERS), eq(urlParams));
+        verify(dishService).searchMostPopularDishesPerPeriod(fromDate, toDate);
+        verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_DISHES), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }
 }

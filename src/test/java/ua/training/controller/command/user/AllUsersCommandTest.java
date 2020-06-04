@@ -43,8 +43,9 @@ public class AllUsersCommandTest {
 
         String actualResult = allUsersCommand.execute(httpServletRequest, httpServletResponse);
 
-        assertEquals(expectedResult, actualResult);
+        verify(userService).getAllUsers();
         verify(httpServletRequest).setAttribute(Attribute.USERS, users);
         verify(httpServletRequest).setAttribute(Attribute.ROLES, Role.values());
+        assertEquals(expectedResult, actualResult);
     }
 }

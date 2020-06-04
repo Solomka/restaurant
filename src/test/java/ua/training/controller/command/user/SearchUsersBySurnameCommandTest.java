@@ -67,6 +67,7 @@ public class SearchUsersBySurnameCommandTest {
 
         String actualResult = searchUsersBySurnameCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(userService).searchUsersBySurname(surname);
         verify(httpServletRequest).setAttribute(Attribute.USERS, users);
         verify(httpServletRequest).setAttribute(Attribute.ROLES, Role.values());
         assertEquals(expectedResult, actualResult);
@@ -119,6 +120,7 @@ public class SearchUsersBySurnameCommandTest {
 
         String actualResult = searchUsersBySurnameCommand.execute(httpServletRequest, httpServletResponse);
 
+        verify(userService).searchUsersBySurname(surname);
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_USERS), eq(urlParams));
         assertEquals(expectedResult, actualResult);
     }

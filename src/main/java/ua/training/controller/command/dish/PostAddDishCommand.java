@@ -24,8 +24,8 @@ import ua.training.validator.entity.DishDtoValidator;
 
 public class PostAddDishCommand implements Command {
 
-	private DishService dishService;
-	private CategoryService categoryService;
+	private final DishService dishService;
+	private final CategoryService categoryService;
 
 	public PostAddDishCommand(DishService dishService, CategoryService categoryService) {
 		this.dishService = dishService;
@@ -45,7 +45,7 @@ public class PostAddDishCommand implements Command {
 			return RedirectionManager.REDIRECTION;
 		}
 
-		addRequesAttributes(request, dishDto, errors);
+		addRequestAttributes(request, dishDto, errors);
 		return Page.ADD_UPDATE_DISH_VIEW;
 	}
 
@@ -70,8 +70,7 @@ public class PostAddDishCommand implements Command {
 		RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_DISHES, urlParams);
 	}
 
-	private void addRequesAttributes(HttpServletRequest request, DishDto dishDto, List<String> errors) {
-
+	private void addRequestAttributes(HttpServletRequest request, DishDto dishDto, List<String> errors) {
 		request.setAttribute(Attribute.CATEGORIES, categoryService.getAllCategories());
 		request.setAttribute(Attribute.DISH, dishDto);
 		request.setAttribute(Attribute.ERRORS, errors);

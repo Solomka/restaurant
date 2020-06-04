@@ -26,8 +26,8 @@ import ua.training.validator.field.FieldValidatorsChainGenerator;
 
 public class SearchDishesByNameCommand implements Command {
 
-	private DishService dishService;
-	private CategoryService categoryService;
+	private final DishService dishService;
+	private final CategoryService categoryService;
 
 	public SearchDishesByNameCommand(DishService dishService, CategoryService categoryService) {
 		this.dishService = dishService;
@@ -62,7 +62,6 @@ public class SearchDishesByNameCommand implements Command {
 		request.setAttribute(Attribute.CATEGORIES, categoryService.getAllCategories());
 		request.setAttribute(Attribute.DISHES, dishes);
 		return Page.ALL_DISHES_VIEW;
-
 	}
 
 	private List<String> validateUserInput(String name) {

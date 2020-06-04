@@ -1,4 +1,4 @@
-package ua.training.controller.command.category;
+package ua.training.controller.command.dish;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,7 +6,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import ua.training.constants.Attribute;
 import ua.training.constants.Page;
+import ua.training.controller.command.user.GetAddUserCommand;
 import ua.training.entity.Category;
+import ua.training.entity.Role;
 import ua.training.service.CategoryService;
 import ua.training.testData.CategoryTestDataGenerator;
 
@@ -21,7 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AllCategoriesCommandTest {
+public class GetAddDishCommandTest {
 
     @Mock
     private HttpServletRequest httpServletRequest;
@@ -30,16 +32,16 @@ public class AllCategoriesCommandTest {
     @Mock
     private CategoryService categoryService;
 
-    private AllCategoriesCommand allCategoriesCommand;
+    private GetAddDishCommand getAddDishCommand;
 
     @Test
-    public void shouldReturnAllCategoriesOnExecute() throws ServletException, IOException {
+    public void shouldReturnAddDishViewViewOnExecute() throws ServletException, IOException {
         List<Category> categories = CategoryTestDataGenerator.generateCategoryList();
         when(categoryService.getAllCategories()).thenReturn(categories);
-        String expectedResult = Page.ALL_CATEGORIES_VIEW;
-        allCategoriesCommand = new AllCategoriesCommand(categoryService);
+        String expectedResult = Page.ADD_UPDATE_DISH_VIEW;
+        getAddDishCommand = new GetAddDishCommand(categoryService);
 
-        String actualResult = allCategoriesCommand.execute(httpServletRequest, httpServletResponse);
+        String actualResult = getAddDishCommand.execute(httpServletRequest, httpServletResponse);
 
         verify(categoryService).getAllCategories();
         verify(httpServletRequest).setAttribute(Attribute.CATEGORIES, categories);

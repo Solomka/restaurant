@@ -13,11 +13,10 @@ import ua.training.service.CategoryService;
 
 public class GetAddDishCommand implements Command {
 
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
 
 	public GetAddDishCommand(CategoryService categoryService) {
 		this.categoryService = categoryService;
-
 	}
 
 	@Override

@@ -16,8 +16,8 @@ import ua.training.service.DishService;
 
 public class GetUpdateDishCommand implements Command {
 
-	private DishService dishService;
-	private CategoryService categoryService;
+	private final DishService dishService;
+	private final CategoryService categoryService;
 
 	public GetUpdateDishCommand(DishService dishService, CategoryService categoryService) {
 		this.dishService = dishService;
