@@ -13,7 +13,7 @@ import ua.training.service.DishService;
 
 public class GetAddOrderCommand implements Command {
 
-	private DishService dishService;
+	private final DishService dishService;
 
 	public GetAddOrderCommand(DishService dishService) {
 		this.dishService = dishService;

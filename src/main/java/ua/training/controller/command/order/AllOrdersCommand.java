@@ -20,7 +20,7 @@ import ua.training.service.OrderService;
 
 public class AllOrdersCommand implements Command {
 
-	private OrderService orderService;
+	private final OrderService orderService;
 
 	public AllOrdersCommand(OrderService orderService) {
 		this.orderService = orderService;
@@ -44,5 +44,4 @@ public class AllOrdersCommand implements Command {
 		request.setAttribute(Attribute.ORDERS, orders);
 		return Page.ALL_ORDERS_VIEW;
 	}
-
 }

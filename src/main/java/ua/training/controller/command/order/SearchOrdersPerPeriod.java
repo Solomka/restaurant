@@ -23,7 +23,7 @@ import ua.training.service.OrderService;
 
 public class SearchOrdersPerPeriod implements Command {
 
-	private OrderService orderService;
+	private final OrderService orderService;
 
 	public SearchOrdersPerPeriod(OrderService orderService) {
 		this.orderService = orderService;
@@ -58,7 +58,6 @@ public class SearchOrdersPerPeriod implements Command {
 
 		request.setAttribute(Attribute.ORDERS, orders);
 		return Page.ALL_ORDERS_VIEW;
-
 	}
 
 	private List<String> validateUserInput(String fromDate, String toDate) {
@@ -71,5 +70,4 @@ public class SearchOrdersPerPeriod implements Command {
 
 		return errors;
 	}
-
 }

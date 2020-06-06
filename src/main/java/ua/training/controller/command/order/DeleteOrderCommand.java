@@ -18,7 +18,7 @@ import ua.training.service.OrderService;
 
 public class DeleteOrderCommand implements Command {
 
-	private OrderService orderService;
+	private final OrderService orderService;
 
 	public DeleteOrderCommand(OrderService orderService) {
 		this.orderService = orderService;

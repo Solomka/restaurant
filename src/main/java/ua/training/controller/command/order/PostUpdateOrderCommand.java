@@ -20,7 +20,7 @@ import ua.training.service.OrderService;
 
 public class PostUpdateOrderCommand implements Command {
 
-	private OrderService orderService;
+	private final OrderService orderService;
 
 	public PostUpdateOrderCommand(OrderService orderService) {
 		this.orderService = orderService;
@@ -33,7 +33,6 @@ public class PostUpdateOrderCommand implements Command {
 		orderService.updateOrder(order);
 		redirectToAllOrdersPageWithSuccessMessage(request, response);
 		return RedirectionManager.REDIRECTION;
-
 	}
 
 	private Order getUserInput(HttpServletRequest request) {

@@ -31,8 +31,8 @@ import ua.training.service.OrderService;
 
 public class PostAddOrderCommand implements Command {
 
-	private OrderService orderService;
-	private DishService dishService;
+	private final OrderService orderService;
+	private final DishService dishService;
 
 	public PostAddOrderCommand(OrderService orderService, DishService dishService) {
 		this.orderService = orderService;
@@ -82,7 +82,7 @@ public class PostAddOrderCommand implements Command {
 	}
 
 	private BigDecimal getOrderTotal(List<Dish> dishes) {
-		return dishes.stream().map(dish -> dish.getCost()).reduce(BigDecimal.ZERO, (x, y) -> x.add(y));
+		return dishes.stream().map(Dish::getCost).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
 	private void redirectToAllOrdersPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response)

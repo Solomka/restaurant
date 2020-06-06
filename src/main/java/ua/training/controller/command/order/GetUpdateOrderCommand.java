@@ -17,8 +17,8 @@ import ua.training.service.OrderService;
 
 public class GetUpdateOrderCommand implements Command {
 
-	private OrderService orderService;
-	private DishService dishService;
+	private final OrderService orderService;
+	private final DishService dishService;
 
 	public GetUpdateOrderCommand(OrderService orderService, DishService dishService) {
 		this.orderService = orderService;

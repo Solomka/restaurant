@@ -65,4 +65,16 @@ public final class UserTestDataGenerator {
                 .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("pytlyk777")
                 .setEmail("pytlyk@gmail.com").build();
     }
+
+    public static User generateManagerUser(){
+        return new User.Builder().setId(1L).setName("vika").setSurname("pytlyk")
+                .setAddress("test address 1").setRole(Role.MANAGER).setPhone("1111111111").setPassword("pytlyk777")
+                .setEmail("pytlyk@gmail.com").build();
+    }
+
+    public static User generateChiefUser(){
+        return new User.Builder().setId(1L).setName("vika").setSurname("pytlyk")
+                .setAddress("test address 1").setRole(Role.CHIEF).setPhone("1111111111").setPassword("pytlyk777")
+                .setEmail("pytlyk@gmail.com").build();
+    }
 }

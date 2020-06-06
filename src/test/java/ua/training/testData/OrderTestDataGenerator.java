@@ -19,9 +19,9 @@ public final class OrderTestDataGenerator {
                 add(new Order.Builder().setId(1L)
                         .setDate(LocalDateTime.of(2020, Month.MAY, 1, 1, 3, 3))
                         .setStatus(Status.NEW).setTotal(new BigDecimal("371"))
-                        .setUser(new User.Builder().setId(1L).setName("test name 1").setSurname("test surname 1")
-                                .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
-                                .setEmail("test1@gmail.com").build())
+                        .setUser(new User.Builder().setId(1L).setName("vika").setSurname("pytlyk")
+                                .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("pytlyk777")
+                                .setEmail("pytlyk@gmail.com").build())
                         .setDishes(new ArrayList<Dish>() {
                             {
                                 add(new Dish.Builder().setId(1L).setName("cheesecake").setDescription("delicious")
@@ -35,9 +35,9 @@ public final class OrderTestDataGenerator {
                 add(new Order.Builder().setId(1L)
                         .setDate(LocalDateTime.of(2020, Month.MAY, 2, 3, 30, 3))
                         .setStatus(Status.NEW).setTotal(new BigDecimal("180.5"))
-                        .setUser(new User.Builder().setId(1L).setName("test name 1").setSurname("test surname 1")
-                                .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
-                                .setEmail("test1@gmail.com").build())
+                        .setUser(new User.Builder().setId(1L).setName("vika").setSurname("pytlyk")
+                                .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("pytlyk777")
+                                .setEmail("pytlyk@gmail.com").build())
                         .setDishes(new ArrayList<Dish>() {
                             {
                                 add(new Dish.Builder().setId(1L).setName("cheesecake").setDescription("delicious")
@@ -53,9 +53,9 @@ public final class OrderTestDataGenerator {
         return Optional.of(new Order.Builder().setId(1L)
                 .setDate(LocalDateTime.of(2020, Month.MAY, 1, 1, 3, 3))
                 .setStatus(Status.NEW).setTotal(new BigDecimal("371"))
-                .setUser(new User.Builder().setId(1L).setName("test name 1").setSurname("test surname 1")
-                        .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
-                        .setEmail("test1@gmail.com").build())
+                .setUser(new User.Builder().setId(1L).setName("vika").setSurname("pytlyk")
+                        .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("pytlyk777")
+                        .setEmail("pytlyk@gmail.com").build())
                 .setDishes(new ArrayList<Dish>() {
                     {
                         add(new Dish.Builder().setId(1L).setName("cheesecake").setDescription("delicious")
@@ -72,9 +72,9 @@ public final class OrderTestDataGenerator {
         return new Order.Builder()
                 .setDate(LocalDateTime.of(2020, Month.MAY, 2, 3, 30, 3))
                 .setStatus(Status.NEW).setTotal(new BigDecimal("180.5"))
-                .setUser(new User.Builder().setId(1L).setName("test name 1").setSurname("test surname 1")
-                        .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
-                        .setEmail("test1@gmail.com").build())
+                .setUser(new User.Builder().setId(1L).setName("vika").setSurname("pytlyk")
+                        .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("pytlyk777")
+                        .setEmail("pytlyk@gmail.com").build())
                 .setDishes(new ArrayList<Dish>() {
                     {
                         add(new Dish.Builder().setId(1L).setName("cheesecake").setDescription("delicious")
@@ -96,9 +96,9 @@ public final class OrderTestDataGenerator {
         return Collections.singletonList(new Order.Builder().setId(1L)
                 .setDate(LocalDateTime.of(2020, Month.MAY, 2, 3, 30, 3))
                 .setStatus(Status.NEW).setTotal(new BigDecimal("180.5"))
-                .setUser(new User.Builder().setId(1L).setName("test name 1").setSurname("test surname 1")
-                        .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
-                        .setEmail("test1@gmail.com").build())
+                .setUser(new User.Builder().setId(1L).setName("vika").setSurname("pytlyk")
+                        .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("pytlyk777")
+                        .setEmail("pytlyk@gmail.com").build())
                 .setDishes(new ArrayList<Dish>() {
                     {
                         add(new Dish.Builder().setId(1L).setName("cheesecake").setDescription("delicious")
