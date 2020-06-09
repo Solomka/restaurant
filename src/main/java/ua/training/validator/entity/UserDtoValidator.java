@@ -15,7 +15,7 @@ public class UserDtoValidator implements Validator<UserDto> {
 
 	private AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorsChain();
 
-	private UserDtoValidator() {
+	UserDtoValidator() {
 	}
 
 	private static class Holder {

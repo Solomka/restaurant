@@ -40,6 +40,12 @@ public final class DishTestDataGenerator {
                 .build();
     }
 
+    public static DishDto generateInvalidDish() {
+        return new DishDto.Builder().setName("").setDescription("delicious")
+                .setWeight("150").setCost("180.5").setCategory(new Category.Builder().setId(1L).setName("dessert").build())
+                .build();
+    }
+
     public static DishDto generateDishForUpdate() {
         return new DishDto.Builder().setId(1L).setName("cheesecake").setDescription("delicious")
                 .setWeight("150").setCost("180.5").setCategory(new Category.Builder().setId(1L).setName("dessert").build())

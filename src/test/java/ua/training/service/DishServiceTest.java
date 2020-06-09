@@ -28,17 +28,17 @@ import static org.mockito.Mockito.*;
 import static ua.training.service.DishService.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(LogManager.class)
+@PrepareForTest({LogManager.class, DaoFactory.class, DishService.class})
 public class DishServiceTest {
 
     private static Logger LOGGER;
 
     @Mock
     private DaoFactory daoFactory;
-    @InjectMocks
-    private DishService dishService;
     @Mock
     private DishDao dishDao;
+
+    private DishService dishService;
 
     @BeforeClass
     public static void setUp() {
@@ -51,6 +51,17 @@ public class DishServiceTest {
     public void setUpBeforeMethod() {
         dishService = new DishService(daoFactory);
         when(daoFactory.createDishDao()).thenReturn(dishDao);
+    }
+
+    @Test
+    public void shouldReturnDishServiceInstanceOnGetInstance() throws Exception {
+        PowerMockito.mockStatic(DaoFactory.class);
+        PowerMockito.when(DaoFactory.getDaoFactory()).thenReturn(daoFactory);
+        PowerMockito.whenNew(DishService.class).withArguments(daoFactory).thenReturn(dishService);
+
+        DishService.getInstance();
+
+        PowerMockito.verifyNew(DishService.class).withArguments(daoFactory);
     }
 
     @Test

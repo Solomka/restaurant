@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -24,17 +23,17 @@ import static org.mockito.Mockito.*;
 import static ua.training.service.CategoryService.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(LogManager.class)
+@PrepareForTest({LogManager.class, DaoFactory.class, CategoryService.class})
 public class CategoryServiceTest {
 
     private static Logger LOGGER;
 
     @Mock
     private DaoFactory daoFactory;
-    @InjectMocks
-    private CategoryService categoryService;
     @Mock
     private CategoryDao categoryDao;
+
+    private CategoryService categoryService;
 
     @BeforeClass
     public static void setUp() {
@@ -47,6 +46,17 @@ public class CategoryServiceTest {
     public void setUpBeforeMethod() {
         categoryService = new CategoryService(daoFactory);
         when(daoFactory.createCategoryDao()).thenReturn(categoryDao);
+    }
+
+    @Test
+    public void shouldReturnCategoryServiceInstanceOnGetInstance() throws Exception {
+        PowerMockito.mockStatic(DaoFactory.class);
+        PowerMockito.when(DaoFactory.getDaoFactory()).thenReturn(daoFactory);
+        PowerMockito.whenNew(CategoryService.class).withArguments(daoFactory).thenReturn(categoryService);
+
+        CategoryService.getInstance();
+
+        PowerMockito.verifyNew(CategoryService.class).withArguments(daoFactory);
     }
 
     @Test

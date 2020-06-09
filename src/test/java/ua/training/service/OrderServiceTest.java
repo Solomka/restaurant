@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 import static ua.training.service.OrderService.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(LogManager.class)
+@PrepareForTest({LogManager.class, DaoFactory.class, OrderService.class})
 public class OrderServiceTest {
 
     private static Logger LOGGER;
@@ -36,10 +36,10 @@ public class OrderServiceTest {
     private DaoFactory daoFactory;
     @Mock
     private DaoConnection daoConnection;
-    @InjectMocks
-    private OrderService orderService;
     @Mock
     private OrderDao orderDao;
+
+    private OrderService orderService;
 
     @BeforeClass
     public static void setUp() {
@@ -54,6 +54,17 @@ public class OrderServiceTest {
         when(daoFactory.getConnection()).thenReturn(daoConnection);
         when(daoFactory.createOrderDao(daoConnection)).thenReturn(orderDao);
         when(daoFactory.createOrderDao()).thenReturn(orderDao);
+    }
+
+    @Test
+    public void shouldReturnOrderServiceInstanceOnGetInstance() throws Exception {
+        PowerMockito.mockStatic(DaoFactory.class);
+        PowerMockito.when(DaoFactory.getDaoFactory()).thenReturn(daoFactory);
+        PowerMockito.whenNew(OrderService.class).withArguments(daoFactory).thenReturn(orderService);
+
+        OrderService.getInstance();
+
+        PowerMockito.verifyNew(OrderService.class).withArguments(daoFactory);
     }
 
     @Test

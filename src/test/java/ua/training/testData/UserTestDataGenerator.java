@@ -40,6 +40,12 @@ public final class UserTestDataGenerator {
                 .setConfirmPassword("testpass1").setEmail("test1@gmail.com").build();
     }
 
+    public static UserDto generateInvalidUserDto() {
+        return new UserDto.Builder().setName("").setSurname("testSurname")
+                .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
+                .setConfirmPassword("testpass1").setEmail("test1@gmail.com").build();
+    }
+
     public static UserDto generateUserForUpdate() {
         return new UserDto.Builder().setId(1L).setName("testName").setSurname("testSurname")
                 .setAddress("test address 1").setRole(Role.WAITER).setPhone("1111111111").setPassword("testpass1")
@@ -58,6 +64,10 @@ public final class UserTestDataGenerator {
 
     public static CredentialsDto generateCredentialsDtoWithValidCreds(){
         return new CredentialsDto("pytlyk@gmail.com", "pytlyk777");
+    }
+
+    public static CredentialsDto generateCredentialsDtoWithInvalidCreds(){
+        return new CredentialsDto("", "pytlyk777");
     }
 
     public static User generateUser(){

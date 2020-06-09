@@ -12,7 +12,7 @@ public final class CredentialsDtoValidator implements Validator<CredentialsDto> 
 
 	private AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorsChain();
 
-	private CredentialsDtoValidator() {
+	CredentialsDtoValidator() {
 	}
 
 	private static class Holder {

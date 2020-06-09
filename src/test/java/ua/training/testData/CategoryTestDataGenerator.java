@@ -29,6 +29,10 @@ public final class CategoryTestDataGenerator {
         return new Category.Builder().setName("meat").build();
     }
 
+    public static Category generateInvalidCategory() {
+        return new Category.Builder().setName("").build();
+    }
+
     public static Category generateCategoryForUpdate() {
         return new Category.Builder().setId(1L).setName("meat").build();
     }
