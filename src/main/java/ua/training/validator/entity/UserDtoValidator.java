@@ -51,7 +51,7 @@ public class UserDtoValidator implements Validator<UserDto> {
 
 	private void checkConfirmPassword(UserDto dto, List<String> errors) {
 		if (dto.getConfirmPassword().isEmpty() || !dto.getConfirmPassword().matches(PASSWORD_REGEX)) {
-			errors.add(Message.IVALID_CONFIRM_PASSWORD);
+			errors.add(Message.INVALID_CONFIRM_PASSWORD);
 		}
 	}
 

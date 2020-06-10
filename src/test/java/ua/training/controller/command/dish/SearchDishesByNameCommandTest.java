@@ -93,13 +93,13 @@ public class SearchDishesByNameCommandTest {
         List<String> errors = new ArrayList<>();
         doAnswer(invocation -> {
             List<String> errorsList = invocation.getArgumentAt(2, List.class);
-            errorsList.add(Message.INVALID_NAME_INPUT);
+            errorsList.add(Message.INVALID_NAME);
             return null;
         }).when(abstractFieldValidatorHandler).validateField(FieldValidatorKey.NAME, name, errors);
         String expectedResult = RedirectionManager.REDIRECTION;
         Map<String, String> urlParams = new HashMap<String, String>() {
             {
-                put(Attribute.ERROR, Message.INVALID_NAME_INPUT);
+                put(Attribute.ERROR, Message.INVALID_NAME);
             }
         };
         searchDishesByNameCommand = new SearchDishesByNameCommand(dishService, categoryService);

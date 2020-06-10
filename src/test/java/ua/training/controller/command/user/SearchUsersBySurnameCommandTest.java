@@ -84,13 +84,13 @@ public class SearchUsersBySurnameCommandTest {
         List<String> errors = new ArrayList<>();
         doAnswer(invocation -> {
             List<String> errorsList = invocation.getArgumentAt(2, List.class);
-            errorsList.add(Message.INVALID_SURNAME_INPUT);
+            errorsList.add(Message.INVALID_SURNAME);
             return null;
         }).when(abstractFieldValidatorHandler).validateField(FieldValidatorKey.SURNAME, surname, errors);
         String expectedResult = RedirectionManager.REDIRECTION;
         Map<String, String> urlParams = new HashMap<String, String>() {
             {
-                put(Attribute.ERROR, Message.INVALID_SURNAME_INPUT);
+                put(Attribute.ERROR, Message.INVALID_SURNAME);
             }
         };
         searchUsersBySurnameCommand = new SearchUsersBySurnameCommand(userService);

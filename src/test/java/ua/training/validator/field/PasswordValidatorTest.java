@@ -14,39 +14,39 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(NameValidator.class)
-public class NameValidatorTest {
+@PrepareForTest(PasswordValidator.class)
+public class PasswordValidatorTest {
 
-    private NameValidator nameValidator;
+    private PasswordValidator passwordValidator;
 
     @Test
     public void shouldReturnNameValidatorInstanceOnGetInstance() throws Exception {
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
-        PowerMockito.whenNew(NameValidator.class).withArguments(FieldValidatorKey.NAME).thenReturn(nameValidator);
+        passwordValidator = new PasswordValidator(FieldValidatorKey.PASSWORD);
+        PowerMockito.whenNew(PasswordValidator.class).withArguments(FieldValidatorKey.PASSWORD).thenReturn(passwordValidator);
 
-        NameValidator.getInstance();
+        PasswordValidator.getInstance();
 
-        PowerMockito.verifyNew(NameValidator.class).withArguments(FieldValidatorKey.NAME);
+        PowerMockito.verifyNew(PasswordValidator.class).withArguments(FieldValidatorKey.PASSWORD);
     }
 
     @Test
     public void shouldReturnEmptyErrorListWhenValidInputOnValidateField() {
         List<String> expectedResult = Collections.emptyList();
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        passwordValidator = new PasswordValidator(FieldValidatorKey.PASSWORD);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testName", actualResult);
+        passwordValidator.validateField("testPass333", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void shouldReturnErrorListWithErrorWhenValidInputOnValidateField() {
-        List<String> expectedResult = Collections.singletonList(Message.INVALID_NAME);
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        List<String> expectedResult = Collections.singletonList(Message.INVALID_PASS);
+        passwordValidator = new PasswordValidator(FieldValidatorKey.PASSWORD);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testSurname1", actualResult);
+        passwordValidator.validateField("111", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }

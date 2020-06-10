@@ -11,19 +11,13 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import ua.training.constants.Attribute;
 import ua.training.constants.Page;
 import ua.training.constants.ServletPath;
-import ua.training.controller.command.user.PostAddUserCommand;
 import ua.training.controller.utils.HttpWrapper;
 import ua.training.controller.utils.RedirectionManager;
-import ua.training.dto.UserDto;
 import ua.training.entity.Category;
-import ua.training.entity.Role;
 import ua.training.locale.Message;
 import ua.training.service.CategoryService;
-import ua.training.service.CategoryServiceTest;
-import ua.training.service.UserService;
 import ua.training.testData.CategoryTestDataGenerator;
 import ua.training.validator.entity.CategoryValidator;
-import ua.training.validator.entity.UserDtoValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -95,7 +89,7 @@ public class PostAddCategoryCommandTest {
         PowerMockito.when(CategoryValidator.getInstance()).thenReturn(categoryValidator);
         List<String> errors = new ArrayList<String>(){
             {
-                add(Message.INVALID_NAME_INPUT);
+                add(Message.INVALID_NAME);
             }
         };
         when(categoryValidator.validate(categoryArgumentCaptor.capture())).thenReturn(errors);

@@ -20,6 +20,7 @@ import ua.training.validator.entity.CategoryValidatorTest;
 import ua.training.validator.entity.CredentialsDtoValidatorTest;
 import ua.training.validator.entity.DishDtoValidatorTest;
 import ua.training.validator.entity.UserDtoValidatorTest;
+import ua.training.validator.field.*;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({CategoryServiceTest.class, DishServiceTest.class, OrderServiceTest.class, UserServiceTest.class,
@@ -42,7 +43,10 @@ import ua.training.validator.entity.UserDtoValidatorTest;
         SearchDishesByNameCommandTest.class, SearchMostPopularDishesPerPeriodCommandTest.class,
         AllCategoriesCommandTest.class, DeleteCategoryCommandTest.class,
         GetAddCategoryCommandTest.class, GetUpdateCategoryCommandTest.class,
-        PostAddCategoryCommandTest.class, PostUpdateCategoryCommandTest.class, SearchCategoriesByNameTest.class})
+        PostAddCategoryCommandTest.class, PostUpdateCategoryCommandTest.class, SearchCategoriesByNameTest.class,
+        AddressValidatorTest.class, CostValidatorTest.class, DescriptionValidatorTest.class,
+        EmailValidatorTest.class, NameValidatorTest.class, PasswordValidatorTest.class,
+        PhoneValidatorTest.class, SurnameValidatorTest.class, WeightValidatorTest.class})
 public class TestSuite {
     /*
      * empty class

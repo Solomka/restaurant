@@ -4,24 +4,24 @@ import ua.training.entity.Status;
 
 public enum FieldValidatorKey {
 
-	NAME("name"), SURNAME("surname"), EMAIL("email"), PASSWORD("password"), PHONE("phone"), ADDRESS("address"),
-	DESCRIPTION("description"), WEIGHT("weight"), COST("cost");
+    NAME("name"), SURNAME("surname"), EMAIL("email"), PASSWORD("password"), PHONE("phone"), ADDRESS("address"),
+    DESCRIPTION("description"), WEIGHT("weight"), COST("cost");
 
-	private String value;
+    private String value;
 
-	FieldValidatorKey(String value) {
-	}
+    FieldValidatorKey(String value) {
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public static Status forValur(String value) {
-		for (final Status status : Status.values()) {
-			if (status.getValue().equals(value)) {
-				return status;
-			}
-		}
-		throw new RuntimeException("FieldValidatorKey with such string value doesn't exist");
-	}
+    public static Status forValue(String value) {
+        for (final Status status : Status.values()) {
+            if (status.getValue().equals(value)) {
+                return status;
+            }
+        }
+        throw new RuntimeException("FieldValidatorKey with such string value doesn't exist");
+    }
 }

@@ -90,7 +90,7 @@ public class PostUpdateCategoryCommandTest {
         PowerMockito.when(CategoryValidator.getInstance()).thenReturn(categoryValidator);
         List<String> errors = new ArrayList<String>() {
             {
-                add(Message.INVALID_NAME_INPUT);
+                add(Message.INVALID_NAME);
             }
         };
         when(categoryValidator.validate(categoryArgumentCaptor.capture())).thenReturn(errors);

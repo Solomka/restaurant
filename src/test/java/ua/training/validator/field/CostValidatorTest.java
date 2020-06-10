@@ -14,39 +14,39 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(NameValidator.class)
-public class NameValidatorTest {
+@PrepareForTest(CostValidator.class)
+public class CostValidatorTest {
 
-    private NameValidator nameValidator;
+    private CostValidator costValidator;
 
     @Test
     public void shouldReturnNameValidatorInstanceOnGetInstance() throws Exception {
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
-        PowerMockito.whenNew(NameValidator.class).withArguments(FieldValidatorKey.NAME).thenReturn(nameValidator);
+        costValidator = new CostValidator(FieldValidatorKey.COST);
+        PowerMockito.whenNew(CostValidator.class).withArguments(FieldValidatorKey.COST).thenReturn(costValidator);
 
-        NameValidator.getInstance();
+        CostValidator.getInstance();
 
-        PowerMockito.verifyNew(NameValidator.class).withArguments(FieldValidatorKey.NAME);
+        PowerMockito.verifyNew(CostValidator.class).withArguments(FieldValidatorKey.COST);
     }
 
     @Test
     public void shouldReturnEmptyErrorListWhenValidInputOnValidateField() {
         List<String> expectedResult = Collections.emptyList();
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        costValidator = new CostValidator(FieldValidatorKey.COST);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testName", actualResult);
+        costValidator.validateField("180.50", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void shouldReturnErrorListWithErrorWhenValidInputOnValidateField() {
-        List<String> expectedResult = Collections.singletonList(Message.INVALID_NAME);
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        List<String> expectedResult = Collections.singletonList(Message.INVALID_COST);
+        costValidator = new CostValidator(FieldValidatorKey.COST);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testSurname1", actualResult);
+        costValidator.validateField("180..5", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }

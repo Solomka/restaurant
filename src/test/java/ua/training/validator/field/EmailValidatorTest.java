@@ -14,39 +14,39 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(NameValidator.class)
-public class NameValidatorTest {
+@PrepareForTest(EmailValidator.class)
+public class EmailValidatorTest {
 
-    private NameValidator nameValidator;
+    private EmailValidator emailValidator;
 
     @Test
     public void shouldReturnNameValidatorInstanceOnGetInstance() throws Exception {
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
-        PowerMockito.whenNew(NameValidator.class).withArguments(FieldValidatorKey.NAME).thenReturn(nameValidator);
+        emailValidator = new EmailValidator(FieldValidatorKey.EMAIL);
+        PowerMockito.whenNew(EmailValidator.class).withArguments(FieldValidatorKey.EMAIL).thenReturn(emailValidator);
 
-        NameValidator.getInstance();
+        EmailValidator.getInstance();
 
-        PowerMockito.verifyNew(NameValidator.class).withArguments(FieldValidatorKey.NAME);
+        PowerMockito.verifyNew(EmailValidator.class).withArguments(FieldValidatorKey.EMAIL);
     }
 
     @Test
     public void shouldReturnEmptyErrorListWhenValidInputOnValidateField() {
         List<String> expectedResult = Collections.emptyList();
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        emailValidator = new EmailValidator(FieldValidatorKey.EMAIL);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testName", actualResult);
+        emailValidator.validateField("test@gmail.com", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void shouldReturnErrorListWithErrorWhenValidInputOnValidateField() {
-        List<String> expectedResult = Collections.singletonList(Message.INVALID_NAME);
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        List<String> expectedResult = Collections.singletonList(Message.INVALID_EMAIL);
+        emailValidator = new EmailValidator(FieldValidatorKey.EMAIL);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testSurname1", actualResult);
+        emailValidator.validateField("bla.com", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }

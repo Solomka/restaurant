@@ -14,39 +14,39 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(NameValidator.class)
-public class NameValidatorTest {
+@PrepareForTest(PhoneValidator.class)
+public class PhoneValidatorTest {
 
-    private NameValidator nameValidator;
+    private PhoneValidator phoneValidator;
 
     @Test
     public void shouldReturnNameValidatorInstanceOnGetInstance() throws Exception {
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
-        PowerMockito.whenNew(NameValidator.class).withArguments(FieldValidatorKey.NAME).thenReturn(nameValidator);
+        phoneValidator = new PhoneValidator(FieldValidatorKey.PHONE);
+        PowerMockito.whenNew(PhoneValidator.class).withArguments(FieldValidatorKey.PHONE).thenReturn(phoneValidator);
 
-        NameValidator.getInstance();
+        PhoneValidator.getInstance();
 
-        PowerMockito.verifyNew(NameValidator.class).withArguments(FieldValidatorKey.NAME);
+        PowerMockito.verifyNew(PhoneValidator.class).withArguments(FieldValidatorKey.PHONE);
     }
 
     @Test
     public void shouldReturnEmptyErrorListWhenValidInputOnValidateField() {
         List<String> expectedResult = Collections.emptyList();
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        phoneValidator = new PhoneValidator(FieldValidatorKey.PHONE);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testName", actualResult);
+        phoneValidator.validateField("0984560923", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void shouldReturnErrorListWithErrorWhenValidInputOnValidateField() {
-        List<String> expectedResult = Collections.singletonList(Message.INVALID_NAME);
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        List<String> expectedResult = Collections.singletonList(Message.INVALID_PHONE);
+        phoneValidator = new PhoneValidator(FieldValidatorKey.PHONE);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testSurname1", actualResult);
+        phoneValidator.validateField("`123`", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }

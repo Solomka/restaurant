@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.Or;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -20,7 +19,6 @@ import ua.training.locale.Message;
 import ua.training.service.DishService;
 import ua.training.service.OrderService;
 import ua.training.testData.DishTestDataGenerator;
-import ua.training.testData.OrderTestDataGenerator;
 import ua.training.testData.UserTestDataGenerator;
 
 import javax.servlet.ServletException;
@@ -28,11 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
@@ -98,7 +94,7 @@ public class PostAddOrderCommandTest {
     @Test
     public void shouldNotAddOrderWhenValidInputOnExecute() throws ServletException, IOException {
         when(httpServletRequest.getParameterValues(Attribute.DISHES)).thenReturn(new String[]{});
-        List<String> errors = Collections.singletonList(Message.INVALID_DISHES_INPUT);
+        List<String> errors = Collections.singletonList(Message.INVALID_DISHES);
         String expectedResult = Page.ADD_UPDATE_ORDER_VIEW;
         postAddOrderCommand = new PostAddOrderCommand(orderService, dishService);
 

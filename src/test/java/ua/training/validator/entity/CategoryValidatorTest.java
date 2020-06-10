@@ -66,12 +66,12 @@ public class CategoryValidatorTest {
         Category category = CategoryTestDataGenerator.generateInvalidCategory();
         List<String> expectedResult = new ArrayList<String>() {
             {
-                add(Message.INVALID_NAME_INPUT);
+                add(Message.INVALID_NAME);
             }
         };
         doAnswer(invocation -> {
             List<String> errorsList = invocation.getArgumentAt(2, List.class);
-            errorsList.add(Message.INVALID_NAME_INPUT);
+            errorsList.add(Message.INVALID_NAME);
             return null;
         }).when(abstractFieldValidatorHandler).validateField(eq(FieldValidatorKey.NAME), eq(category.getName()), anyListOf(String.class));
         categoryValidator = new CategoryValidator();

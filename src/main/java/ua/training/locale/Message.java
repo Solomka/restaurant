@@ -25,8 +25,8 @@ public final class Message {
 	public static final String DISH_IS_NOT_FOUND = "restaurant.dish.isNotFound";
 	public static final String ORDER_IS_NOT_FOUND = "restaurant.order.isNotFound";
 		
-	public static final String INVALID_NAME_INPUT = "restaurant.error.invalidName";
-	public static final String INVALID_SURNAME_INPUT = "restaurant.error.invalidSurname";
+	public static final String INVALID_NAME = "restaurant.error.invalidName";
+	public static final String INVALID_SURNAME = "restaurant.error.invalidSurname";
 	public static final String INVALID_EMAIL = "restaurant.error.invalidEmail";
 	public static final String INVALID_PASS = "restaurant.error.invalidPass";
 	public static final String INVALID_CREDENTIALS = "restaurant.error.invalidCredentials";
@@ -35,13 +35,13 @@ public final class Message {
 	public static final String INVALID_ROLE = "restaurant.error.invalidRole";
 	public static final String INVALID_DATE = "restaurant.error.invalidDate";
 	public static final String INVALID_NEW_PASSWORD = "restaurant.error.invalidNewPassword";
-	public static final String IVALID_CONFIRM_PASSWORD = "restaurant.error.invalidConfirmPassword";
+	public static final String INVALID_CONFIRM_PASSWORD = "restaurant.error.invalidConfirmPassword";
 	public static final String INVALID_NEW_CONFIRM_PASSWORD = "restaurant.error.invalidNewConfirmPassword";
 	public static final String INVALID_CATEGORY = "restaurant.error.invalidCategory";
-	public static final String INVALID_DESCRIPTION_INPUT = "restaurant.error.invalidDescription";
-	public static final String INVALID_WEIGHT_INPUT = "restaurant.error.invalidWeight";
-	public static final String INVALID_COST_INPUT = "restaurant.error.invalidCost";
-	public static final String INVALID_DISHES_INPUT = "restaurant.error.invalidDishes";
+	public static final String INVALID_DESCRIPTION = "restaurant.error.invalidDescription";
+	public static final String INVALID_WEIGHT = "restaurant.error.invalidWeight";
+	public static final String INVALID_COST = "restaurant.error.invalidCost";
+	public static final String INVALID_DISHES = "restaurant.error.invalidDishes";
 	
 	public static final String SUCCESS_USER_ADDITION = "restaurant.success.userSuccessfullyAdded";
 	public static final String SUCCESS_USER_UPDATE = "restaurant.success.userSuccessfullyUpdated";

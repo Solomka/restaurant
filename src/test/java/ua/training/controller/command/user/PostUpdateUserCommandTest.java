@@ -101,8 +101,8 @@ public class PostUpdateUserCommandTest {
         PowerMockito.when(UserDtoValidator.getInstance()).thenReturn(userDtoValidator);
         List<String> errors = new ArrayList<String>(){
             {
-                add(Message.INVALID_NAME_INPUT);
-                add(Message.INVALID_SURNAME_INPUT);
+                add(Message.INVALID_NAME);
+                add(Message.INVALID_SURNAME);
             }
         };
         when(userDtoValidator.validate(userDtoArgumentCaptor.capture())).thenReturn(errors);

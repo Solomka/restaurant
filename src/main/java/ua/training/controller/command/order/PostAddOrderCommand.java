@@ -60,7 +60,7 @@ public class PostAddOrderCommand implements Command {
 		List<String> errors = new ArrayList<String>();
 
 		if (dishesIds.length == 0) {
-			errors.add(Message.INVALID_DISHES_INPUT);
+			errors.add(Message.INVALID_DISHES);
 		}
 
 		return errors;

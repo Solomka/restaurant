@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.w3c.dom.Attr;
 import ua.training.constants.Attribute;
 import ua.training.constants.Page;
 import ua.training.constants.ServletPath;
@@ -24,7 +23,6 @@ import ua.training.validator.entity.UserDtoValidator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.smartcardio.ATR;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -104,8 +102,8 @@ public class PostAddUserCommandTest {
         PowerMockito.when(UserDtoValidator.getInstance()).thenReturn(userDtoValidator);
         List<String> errors = new ArrayList<String>(){
             {
-                add(Message.INVALID_NAME_INPUT);
-                add(Message.INVALID_SURNAME_INPUT);
+                add(Message.INVALID_NAME);
+                add(Message.INVALID_SURNAME);
             }
         };
         when(userDtoValidator.validate(userDtoArgumentCaptor.capture())).thenReturn(errors);

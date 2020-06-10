@@ -14,39 +14,39 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(NameValidator.class)
-public class NameValidatorTest {
+@PrepareForTest(SurnameValidator.class)
+public class SurnameValidatorTest {
 
-    private NameValidator nameValidator;
+    private SurnameValidator surnameValidator;
 
     @Test
     public void shouldReturnNameValidatorInstanceOnGetInstance() throws Exception {
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
-        PowerMockito.whenNew(NameValidator.class).withArguments(FieldValidatorKey.NAME).thenReturn(nameValidator);
+        surnameValidator = new SurnameValidator(FieldValidatorKey.SURNAME);
+        PowerMockito.whenNew(SurnameValidator.class).withArguments(FieldValidatorKey.SURNAME).thenReturn(surnameValidator);
 
-        NameValidator.getInstance();
+        SurnameValidator.getInstance();
 
-        PowerMockito.verifyNew(NameValidator.class).withArguments(FieldValidatorKey.NAME);
+        PowerMockito.verifyNew(SurnameValidator.class).withArguments(FieldValidatorKey.SURNAME);
     }
 
     @Test
     public void shouldReturnEmptyErrorListWhenValidInputOnValidateField() {
         List<String> expectedResult = Collections.emptyList();
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        surnameValidator = new SurnameValidator(FieldValidatorKey.SURNAME);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testName", actualResult);
+        surnameValidator.validateField("testSurname", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void shouldReturnErrorListWithErrorWhenValidInputOnValidateField() {
-        List<String> expectedResult = Collections.singletonList(Message.INVALID_NAME);
-        nameValidator = new NameValidator(FieldValidatorKey.NAME);
+        List<String> expectedResult = Collections.singletonList(Message.INVALID_SURNAME);
+        surnameValidator = new SurnameValidator(FieldValidatorKey.SURNAME);
         List<String> actualResult = new ArrayList<>();
 
-        nameValidator.validateField("testSurname1", actualResult);
+        surnameValidator.validateField("testSurname1", actualResult);
 
         assertEquals(expectedResult, actualResult);
     }
