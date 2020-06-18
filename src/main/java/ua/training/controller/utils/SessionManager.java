@@ -18,7 +18,10 @@ public class SessionManager {
 
 	private static final Logger LOGGER = LogManager.getLogger(SessionManager.class);
 
-	private SessionManager() {
+	static final String USER_HAS_LOGGED_IN = "User has logged in: ";
+	static final String USER_HAS_LOGGED_OUT = "User has logged out: ";
+
+	SessionManager() {
 	}
 
 	private static final class Holder {
@@ -34,7 +37,7 @@ public class SessionManager {
 	}
 
 	public void addUserToSession(HttpSession session, User user) {
-		LOGGER.info("User has logged in: " + user.getEmail());
+		LOGGER.info(String.format(USER_HAS_LOGGED_IN, user.getEmail()));
 		session.setAttribute(Attribute.USER, user);
 	}
 
@@ -50,7 +53,7 @@ public class SessionManager {
 
 	private void executeSessionInvalidation(HttpSession session) {
 		User user = (User) session.getAttribute(Attribute.USER);
-		LOGGER.info("User has logged out: " + user.getEmail());
+		LOGGER.info(String.format(USER_HAS_LOGGED_OUT, user.getEmail()));
 		session.invalidate();
 	}
 }

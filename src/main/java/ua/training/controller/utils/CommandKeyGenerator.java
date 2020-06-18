@@ -3,7 +3,7 @@ package ua.training.controller.utils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Class that is responsible for command key creation from incomming request url
+ * Class that is responsible for command key creation from incoming request url
  */
 public final class CommandKeyGenerator {
 
