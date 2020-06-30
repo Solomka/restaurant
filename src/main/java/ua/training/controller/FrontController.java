@@ -78,7 +78,7 @@ public class FrontController extends HttpServlet {
 			forwardToCommandResultedPage(httpWrapper, commandResultedResource);
 		} catch (ServiceException ex) {
 			LOGGER.error("Error has occured while command execution with key: " + commandKey);
-			redirecToHomePageWithErrorMessage(httpWrapper, ex);
+			redirectToHomePageWithErrorMessage(httpWrapper, ex);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class FrontController extends HttpServlet {
 	 * @param ex
 	 * @throws IOException
 	 */
-	private void redirecToHomePageWithErrorMessage(HttpWrapper httpWrapper, ServiceException ex) throws IOException {
+	private void redirectToHomePageWithErrorMessage(HttpWrapper httpWrapper, ServiceException ex) throws IOException {
 		Map<String, String> urlParams = new HashMap<>();
 		urlParams.put(Attribute.ERROR, ex.getMessage());
 		RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.HOME, urlParams);

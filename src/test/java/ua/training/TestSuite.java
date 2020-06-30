@@ -13,6 +13,7 @@ import ua.training.controller.command.i18n.ChangeLocaleCommandTest;
 import ua.training.controller.command.order.*;
 import ua.training.controller.command.user.*;
 import ua.training.controller.utils.CommandKeyGeneratorTest;
+import ua.training.controller.utils.RedirectionManagerTest;
 import ua.training.controller.utils.SessionManagerTest;
 import ua.training.service.CategoryServiceTest;
 import ua.training.service.DishServiceTest;
@@ -49,7 +50,7 @@ import ua.training.validator.field.*;
         AddressValidatorTest.class, CostValidatorTest.class, DescriptionValidatorTest.class,
         EmailValidatorTest.class, NameValidatorTest.class, PasswordValidatorTest.class,
         PhoneValidatorTest.class, SurnameValidatorTest.class, WeightValidatorTest.class,
-        CommandKeyGeneratorTest.class, SessionManagerTest.class})
+        CommandKeyGeneratorTest.class, SessionManagerTest.class, RedirectionManagerTest.class})
 public class TestSuite {
     /*
      * empty class

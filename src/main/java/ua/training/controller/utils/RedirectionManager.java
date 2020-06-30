@@ -22,7 +22,7 @@ public class RedirectionManager {
 	public static String REDIRECTION = "REDIRECTION";
 	private static String MESSAGE_ENCODING = "UTF-8";
 
-	private RedirectionManager() {
+	RedirectionManager() {
 	}
 
 	private static final class Holder {
@@ -45,13 +45,7 @@ public class RedirectionManager {
 	 * @throws IOException
 	 *             If an input or output exception occurs
 	 */
-	/*public void redirectWithParams(HttpWrapper httpWrapper, String redirectionPath, Map<String, String> urlParameters)
-			throws IOException {
-		String urlPathWithParams = generateUrlPath(httpWrapper.getRequest(), redirectionPath)
-				+ generateUrlParams(urlParameters);
-		redirect(httpWrapper, urlPathWithParams);
-	}*/
-	
+
 	public void redirectWithParams(HttpWrapper httpWrapper, String redirectionPath, Map<String, String> urlParameters)
 			throws IOException {
 		String urlPathWithParams = generateUrlPath(httpWrapper.getRequest(), redirectionPath)
