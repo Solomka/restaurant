@@ -7,7 +7,7 @@
 			<c:if test="${not empty user}">
 				<c:if test="${user.getRole().getValue() eq 'manager' }">
 					<button type="button" class="btn btn-default"
-						onclick="location.href='./manager/dishes/addDish';">
+						onclick="location.href='${pageContext.request.contextPath}/controller/manager/dishes/addDish';">
 						<fmt:message key="restaurant.add" bundle="${rb}" />
 					</button>
 				</c:if>

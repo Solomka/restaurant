@@ -53,13 +53,14 @@ public class PostAddOrderCommand implements Command {
 		}
 
 		request.setAttribute(Attribute.ERRORS, errors);
+		request.setAttribute(Attribute.DISHES, dishService.getAllDishes());
 		return Page.ADD_UPDATE_ORDER_VIEW;
 	}
 
 	private List<String> validateUserInput(String[] dishesIds) {
 		List<String> errors = new ArrayList<String>();
 
-		if (dishesIds.length == 0) {
+		if (dishesIds == null) {
 			errors.add(Message.INVALID_DISHES);
 		}
 

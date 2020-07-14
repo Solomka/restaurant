@@ -93,7 +93,9 @@ public class PostAddOrderCommandTest {
 
     @Test
     public void shouldNotAddOrderWhenValidInputOnExecute() throws ServletException, IOException {
-        when(httpServletRequest.getParameterValues(Attribute.DISHES)).thenReturn(new String[]{});
+        when(httpServletRequest.getParameterValues(Attribute.DISHES)).thenReturn(null);
+        List<Dish> dishes = DishTestDataGenerator.generateDishesList();
+        when(dishService.getAllDishes()).thenReturn(dishes);
         List<String> errors = Collections.singletonList(Message.INVALID_DISHES);
         String expectedResult = Page.ADD_UPDATE_ORDER_VIEW;
         postAddOrderCommand = new PostAddOrderCommand(orderService, dishService);
@@ -102,6 +104,8 @@ public class PostAddOrderCommandTest {
 
         verify(orderService, never()).createOrder(orderArgumentCaptor.capture());
         verify(httpServletRequest).setAttribute(Attribute.ERRORS, errors);
+        verify(httpServletRequest).setAttribute(Attribute.DISHES, dishes);
+        
         assertEquals(expectedResult, actualResult);
     }
 }
