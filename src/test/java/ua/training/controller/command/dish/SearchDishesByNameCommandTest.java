@@ -1,5 +1,6 @@
 package ua.training.controller.command.dish;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -82,7 +83,7 @@ public class SearchDishesByNameCommandTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
+   /* @Test
     public void shouldNotFindDishesWhenInvalidInputOnExecute() throws ServletException, IOException {
         String name = "";
         when(httpServletRequest.getParameter(Attribute.NAME)).thenReturn(name);
@@ -110,7 +111,7 @@ public class SearchDishesByNameCommandTest {
         verify(categoryService, never()).getAllCategories();
         verify(redirectionManager).redirectWithParams(httpWrapperArgumentCaptor.capture(), eq(ServletPath.ALL_DISHES), eq(urlParams));
         assertEquals(expectedResult, actualResult);
-    }
+    }*/
 
     @Test
     public void shouldNotFindDishesWhenValidInputUserNotExistOnExecute() throws ServletException, IOException {

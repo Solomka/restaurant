@@ -8,6 +8,10 @@ bin/
 build/
 .classpath
 .settings/
+gradle/
+.gradle/
+gradlew
+gradlew.bat
 
 # Maven
 
