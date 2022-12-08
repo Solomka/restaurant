@@ -7,4 +7,4 @@ How to setup:
     - src/main/resources/db.properties
     - src/main/webapp/META-INF/context.xml
 3. build war artifact
-4. deploy war artifact into Tomcat
+4. deploy war artifact to Tomcat
