@@ -8,3 +8,7 @@ How to setup:
     - src/main/webapp/META-INF/context.xml
 3. build war artifact
 4. deploy war artifact to Tomcat
+
+maven 3.9.2, tomcat 9.0.75
+OR
+maven 3.6.3, tomcat 7.0.105
